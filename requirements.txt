@@ -1,0 +1,16 @@
+# Python dependencies for all studies and build scripts in this repo.
+# Create the environment with:
+#   uv venv .venv && uv pip install -r requirements.txt --python .venv/bin/python
+nba_api
+polars
+pyarrow
+plotly
+kaleido
+statsmodels
+scipy
+numpy
+pandas
+scikit-learn
+python-docx
+requests
+py7zr

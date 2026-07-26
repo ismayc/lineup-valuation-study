@@ -22,13 +22,13 @@
 body { margin: 0; background: var(--surface); color: var(--ink);
   font: 17px/1.65 -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
 .masthead { border-bottom: 1px solid var(--rule); }
-.masthead .inner { max-width: 76ch; margin: 0 auto; padding: .8rem 1.25rem;
+.masthead .inner { width: min(1200px, 94vw); margin: 0 auto; padding: .8rem 0;
   display: flex; gap: 1rem; align-items: baseline; flex-wrap: wrap; }
 .masthead a { color: var(--ink-2); text-decoration: none; font-size: .88rem; }
 .masthead a:hover { color: var(--accent-ink); }
 .masthead .family { font-weight: 700; letter-spacing: .02em; color: var(--ink); }
 .masthead .spacer { flex: 1; }
-main { max-width: 76ch; margin: 0 auto; padding: 1.5rem 1.25rem 4rem; }
+main { width: min(1200px, 94vw); margin: 0 auto; padding: 1.5rem 0 4rem; }
 h1 { font-size: 2rem; line-height: 1.2; letter-spacing: -.01em;
   margin: 1.2rem 0 .6rem; }
 h2 { font-size: 1.35rem; margin: 2.2rem 0 .6rem; padding-top: 1rem;
@@ -58,7 +58,7 @@ abbr[title] { text-decoration: underline dotted var(--accent);
 hr { border: none; border-top: 1px solid var(--rule); margin: 2rem 0; }
 .figure-card { background: #fff; border: 1px solid var(--rule);
   border-radius: 10px; margin: 1.4rem 0; overflow: hidden; }
-.figure-card iframe { display: block; width: 100%; height: 520px;
+.figure-card iframe { display: block; width: 100%; height: 560px;
   border: none; }
 .figure-card figcaption { padding: .55rem .9rem; font-size: .85rem;
   color: var(--ink-3); border-top: 1px solid var(--rule);
@@ -79,7 +79,7 @@ footer a { color: var(--ink-2); }
 .card p { margin: 0; font-size: .92rem; color: var(--ink-2); flex: 1; }
 .card .links { font-size: .88rem; }
 .hero { padding: 2.2rem 0 .6rem; }
-.hero p.deck { font-size: 1.12rem; color: var(--ink-2); max-width: 64ch; }
+.hero p.deck { font-size: 1.12rem; color: var(--ink-2); }
 </style>
 </head>
 <body>

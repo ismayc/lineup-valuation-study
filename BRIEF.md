@@ -34,10 +34,12 @@ Possession-weighted ridge on five-man lineup aggregates (`LeagueDashLineups`,
 harvested per team to dodge the silent 2,000-row cap), net points per 100 on
 player indicators, unpenalized intercept, sub-300-possession players pooled to
 a replacement column. λ by deterministic 5-fold CV; 500-rep lineup bootstrap
-for CIs. Sits in the Rosenbaum→Sill RAPM lineage; the known deviation is no
-opponent adjustment (aggregates don't record opponents) — the upgrade path is
-stint-level RAPM via pbp + players-on-court (see
-`../docs/public-data-availability.md`). Validation gates: lineup rows
+for CIs. Sits in the Rosenbaum→Sill RAPM lineage. The opponent-adjustment upgrade is
+now wired in: 67,985 stints (bulk pbp + players-on-court filled offline),
++1/−1 design with an unpenalized intercept that estimates home-court advantage
+at +2.3/100, free-throw micro-stints absorbed so no points leave the model.
+Spearman 0.95 vs the aggregate model — over 82 games opponent strength mostly
+averages out, now measured rather than argued. Validation gates: lineup rows
 reconstruct team minutes and plus-minus exactly (zero-possession
 defensive-only stints retained for the audit, excluded from the model);
 independent net-rate vs NBA NET_RATING r ≈ 0.99; Spearman vs raw plus-minus

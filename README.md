@@ -88,7 +88,16 @@ python/02_analysis.py          -> output/<season>/*.csv, figures/<season>/*
 R/02_analysis.R                independent R/tidyverse implementation -> *_r.csv
 python/03_reconcile.py         R vs Python row-by-row, non-zero exit on mismatch
 python/04_findings.py          writes the Findings section below
+python/05_build_stints.py      bulk pbp + nba-on-court -> data/stints_2023.parquet
+python/06_stint_rapm.py        stint-level RAPM WITH opponent adjustment (2023-24)
 ```
+
+The last two are the wired-in upgrade path (see
+`../docs/public-data-availability.md`): stints carry both five-man lineups, so
+the +1/−1 design adjusts each player for teammates *and opponents* — the thing
+the season-aggregate model above cannot do. The stint model's intercept doubles
+as a home-court-advantage estimate, and its own validation gates (final-margin
+reconstruction, on-floor minutes vs official minutes) run before comparison.
 
 Same discipline as the other studies: two implementations written from the
 definitions, reconciled to numeric tolerance (bootstrap CIs, which use each
@@ -111,10 +120,11 @@ Four external checks, all of which must pass before findings are written:
 
 ## 6. Limitations
 
-1. **No opponent adjustment.** Season lineup aggregates do not say who the
-   lineup played against. A player whose minutes come against opposing bench
-   units gets bench-unit-inflated numbers. Full stint-level RAPM fixes this
-   and is the documented next step.
+1. **No opponent adjustment in the aggregate model** — now addressed: the
+   wired-in stint-level RAPM (Findings, last section) adjusts for opponents
+   and lands within Spearman 0.95 of the aggregate model, which quantifies
+   how much this limitation actually cost (less than the standard caveat
+   implies, over a full season).
 2. **One season at a time.** Single-season RAPM-family estimates are noisy;
    the bootstrap CIs say so honestly (±2-3 points per 100). Public production
    metrics stabilize with multi-season priors and box/tracking blends.
@@ -193,6 +203,29 @@ Validation: lineup minutes and plus-minus reconstruct team totals
 (exact on points); independent net-rate agrees with the NBA's NET_RATING at
 r = 0.992; Spearman vs raw plus-minus = 0.83 — anchored in reality,
 and the gap from 1.0 is the teammate adjustment working.
+
+### Stint-level RAPM: adding the opponent adjustment (2023-24)
+
+The wired-in upgrade (`python/05_build_stints.py` + `python/06_stint_rapm.py`):
+67,985 stints built from bulk play-by-play with all ten on-court players
+filled offline, micro-stints from free-throw substitutions absorbed into their
+neighbours so no points leave the model, and a +1/−1 design that adjusts every
+player for teammates *and opponents*. Validation gates all pass — stint points
+reconstruct the official league point total, per-player on-floor minutes
+reconstruct official minutes (r = 0.999), and the unpenalized intercept
+estimates **home-court advantage at +2.3 points per 100** without being
+asked to.
+
+Top 5 opponent-adjusted: Shai Gilgeous-Alexander, Nikola Jokić, OG Anunoby, Jalen Brunson, Jusuf Nurkić.
+
+**The instructive result is how little changes: Spearman 0.95 against the
+lineup-aggregate model.** Over an 82-game season, opponent strength largely
+averages out, so the cheaper model was a better approximation than the usual
+caveat implies — a claim now measured on this data instead of argued.
+The players the adjustment moves up most (Aaron Gordon (+1.8), Luguentz Dort (+1.6), Dillon Brooks (+1.6)) are where schedule and
+matchup context mattered; the coverage caveat (30 of 1,230 games pending an
+endpoint that currently times out; the builder retries them incrementally) is
+in `stint_validation.csv`.
 
 ### Reading the two seasons together
 

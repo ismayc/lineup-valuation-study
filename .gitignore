@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.venv/
+.DS_Store
+.~lock.*#
+# Bulk pbp archives: compressed originals committed; tar xf regenerates
+data/pbp_bulk/*.csv

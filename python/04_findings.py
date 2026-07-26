@@ -152,7 +152,7 @@ written.
 ### Reading the two seasons together
 
 - The model finds the consensus stars without being told who they are: the
-  top of each table is recognisable to anyone who watched that season. That
+  top of each table is recognizable to anyone who watched that season. That
   is a *face-validity check*, not the product. The product is the ordering of
   everyone else, where intuition runs out.
 - RAPM-family models famously promote elite role players alongside stars.

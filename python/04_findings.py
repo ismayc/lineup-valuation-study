@@ -45,7 +45,7 @@ def season_block(season: str) -> str:
     return f"""### {season}
 
 Penalty chosen by CV: **λ = {lam:g}**. {n_players} players over the possession
-threshold; median 95% CI width **±{ci_width / 2:.1f} points per 100** — the
+threshold; median 95% CI width **±{ci_width / 2:.1f} points per 100**, the
 honest single-season noise floor for this model family.
 
 | Rank | Player | Effect / 100 poss | 95% CI | Poss |
@@ -53,20 +53,20 @@ honest single-season noise floor for this model family.
 {top_rows}
 
 **Best high-usage lineup** (1,000+ possessions):
-{best_l['GROUP_NAME']} ({best_l['TEAM_ABBREVIATION']}) —
+{best_l['GROUP_NAME']} ({best_l['TEAM_ABBREVIATION']}),
 **{best_l['net_100']:+.1f} per 100** over {best_l['POSS']:,.0f} possessions.
 **Worst:** {worst_l['GROUP_NAME']} ({worst_l['TEAM_ABBREVIATION']}),
 {worst_l['net_100']:+.1f} per 100 over {worst_l['POSS']:,.0f}.
 
 Validation: lineup minutes and plus-minus reconstruct team totals
 (exact on points); independent net-rate agrees with the NBA's NET_RATING at
-r = {r_net:.3f}; Spearman vs raw plus-minus = {rho:.2f} — anchored in reality,
-and the gap from 1.0 is the teammate adjustment working.
+r = {r_net:.3f}; Spearman vs raw plus-minus = {rho:.2f}. The estimates are
+anchored in reality, and the gap from 1.0 is the teammate adjustment working.
 """
 
 
 def cross_season() -> str:
-    """Stability of the estimates across the two fitted seasons — the honest
+    """Stability of the estimates across the two fitted seasons: the honest
     backtest for a single-season RAPM-family model."""
     import numpy as np
 
@@ -82,13 +82,13 @@ def cross_season() -> str:
     hi = m.filter((pl.col("pa") >= 2000) & (pl.col("pb") >= 2000))
     r_hi = float(np.corrcoef(hi["ra"].to_numpy(), hi["rb"].to_numpy())[0, 1])
     return (
-        f"- **Stability across seasons — the honest backtest.** For the "
+        f"- **Stability across seasons: the honest backtest.** For the "
         f"{m.height} players fitted in both {seasons[0]} and {seasons[-1]} "
         f"(two seasons apart), estimates correlate at r = {r:.2f} "
         f"(r = {r_hi:.2f} for the {hi.height} with 2,000+ possessions in "
         f"both). That is the well-documented reliability ceiling of "
         f"single-season RAPM-family estimates, quantified on this data rather "
-        f"than assumed — and it is the empirical argument for the multi-season "
+        f"than assumed. It is the empirical argument for the multi-season "
         f"priors that production metrics add.\n")
 
 
@@ -119,7 +119,7 @@ The wired-in upgrade (`python/05_build_stints.py` + `python/06_stint_rapm.py`):
 with the ten on-court players
 filled offline, micro-stints from free-throw substitutions absorbed into their
 neighbours so no points leave the model, and a +1/−1 design that adjusts every
-player for teammates *and opponents*. Validation gates all pass — stint points
+player for teammates *and opponents*. Validation gates all pass: stint points
 reconstruct the official league point total, per-player on-floor minutes
 reconstruct official minutes (r = 0.999), and the unpenalized intercept
 estimates **home-court advantage at {hca:+.1f} points per 100** without being
@@ -130,9 +130,9 @@ Top 5 opponent-adjusted: {top5}.
 **The instructive result is how little changes: Spearman {rho:.2f} against the
 lineup-aggregate model.** Over an 82-game season, opponent strength largely
 averages out, so the cheaper model was a better approximation than the usual
-caveat implies — a claim now measured on this data instead of argued.
+caveat implies, a claim now measured on this data instead of argued.
 The players the adjustment moves up most ({movers}) are where schedule and
-matchup context mattered. (An earlier build covered 1,200 of 1,230 games —
+matchup context mattered. (An earlier build covered 1,200 of 1,230 games:
 the boxscore-range endpoint nba-on-court needs was hanging on nba_api's
 stale User-Agent; the builder's retry pass completed the season once that
 was diagnosed and patched.)
@@ -151,7 +151,7 @@ written.
 {blocks}{stint_section()}
 ### Reading the two seasons together
 
-- The model finds the consensus stars without being told who they are — the
+- The model finds the consensus stars without being told who they are: the
   top of each table is recognisable to anyone who watched that season. That
   is a *face-validity check*, not the product. The product is the ordering of
   everyone else, where intuition runs out.

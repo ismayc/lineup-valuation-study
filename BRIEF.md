@@ -35,10 +35,11 @@ harvested per team to dodge the silent 2,000-row cap), net points per 100 on
 player indicators, unpenalized intercept, sub-300-possession players pooled to
 a replacement column. λ by deterministic 5-fold CV; 500-rep lineup bootstrap
 for CIs. Sits in the Rosenbaum→Sill RAPM lineage. The opponent-adjustment upgrade is
-now wired in: 67,985 stints (bulk pbp + players-on-court filled offline),
-+1/−1 design with an unpenalized intercept that estimates home-court advantage
-at +2.3/100, free-throw micro-stints absorbed so no points leave the model.
-Spearman 0.95 vs the aggregate model — over 82 games opponent strength mostly
+now wired in: 69,767 stints across all 1,230 games (bulk pbp +
+players-on-court filled offline), +1/−1 design with an unpenalized intercept
+that estimates home-court advantage at +2.2/100, free-throw micro-stints
+absorbed so no points leave the model.
+Spearman 0.96 vs the aggregate model — over 82 games opponent strength mostly
 averages out, now measured rather than argued. Validation gates: lineup rows
 reconstruct team minutes and plus-minus exactly (zero-possession
 defensive-only stints retained for the audit, excluded from the model);

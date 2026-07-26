@@ -14,3 +14,4 @@ scikit-learn
 python-docx
 requests
 py7zr
+duckdb

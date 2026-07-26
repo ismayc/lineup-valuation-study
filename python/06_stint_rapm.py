@@ -209,10 +209,10 @@ def main() -> int:
     for h5, a5, el in zip(home_lists, away_lists, st["elapsed"].to_list()):
         for pid in (*h5, *a5):
             sec_by_player[pid] = sec_by_player.get(pid, 0.0) + el
-    # Coverage-aware: 30 of 1,230 games could not be built (the boxscore-range
-    # endpoint nba-on-court needs for eventless-player periods times out; the
-    # builder's retry mode picks them up when the endpoint cooperates), so
-    # official minutes are scaled to the built share before comparison.
+    # Coverage-aware: official minutes are scaled to the built share of games
+    # before comparison. As of the User-Agent fix in 05_build_stints.py all
+    # 1,230 games build (coverage = 1.0); the scaling stays so a partial
+    # rebuild still validates honestly.
     coverage = built_games / 1230.0
     mins = (pl.DataFrame({"player_id": list(sec_by_player),
                           "stint_min": [s / 60 for s in sec_by_player.values()]})

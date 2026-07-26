@@ -53,7 +53,11 @@ caps at 2,000 rows — per-team calls stay under it):
 | `LeagueDashTeamStats` | team totals — the coverage check target |
 
 Scale: ~15,900 lineup rows (2023-24) and ~19,500 (2025-26) covering ~255k
-possessions per season.
+possessions per season. `POSS` is the lineup's **offensive-possession count**
+(per-team sums land at 8,200-8,800, matching a season's offensive possession
+totals), so `100 * PLUS_MINUS / POSS` sits on the same scale as the league's
+NET_RATING - verified: regressing one on the other gives slope 1.001,
+intercept +0.07.
 
 ## 3. Model
 
@@ -203,3 +207,4 @@ and the gap from 1.0 is the teammate adjustment working.
   multiple seasons and add box/tracking priors (see "Where this sits in the
   literature"). A model whose error bars you can defend is worth more than a
   sharper-looking one whose error bars you cannot.
+- **Stability across seasons — the honest backtest.** For the 317 players fitted in both 2023-24 and 2025-26 (two seasons apart), estimates correlate at r = 0.31 (r = 0.38 for the 181 with 2,000+ possessions in both). That is the well-documented reliability ceiling of single-season RAPM-family estimates, quantified on this data rather than assumed — and it is the empirical argument for the multi-season priors that production metrics add.

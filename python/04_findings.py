@@ -65,6 +65,33 @@ and the gap from 1.0 is the teammate adjustment working.
 """
 
 
+def cross_season() -> str:
+    """Stability of the estimates across the two fitted seasons — the honest
+    backtest for a single-season RAPM-family model."""
+    import numpy as np
+
+    seasons = sorted(p.name for p in OUT.iterdir() if p.is_dir())
+    if len(seasons) < 2:
+        return ""
+    a = pl.read_csv(OUT / seasons[0] / "player_values.csv").select(
+        "player_id", ra="rapm_100", pa="poss")
+    b = pl.read_csv(OUT / seasons[-1] / "player_values.csv").select(
+        "player_id", rb="rapm_100", pb="poss")
+    m = a.join(b, on="player_id", how="inner")
+    r = float(np.corrcoef(m["ra"].to_numpy(), m["rb"].to_numpy())[0, 1])
+    hi = m.filter((pl.col("pa") >= 2000) & (pl.col("pb") >= 2000))
+    r_hi = float(np.corrcoef(hi["ra"].to_numpy(), hi["rb"].to_numpy())[0, 1])
+    return (
+        f"- **Stability across seasons — the honest backtest.** For the "
+        f"{m.height} players fitted in both {seasons[0]} and {seasons[-1]} "
+        f"(two seasons apart), estimates correlate at r = {r:.2f} "
+        f"(r = {r_hi:.2f} for the {hi.height} with 2,000+ possessions in "
+        f"both). That is the well-documented reliability ceiling of "
+        f"single-season RAPM-family estimates, quantified on this data rather "
+        f"than assumed — and it is the empirical argument for the multi-season "
+        f"priors that production metrics add.\n")
+
+
 def build() -> str:
     seasons = sorted(p.name for p in OUT.iterdir() if p.is_dir())
     blocks = "\n".join(season_block(s) for s in seasons)
@@ -88,7 +115,7 @@ written.
   multiple seasons and add box/tracking priors (see "Where this sits in the
   literature"). A model whose error bars you can defend is worth more than a
   sharper-looking one whose error bars you cannot.
-"""
+{cross_season()}"""
 
 
 def main() -> int:

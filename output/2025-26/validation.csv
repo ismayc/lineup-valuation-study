@@ -1,0 +1,5 @@
+check,value,threshold,pass
+lineup minutes reconstruct team minutes,0.000012656542647482283,0.005,true
+lineup plus-minus reconstructs team plus-minus (max abs pts),1.0,1.0,true
+net_100 vs NBA NET_RATING correlation (POSS>=200),0.9917401322523665,0.97,true
+"Spearman(RAPM, raw plus-minus per minute)",0.8256557945357744,0.5,true

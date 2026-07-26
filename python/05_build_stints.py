@@ -122,6 +122,14 @@ def game_stints(g: pd.DataFrame) -> list[dict]:
 
 
 def main() -> int:
+    """First run processes every game; later runs are RETRY passes that only
+    process games missing from the existing parquet. nba-on-court is offline
+    for most games but falls back to stats.nba.com for periods where a player
+    logged no events - those requests can time out, so retries (with a pause
+    between games) are part of the design, not an afterthought.
+    """
+    import time
+
     import nba_on_court as noc
 
     print("Reading bulk season file...")
@@ -129,23 +137,45 @@ def main() -> int:
     game_ids = sorted(nba["GAME_ID"].unique())
     print(f"{len(nba):,} events, {len(game_ids)} games")
 
+    existing = None
+    todo = game_ids
+    retry_mode = OUT.exists()
+    if retry_mode:
+        existing = pl.read_parquet(OUT)
+        done = set(existing["game_id"].to_list())
+        todo = [g for g in game_ids if g not in done]
+        print(f"retry pass: {len(done)} games already built, {len(todo)} to do")
+        if not todo:
+            print("nothing to do")
+            return 0
+
     all_rows: list[dict] = []
     skipped = 0
-    for i, gid in enumerate(game_ids):
+    for i, gid in enumerate(todo):
         g = nba[nba.GAME_ID == gid].reset_index(drop=True)
         try:
-            filled = noc.players_on_court(g)
+            # timeout kwarg reaches the BoxScoreTraditionalV2 fallback that
+            # nba-on-court fires for periods where a player logged no events;
+            # its 10s default reliably times out on this endpoint (and its
+            # retry loop only catches ConnectionError, not ReadTimeout).
+            filled = noc.players_on_court(g, timeout=60)
             all_rows.extend(game_stints(filled))
         except Exception as e:  # noqa: BLE001 - report and continue
             skipped += 1
             print(f"  SKIP {gid}: {type(e).__name__}: {e}")
+        if retry_mode:
+            time.sleep(1.0)   # the retry pass is here because of rate limits
         if (i + 1) % 200 == 0:
-            print(f"  {i + 1}/{len(game_ids)} games", flush=True)
+            print(f"  {i + 1}/{len(todo)} games", flush=True)
 
     df = pl.DataFrame(all_rows)
+    if existing is not None and df.height:
+        df = pl.concat([existing, df]).sort(["game_id", "period"])
+    elif existing is not None:
+        df = existing
     df.write_parquet(OUT)
     print(f"wrote {OUT}: {df.height:,} stints from {df['game_id'].n_unique()} games"
-          + (f" ({skipped} games skipped)" if skipped else ""))
+          + (f" ({skipped} games still missing)" if skipped else ""))
     return 0
 
 

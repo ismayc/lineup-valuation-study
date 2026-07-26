@@ -328,7 +328,6 @@ def run(season: str) -> int:
         x=naive, y=beta[1:1 + len(kept)], mode="markers",
         marker=dict(size=np.clip(np.sqrt(poss_arr) / 6, 3, 14), color=BLUE,
                     opacity=0.55, line=dict(width=0)),
-        text=values.sort("player_id")["player"].to_list() if False else None,
         hoverinfo="skip"))
     lim = max(map(abs, naive)) * 1.05
     fig.add_trace(go.Scatter(x=[-lim, lim], y=[-lim, lim], mode="lines",

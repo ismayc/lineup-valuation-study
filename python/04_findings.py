@@ -104,6 +104,8 @@ def stint_section() -> str:
 
     rho = float(val.filter(pl.col("check").str.contains("Spearman"))["value"][0])
     hca = float(val.filter(pl.col("check").str.contains("home-court"))["value"][0])
+    stints = pl.read_parquet(ROOT / "data" / "stints_2023.parquet")
+    n_stints, n_games = stints.height, stints["game_id"].n_unique()
     top5 = ", ".join(sv.head(5)["player"].to_list())
     up = comp.sort("delta", descending=True).head(3)
     movers = ", ".join(f"{r['player']} ({r['delta']:+.1f})"
@@ -113,7 +115,8 @@ def stint_section() -> str:
 ### Stint-level RAPM: adding the opponent adjustment (2023-24)
 
 The wired-in upgrade (`python/05_build_stints.py` + `python/06_stint_rapm.py`):
-67,985 stints built from bulk play-by-play with all ten on-court players
+{n_stints:,} stints from all {n_games:,} games, built from bulk play-by-play
+with the ten on-court players
 filled offline, micro-stints from free-throw substitutions absorbed into their
 neighbours so no points leave the model, and a +1/−1 design that adjusts every
 player for teammates *and opponents*. Validation gates all pass — stint points
@@ -129,9 +132,10 @@ lineup-aggregate model.** Over an 82-game season, opponent strength largely
 averages out, so the cheaper model was a better approximation than the usual
 caveat implies — a claim now measured on this data instead of argued.
 The players the adjustment moves up most ({movers}) are where schedule and
-matchup context mattered; the coverage caveat (30 of 1,230 games pending an
-endpoint that currently times out; the builder retries them incrementally) is
-in `stint_validation.csv`.
+matchup context mattered. (An earlier build covered 1,200 of 1,230 games —
+the boxscore-range endpoint nba-on-court needs was hanging on nba_api's
+stale User-Agent; the builder's retry pass completed the season once that
+was diagnosed and patched.)
 """
 
 

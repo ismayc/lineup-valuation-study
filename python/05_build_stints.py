@@ -130,6 +130,17 @@ def main() -> int:
     """
     import time
 
+    import numpy as np
+    if not hasattr(np, "in1d"):
+        np.in1d = np.isin  # removed in NumPy 2.x; nba-on-court still calls it
+
+    # stats.nba.com hangs requests whose User-Agent claims a real browser the
+    # TLS fingerprint can't back up (nba_api ships Firefox/72). A generic
+    # AppleWebKit UA passes; verified 2026-07-25 after 30/30 ReadTimeouts.
+    from nba_api.stats.library import http as nba_http
+    nba_http.STATS_HEADERS["User-Agent"] = (
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36")
+
     import nba_on_court as noc
 
     print("Reading bulk season file...")

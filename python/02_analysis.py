@@ -3,7 +3,7 @@
 The model
 ---------
 Every five-man lineup's net scoring rate (points scored minus allowed, per 100
-possessions) is modelled as the sum of five player effects plus an intercept:
+possessions) is modeled as the sum of five player effects plus an intercept:
 
     net_100_i  ~  intercept + sum_{p in lineup i} beta_p        (weight: POSS_i)
 

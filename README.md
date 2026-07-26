@@ -243,7 +243,7 @@ was diagnosed and patched.)
 ### Reading the two seasons together
 
 - The model finds the consensus stars without being told who they are: the
-  top of each table is recognisable to anyone who watched that season. That
+  top of each table is recognizable to anyone who watched that season. That
   is a *face-validity check*, not the product. The product is the ordering of
   everyone else, where intuition runs out.
 - <abbr title="Regularized adjusted plus-minus: a ridge regression crediting each player with net points per 100 possessions while adjusting for the other nine players on the floor.">RAPM</abbr>-family models famously promote elite role players alongside stars.

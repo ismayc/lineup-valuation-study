@@ -10,7 +10,7 @@ generated originals).
 **Who actually moves the scoreboard when they're on the floor, after you stop
 crediting them for their teammates?**
 
-We modelled every five-man lineup's scoring margin across a full season
+We modeled every five-man lineup's scoring margin across a full season
 (~15,000–19,000 lineups per season, covering every minute of every game) and
 split the credit among the five players on the floor, shrinking toward average
 wherever the evidence is thin.

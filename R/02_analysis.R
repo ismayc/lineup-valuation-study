@@ -17,6 +17,7 @@
 # Run:  Rscript R/02_analysis.R
 
 suppressPackageStartupMessages({
+  library(Matrix)
   library(nanoparquet)
   library(dplyr)
   library(tidyr)
@@ -84,14 +85,19 @@ run_season <- function(season) {
   col_of <- setNames(seq_along(kept), kept)
 
   n <- nrow(df); p <- length(kept)
-  X <- matrix(0, n, p + 2)   # [intercept | players | replacement]
-  X[, 1] <- 1
-  for (i in seq_len(n)) {
-    for (pid in id_lists[[i]]) {
-      j <- col_of[pid]
-      if (is.na(j)) X[i, p + 2] <- X[i, p + 2] + 1 else X[i, 1 + j] <- 1
-    }
-  }
+  # Sparse design: [intercept | players | replacement], ~7 nonzeros per row.
+  all_ids <- unlist(id_lists)
+  row_idx <- rep(seq_len(n), each = 5)
+  j_kept <- col_of[all_ids]                  # NA where below threshold
+  keep_mask <- !is.na(j_kept)
+  tri_i <- c(seq_len(n),                     # intercept column
+             row_idx[keep_mask],             # player indicator cells
+             row_idx[!keep_mask])            # replacement counts
+  tri_j <- c(rep(1L, n),
+             1L + j_kept[keep_mask],
+             rep(p + 2L, sum(!keep_mask)))
+  X <- sparseMatrix(i = tri_i, j = tri_j, x = 1,
+                    dims = c(n, p + 2L), repr = "C")
   y <- df$net_100
   w <- df$POSS
 

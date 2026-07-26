@@ -1,22 +1,21 @@
 # Lineup valuation study — regularized player value from five-man lineup data
 
-Work sample addressing `../skills_matrix.md` requirements **#4/#20** (*build and
-validate models evaluating players, teams, lineups*), **#3** (*statistical
-modeling and ML*), and **#5** (*lineup/personnel data*). This was the gap the
-other three studies could not close: none of them valued a player or a lineup.
+Player and lineup value from public data, in the [basketball-data-science](https://github.com/ismayc/basketball-data-science)
+family. The sibling studies describe events; this one values the people on
+the floor.
 
 **The question.** Which players most improve their team's net scoring when they
 are on the floor, once you stop giving them credit for who they share the floor
 with — and which five-man lineups actually worked?
 
-**Two seasons:** 2023-24 (matching `../playbyplay-study`) and **2025-26, the
+**Two seasons:** 2023-24 (matching [playbyplay-study](https://github.com/ismayc/playbyplay-study)) and **2025-26, the
 just-completed season** — the lineup endpoints are live, so the model runs on
-current basketball (see `../docs/public-data-availability.md`).
+current basketball (see [public-data-availability](https://github.com/ismayc/basketball-data-science/blob/main/docs/public-data-availability.md)).
 
 ---
 
 <!-- terms -->
-> **Terms used in this analysis.** Dotted-underlined terms anywhere below repeat these definitions on hover ([full glossary](../docs/glossary.md)).
+> **Terms used in this analysis.** Dotted-underlined terms anywhere below repeat these definitions on hover ([full glossary](https://github.com/ismayc/basketball-data-science/blob/main/docs/glossary.md)).
 >
 > - **RAPM** — Regularized adjusted plus-minus: a ridge regression crediting each player with net points per 100 possessions while adjusting for the other nine players on the floor.
 > - **stint** — A stretch of game time with no substitution at either end - the unit of observation for the stint-level RAPM model.
@@ -50,7 +49,7 @@ five-man lineup data**. The honest difference from full <abbr title="Regularized
 aggregates do not record *opponents*, so opponent strength is not adjusted
 (limitation 1). The public route to full <abbr title="A stretch of game time with no substitution at either end - the unit of observation for the stint-level RAPM model.">stint</abbr>-level <abbr title="Regularized adjusted plus-minus: a ridge regression crediting each player with net points per 100 possessions while adjusting for the other nine players on the floor.">RAPM</abbr> — play-by-play with
 players-on-court filled in — is documented in
-`../docs/public-data-availability.md` and is the natural next step.
+[public-data-availability](https://github.com/ismayc/basketball-data-science/blob/main/docs/public-data-availability.md) and is the natural next step.
 
 ## 2. Data
 
@@ -105,7 +104,7 @@ python/06_stint_rapm.py        stint-level RAPM WITH opponent adjustment (2023-2
 ```
 
 The last two are the wired-in upgrade path (see
-`../docs/public-data-availability.md`): <abbr title="A stretch of game time with no substitution at either end - the unit of observation for the stint-level RAPM model.">stints</abbr> carry both five-man lineups, so
+[public-data-availability](https://github.com/ismayc/basketball-data-science/blob/main/docs/public-data-availability.md)): <abbr title="A stretch of game time with no substitution at either end - the unit of observation for the stint-level RAPM model.">stints</abbr> carry both five-man lineups, so
 the +1/−1 design adjusts each player for teammates *and opponents* — the thing
 the season-aggregate model above cannot do. The <abbr title="A stretch of game time with no substitution at either end - the unit of observation for the stint-level RAPM model.">stint</abbr> model's intercept doubles
 as a home-court-advantage estimate, and its own validation gates (final-margin

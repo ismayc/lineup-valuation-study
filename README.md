@@ -1,4 +1,4 @@
-# Lineup valuation study — regularized player value from five-man lineup data
+# Lineup valuation study: regularized player value from five-man lineup data
 
 Player and lineup value from public data, in the [basketball-data-science](https://github.com/ismayc/basketball-data-science)
 family. The sibling studies describe events; this one values the people on
@@ -6,10 +6,10 @@ the floor.
 
 **The question.** Which players most improve their team's net scoring when they
 are on the floor, once you stop giving them credit for who they share the floor
-with — and which five-man lineups actually worked?
+with? And which five-man lineups actually worked?
 
 **Two seasons:** 2023-24 (matching [playbyplay-study](https://github.com/ismayc/playbyplay-study)) and **2025-26, the
-just-completed season** — the lineup endpoints are live, so the model runs on
+just-completed season**. The lineup endpoints are live, so the model runs on
 current basketball (see [public-data-availability](https://github.com/ismayc/basketball-data-science/blob/main/docs/public-data-availability.md)).
 
 ---
@@ -17,13 +17,13 @@ current basketball (see [public-data-availability](https://github.com/ismayc/bas
 <!-- terms -->
 > **Terms used in this analysis.** Dotted-underlined terms anywhere below repeat these definitions on hover ([full glossary](https://github.com/ismayc/basketball-data-science/blob/main/docs/glossary.md)).
 >
-> - **RAPM** — Regularized adjusted plus-minus: a ridge regression crediting each player with net points per 100 possessions while adjusting for the other nine players on the floor.
-> - **stint** — A stretch of game time with no substitution at either end - the unit of observation for the stint-level RAPM model.
-> - **net_100** — Net points per 100 possessions: 100 x plus-minus / possessions; sits on the same scale as the NBA's published net rating.
-> - **plus-minus** — Points scored minus points allowed while a player or lineup is on the floor.
-> - **ridge** — Ridge regression: least squares with an L2 penalty that keeps many-parameter models stable at the cost of a little bias.
-> - **CI** — Confidence interval.
-> - **Spearman** — Rank correlation: correlation of the orderings rather than the raw values.
+> - **RAPM**: Regularized adjusted plus-minus: a ridge regression crediting each player with net points per 100 possessions while adjusting for the other nine players on the floor.
+> - **stint**: A stretch of game time with no substitution at either end - the unit of observation for the stint-level RAPM model.
+> - **net_100**: Net points per 100 possessions: 100 x plus-minus / possessions; sits on the same scale as the NBA's published net rating.
+> - **plus-minus**: Points scored minus points allowed while a player or lineup is on the floor.
+> - **ridge**: Ridge regression: least squares with an L2 penalty that keeps many-parameter models stable at the cost of a little bias.
+> - **CI**: Confidence interval.
+> - **Spearman**: Rank correlation: correlation of the orderings rather than the raw values.
 <!-- /terms -->
 
 ## 1. Where this sits in the literature
@@ -31,37 +31,37 @@ current basketball (see [public-data-availability](https://github.com/ismayc/bas
 Nothing here is invented in a vacuum; the model is the entry point of a
 well-developed public lineage, and knowing that lineage is part of the point:
 
-- **Adjusted <abbr title="Points scored minus points allowed while a player or lineup is on the floor.">plus-minus</abbr> (APM)** — Rosenbaum (2004), building on Winston &
+- **Adjusted <abbr title="Points scored minus points allowed while a player or lineup is on the floor.">plus-minus</abbr> (APM)**: Rosenbaum (2004), building on Winston &
   Sagarin's WINVAL: regress <abbr title="A stretch of game time with no substitution at either end - the unit of observation for the stint-level RAPM model.">stint</abbr> score margins on player indicators, so a
   player's rating is *adjusted* for teammates and opponents rather than raw
   on-court margin.
-- **Regularized APM (<abbr title="Regularized adjusted plus-minus: a ridge regression crediting each player with net points per 100 possessions while adjusting for the other nine players on the floor.">RAPM</abbr>)** — Sill (2010, MIT Sloan Sports Analytics
+- **Regularized APM (<abbr title="Regularized adjusted plus-minus: a ridge regression crediting each player with net points per 100 possessions while adjusting for the other nine players on the floor.">RAPM</abbr>)**: Sill (2010, MIT Sloan Sports Analytics
   Conference): APM's coefficients explode because lineups are collinear; <abbr title="Ridge regression: least squares with an L2 penalty that keeps many-parameter models stable at the cost of a little bias.">ridge</abbr>
   regression (Tikhonov regularization) shrinks players toward league average
   in proportion to evidence and dramatically improves out-of-sample accuracy.
   This is the backbone of most public player metrics since.
-- **Modern descendants** — ESPN RPM, FiveThirtyEight RAPTOR, Dunks & Threes
+- **Modern descendants**: ESPN RPM, FiveThirtyEight RAPTOR, Dunks & Threes
   EPM, DARKO DPM: all blend a <abbr title="Regularized adjusted plus-minus: a ridge regression crediting each player with net points per 100 possessions while adjusting for the other nine players on the floor.">RAPM</abbr>-style on/off core with box-score and
   tracking priors to stabilize small samples.
 
 This study implements the **<abbr title="Ridge regression: least squares with an L2 penalty that keeps many-parameter models stable at the cost of a little bias.">ridge</abbr> core of that lineage on season-aggregated
 five-man lineup data**. The honest difference from full <abbr title="Regularized adjusted plus-minus: a ridge regression crediting each player with net points per 100 possessions while adjusting for the other nine players on the floor.">RAPM</abbr>: season lineup
 aggregates do not record *opponents*, so opponent strength is not adjusted
-(limitation 1). The public route to full <abbr title="A stretch of game time with no substitution at either end - the unit of observation for the stint-level RAPM model.">stint</abbr>-level <abbr title="Regularized adjusted plus-minus: a ridge regression crediting each player with net points per 100 possessions while adjusting for the other nine players on the floor.">RAPM</abbr> — play-by-play with
-players-on-court filled in — is documented in
+(limitation 1). The public route to full <abbr title="A stretch of game time with no substitution at either end - the unit of observation for the stint-level RAPM model.">stint</abbr>-level <abbr title="Regularized adjusted plus-minus: a ridge regression crediting each player with net points per 100 possessions while adjusting for the other nine players on the floor.">RAPM</abbr> (play-by-play with
+players-on-court filled in) is documented in
 [public-data-availability](https://github.com/ismayc/basketball-data-science/blob/main/docs/public-data-availability.md) and is the natural next step.
 
 ## 2. Data
 
 `stats.nba.com` via `nba_api`, per team (the league-wide lineup call silently
-caps at 2,000 rows — per-team calls stay under it):
+caps at 2,000 rows, so per-team calls stay under it):
 
 | Endpoint | Content |
 |---|---|
 | `LeagueDashLineups` (Base, Totals) | every five-man lineup's minutes and raw <abbr title="Points scored minus points allowed while a player or lineup is on the floor.">plus-minus</abbr> |
 | `LeagueDashLineups` (Advanced, Totals) | possessions and the NBA's own <abbr title="Net points per 100 possessions: 100 x plus-minus / possessions; sits on the same scale as the NBA's published net rating.">NET_RATING</abbr> per lineup |
-| `LeagueDashPlayerStats` | per-player totals — external reference for validation |
-| `LeagueDashTeamStats` | team totals — the coverage check target |
+| `LeagueDashPlayerStats` | per-player totals: external reference for validation |
+| `LeagueDashTeamStats` | team totals: the coverage check target |
 
 Scale: ~15,900 lineup rows (2023-24) and ~19,500 (2025-26) covering ~255k
 possessions per season. `POSS` is the lineup's **offensive-possession count**
@@ -75,20 +75,20 @@ intercept +0.07.
 Each lineup's net points per 100 possessions is the sum of five player effects
 plus an intercept, fitted by **possession-weighted <abbr title="Ridge regression: least squares with an L2 penalty that keeps many-parameter models stable at the cost of a little bias.">ridge</abbr> regression**:
 
-- **Weights:** possessions — a 900-possession lineup carries 900× the evidence
+- **Weights:** possessions. A 900-possession lineup carries 900× the evidence
   of a 1-possession lineup.
 - **Penalty:** shrinks every player toward league average; chosen by **5-fold
   cross-validation** on a log-spaced grid. Folds are deterministic (row index
   mod 5 on byte-order-sorted rows) so the R implementation reproduces the
   choice exactly.
 - **Replacement pool:** players under 300 possessions become one shared
-  "replacement" column — their individual effects are unidentifiable, and
+  "replacement" column. Their individual effects are unidentifiable, and
   pooling is more honest than reporting shrunken noise.
 - **Uncertainty:** 500 bootstrap resamples of lineups, 95% percentile CIs on
   every player.
 - **Zero-possession lineups** (defensive-only micro-<abbr title="A stretch of game time with no substitution at either end - the unit of observation for the stint-level RAPM model.">stints</abbr>, e.g. on the floor
-  solely for opponent free throws) are excluded from the model — net-per-100
-  is undefined for them — but **retained in the coverage validation**, where
+  solely for opponent free throws) are excluded from the model (net-per-100
+  is undefined for them) but **retained in the coverage validation**, where
   their points matter.
 
 ## 4. Pipeline
@@ -105,7 +105,7 @@ python/06_stint_rapm.py        stint-level RAPM WITH opponent adjustment (2023-2
 
 The last two are the wired-in upgrade path (see
 [public-data-availability](https://github.com/ismayc/basketball-data-science/blob/main/docs/public-data-availability.md)): <abbr title="A stretch of game time with no substitution at either end - the unit of observation for the stint-level RAPM model.">stints</abbr> carry both five-man lineups, so
-the +1/−1 design adjusts each player for teammates *and opponents* — the thing
+the +1/−1 design adjusts each player for teammates *and opponents*: the thing
 the season-aggregate model above cannot do. The <abbr title="A stretch of game time with no substitution at either end - the unit of observation for the stint-level RAPM model.">stint</abbr> model's intercept doubles
 as a home-court-advantage estimate, and its own validation gates (final-margin
 reconstruction, on-floor minutes vs official minutes) run before comparison.
@@ -119,19 +119,19 @@ language's RNG, are compared for per-player overlap instead).
 Four external checks, all of which must pass before findings are written:
 
 1. **Lineup minutes reconstruct team minutes** (max relative error < 0.5%).
-2. **Lineup <abbr title="Points scored minus points allowed while a player or lineup is on the floor.">plus-minus</abbr> reconstructs team <abbr title="Points scored minus points allowed while a player or lineup is on the floor.">plus-minus</abbr> exactly** — the full
+2. **Lineup <abbr title="Points scored minus points allowed while a player or lineup is on the floor.">plus-minus</abbr> reconstructs team <abbr title="Points scored minus points allowed while a player or lineup is on the floor.">plus-minus</abbr> exactly**. The full
    lineup table sums to each team's season <abbr title="Points scored minus points allowed while a player or lineup is on the floor.">plus-minus</abbr> to the point.
 3. **Independent rate agrees with the NBA's own <abbr title="Net points per 100 possessions: 100 x plus-minus / possessions; sits on the same scale as the NBA's published net rating.">NET_RATING</abbr>** (r ≥ 0.97 on
    200+ possession lineups; not identical by construction, since the league
    computes off/def ratings on separate possession denominators).
-4. **Sanity against raw <abbr title="Points scored minus points allowed while a player or lineup is on the floor.">plus-minus</abbr>** (<abbr title="Rank correlation: correlation of the orderings rather than the raw values.">Spearman</abbr> ≥ 0.5) — high enough to show
+4. **Sanity against raw <abbr title="Points scored minus points allowed while a player or lineup is on the floor.">plus-minus</abbr>** (<abbr title="Rank correlation: correlation of the orderings rather than the raw values.">Spearman</abbr> ≥ 0.5), high enough to show
    the model is anchored in reality, and deliberately *not* 1: the daylight
    between raw <abbr title="Points scored minus points allowed while a player or lineup is on the floor.">plus-minus</abbr> and the regularized estimate is the teammate
    adjustment doing its work.
 
 ## 6. Limitations
 
-1. **No opponent adjustment in the aggregate model** — now addressed: the
+1. **No opponent adjustment in the aggregate model.** Now addressed: the
    wired-in <abbr title="A stretch of game time with no substitution at either end - the unit of observation for the stint-level RAPM model.">stint</abbr>-level <abbr title="Regularized adjusted plus-minus: a ridge regression crediting each player with net points per 100 possessions while adjusting for the other nine players on the floor.">RAPM</abbr> (Findings, last section) adjusts for opponents
    and lands within <abbr title="Rank correlation: correlation of the orderings rather than the raw values.">Spearman</abbr> 0.95 of the aggregate model, which quantifies
    how much this limitation actually cost (less than the standard caveat
@@ -158,7 +158,7 @@ written.
 ### 2023-24
 
 Penalty chosen by CV: **λ = 3200**. 454 players over the possession
-threshold; median 95% <abbr title="Confidence interval.">CI</abbr> width **±2.5 points per 100** — the
+threshold; median 95% <abbr title="Confidence interval.">CI</abbr> width **±2.5 points per 100**, the
 honest single-season noise floor for this model family.
 
 | Rank | Player | Effect / 100 poss | 95% <abbr title="Confidence interval.">CI</abbr> | Poss |
@@ -175,20 +175,20 @@ honest single-season noise floor for this model family.
 | 10 | Sam Hauser | **+3.76** | [+1.15, +6.29] | 3,655 |
 
 **Best high-usage lineup** (1,000+ possessions):
-B. Lopez - D. Lillard - K. Middleton - G. Antetokounmpo - M. Beasley (MIL) —
+B. Lopez - D. Lillard - K. Middleton - G. Antetokounmpo - M. Beasley (MIL),
 **+15.3 per 100** over 1,302 possessions.
 **Worst:** T. Jones - K. Kuzma - D. Gafford - J. Poole - D. Avdija (WAS),
 -3.4 per 100 over 1,249.
 
 Validation: lineup minutes and <abbr title="Points scored minus points allowed while a player or lineup is on the floor.">plus-minus</abbr> reconstruct team totals
 (exact on points); independent net-rate agrees with the NBA's <abbr title="Net points per 100 possessions: 100 x plus-minus / possessions; sits on the same scale as the NBA's published net rating.">NET_RATING</abbr> at
-r = 0.989; <abbr title="Rank correlation: correlation of the orderings rather than the raw values.">Spearman</abbr> vs raw <abbr title="Points scored minus points allowed while a player or lineup is on the floor.">plus-minus</abbr> = 0.81 — anchored in reality,
-and the gap from 1.0 is the teammate adjustment working.
+r = 0.989; <abbr title="Rank correlation: correlation of the orderings rather than the raw values.">Spearman</abbr> vs raw <abbr title="Points scored minus points allowed while a player or lineup is on the floor.">plus-minus</abbr> = 0.81. The estimates are
+anchored in reality, and the gap from 1.0 is the teammate adjustment working.
 
 ### 2025-26
 
 Penalty chosen by CV: **λ = 3200**. 490 players over the possession
-threshold; median 95% <abbr title="Confidence interval.">CI</abbr> width **±2.6 points per 100** — the
+threshold; median 95% <abbr title="Confidence interval.">CI</abbr> width **±2.6 points per 100**, the
 honest single-season noise floor for this model family.
 
 | Rank | Player | Effect / 100 poss | 95% <abbr title="Confidence interval.">CI</abbr> | Poss |
@@ -205,15 +205,15 @@ honest single-season noise floor for this model family.
 | 10 | Neemias Queta | **+3.86** | [+1.30, +6.45] | 3,932 |
 
 **Best high-usage lineup** (1,000+ possessions):
-M. Bridges - L. Ball - M. Diabaté - B. Miller - K. Knueppel (CHA) —
+M. Bridges - L. Ball - M. Diabaté - B. Miller - K. Knueppel (CHA),
 **+26.6 per 100** over 1,054 possessions.
 **Worst:** K. Towns - O. Anunoby - J. Hart - M. Bridges - J. Brunson (NYK),
 +1.8 per 100 over 1,131.
 
 Validation: lineup minutes and <abbr title="Points scored minus points allowed while a player or lineup is on the floor.">plus-minus</abbr> reconstruct team totals
 (exact on points); independent net-rate agrees with the NBA's <abbr title="Net points per 100 possessions: 100 x plus-minus / possessions; sits on the same scale as the NBA's published net rating.">NET_RATING</abbr> at
-r = 0.992; <abbr title="Rank correlation: correlation of the orderings rather than the raw values.">Spearman</abbr> vs raw <abbr title="Points scored minus points allowed while a player or lineup is on the floor.">plus-minus</abbr> = 0.83 — anchored in reality,
-and the gap from 1.0 is the teammate adjustment working.
+r = 0.992; <abbr title="Rank correlation: correlation of the orderings rather than the raw values.">Spearman</abbr> vs raw <abbr title="Points scored minus points allowed while a player or lineup is on the floor.">plus-minus</abbr> = 0.83. The estimates are
+anchored in reality, and the gap from 1.0 is the teammate adjustment working.
 
 ### Stint-level RAPM: adding the opponent adjustment (2023-24)
 
@@ -222,7 +222,7 @@ The wired-in upgrade (`python/05_build_stints.py` + `python/06_stint_rapm.py`):
 with the ten on-court players
 filled offline, micro-<abbr title="A stretch of game time with no substitution at either end - the unit of observation for the stint-level RAPM model.">stints</abbr> from free-throw substitutions absorbed into their
 neighbours so no points leave the model, and a +1/−1 design that adjusts every
-player for teammates *and opponents*. Validation gates all pass — <abbr title="A stretch of game time with no substitution at either end - the unit of observation for the stint-level RAPM model.">stint</abbr> points
+player for teammates *and opponents*. Validation gates all pass: <abbr title="A stretch of game time with no substitution at either end - the unit of observation for the stint-level RAPM model.">stint</abbr> points
 reconstruct the official league point total, per-player on-floor minutes
 reconstruct official minutes (r = 0.999), and the unpenalized intercept
 estimates **home-court advantage at +2.2 points per 100** without being
@@ -233,16 +233,16 @@ Top 5 opponent-adjusted: Shai Gilgeous-Alexander, OG Anunoby, Nikola Jokić, Jal
 **The instructive result is how little changes: <abbr title="Rank correlation: correlation of the orderings rather than the raw values.">Spearman</abbr> 0.96 against the
 lineup-aggregate model.** Over an 82-game season, opponent strength largely
 averages out, so the cheaper model was a better approximation than the usual
-caveat implies — a claim now measured on this data instead of argued.
+caveat implies, a claim now measured on this data instead of argued.
 The players the adjustment moves up most (Luguentz Dort (+1.5), Dillon Brooks (+1.5), Dean Wade (+1.5)) are where schedule and
-matchup context mattered. (An earlier build covered 1,200 of 1,230 games —
+matchup context mattered. (An earlier build covered 1,200 of 1,230 games:
 the boxscore-range endpoint nba-on-court needs was hanging on nba_api's
 stale User-Agent; the builder's retry pass completed the season once that
 was diagnosed and patched.)
 
 ### Reading the two seasons together
 
-- The model finds the consensus stars without being told who they are — the
+- The model finds the consensus stars without being told who they are: the
   top of each table is recognisable to anyone who watched that season. That
   is a *face-validity check*, not the product. The product is the ordering of
   everyone else, where intuition runs out.
@@ -253,4 +253,4 @@ was diagnosed and patched.)
   multiple seasons and add box/tracking priors (see "Where this sits in the
   literature"). A model whose error bars you can defend is worth more than a
   sharper-looking one whose error bars you cannot.
-- **Stability across seasons — the honest backtest.** For the 317 players fitted in both 2023-24 and 2025-26 (two seasons apart), estimates correlate at r = 0.31 (r = 0.38 for the 181 with 2,000+ possessions in both). That is the well-documented reliability ceiling of single-season <abbr title="Regularized adjusted plus-minus: a ridge regression crediting each player with net points per 100 possessions while adjusting for the other nine players on the floor.">RAPM</abbr>-family estimates, quantified on this data rather than assumed — and it is the empirical argument for the multi-season priors that production metrics add.
+- **Stability across seasons: the honest backtest.** For the 317 players fitted in both 2023-24 and 2025-26 (two seasons apart), estimates correlate at r = 0.31 (r = 0.38 for the 181 with 2,000+ possessions in both). That is the well-documented reliability ceiling of single-season <abbr title="Regularized adjusted plus-minus: a ridge regression crediting each player with net points per 100 possessions while adjusting for the other nine players on the floor.">RAPM</abbr>-family estimates, quantified on this data rather than assumed. It is the empirical argument for the multi-season priors that production metrics add.

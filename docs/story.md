@@ -3,18 +3,18 @@
 Every plus-minus argument has the same flaw: the players you share the
 floor with. A bench guard who rides shotgun with the MVP posts a glowing
 on/off number; a good starter marooned on a bad roster posts a grim one.
-This study builds the standard remedy (RAPM-family regularized regression
-over every five-man lineup) twice, in R and Python, for 2023-24 **and**
-the just-completed 2025-26 season, and then does the two things public
-plus-minus work most often skips: it reports uncertainty honestly, and it
-rebuilds the whole thing from a second, independent unit of observation to
-see if the answer holds.
+This study builds the standard remedy, RAPM-family regularized regression
+over every five-man lineup. It builds it twice, in R and Python, for
+2023-24 **and** the just-completed 2025-26 season. Then it does the two
+things public plus-minus work most often skips: it reports uncertainty
+honestly, and it rebuilds the whole thing from a second, independent unit
+of observation to see if the answer holds.
 
 The model's one free knob, how hard to shrink, is not a taste decision.
-Cross-validation chooses the ridge penalty (λ = 3200 in both seasons), and
-the figure below shows why the choice is defensible rather than
+Cross-validation chooses the ridge penalty (λ = 3200 in both seasons).
+The figure below shows why that choice is defensible rather than
 decorative: predictive error falls, bottoms out, and rises again as the
-penalty grows, and the model simply takes the minimum.
+penalty grows. The model simply takes the minimum.
 
 {{fig:2023-24/fig3_cv_curve|The cross-validation curve that picks the ridge penalty. Necessary because shrinkage is the entire difference between this model and raw on/off. This figure is the evidence that the amount of shrinkage was chosen by held-out prediction, not by hand.}}
 
@@ -32,9 +32,9 @@ that pretends otherwise is selling something.
 
 A ranking with intervals still deserves suspicion if it only exists in one
 model. So the study rebuilds valuation from scratch at a different grain:
-69,767 substitution-to-substitution **stints** parsed from all 1,230 games
-of play-by-play, with an opponent-adjusted design and an unpenalized
-intercept that lands at +2.2 points per 100: the home-court advantage,
+69,767 substitution-to-substitution **stints** parsed from all 1,230
+games of play-by-play, with an opponent-adjusted design. Its unpenalized
+intercept lands at +2.2 points per 100. That is the home-court advantage,
 estimated as a byproduct rather than assumed, and a built-in sanity check
 that the design matrix means what it claims. The two models share no code
 path and no data feed.

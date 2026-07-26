@@ -64,8 +64,14 @@ th { text-align: left; color: var(--ink-2); font-weight: 600;
   border-bottom: 2px solid var(--rule); padding: .4rem .6rem; }
 td { border-bottom: 1px solid var(--rule); padding: .4rem .6rem;
   vertical-align: top; }
-abbr[title] { text-decoration: underline dotted var(--accent);
-  text-underline-offset: 2px; cursor: help; }
+abbr[data-tip] { text-decoration: underline dotted var(--accent);
+  text-underline-offset: 2px; cursor: help; position: relative; }
+abbr[data-tip]:hover::after { content: attr(data-tip); position: absolute;
+  left: 0; top: 1.5em; z-index: 40; background: var(--ink);
+  color: var(--surface); padding: .5rem .75rem; border-radius: 7px;
+  width: max-content; max-width: min(340px, 80vw); font-size: .82rem;
+  line-height: 1.45; font-weight: 400; white-space: normal;
+  box-shadow: 0 4px 16px rgba(0,0,0,.28); pointer-events: none; }
 hr { border: none; border-top: 1px solid var(--rule); margin: 2rem 0; }
 .figure-card { background: #fff; border: 1px solid var(--rule);
   border-radius: 10px; margin: 1.4rem 0; overflow: hidden; }
@@ -109,40 +115,40 @@ details.terms li { margin: .3rem 0; color: var(--ink-2); }
 </div></header>
 <main>
 <h1>Who actually moves the scoreboard? Player value with honest error bars</h1>
-<p>Every <abbr title="Points scored minus points allowed while a player or lineup is on the floor.">plus-minus</abbr> argument has the same flaw: the players you share the
+<p>Every <abbr data-tip="Points scored minus points allowed while a player or lineup is on the floor.">plus-minus</abbr> argument has the same flaw: the players you share the
 floor with. A bench guard who rides shotgun with the MVP posts a glowing
 on/off number; a good starter marooned on a bad roster posts a grim one.
-This study builds the standard remedy, <abbr title="Regularized adjusted plus-minus: a ridge regression crediting each player with net points per 100 possessions while adjusting for the other nine players on the floor.">RAPM</abbr>-family regularized regression
+This study builds the standard remedy, <abbr data-tip="Regularized adjusted plus-minus: a ridge regression crediting each player with net points per 100 possessions while adjusting for the other nine players on the floor.">RAPM</abbr>-family regularized regression
 over every five-man lineup. It builds it twice, in R and Python, for
 2023-24 <strong>and</strong> the just-completed 2025-26 season. Then it does the two
-things public <abbr title="Points scored minus points allowed while a player or lineup is on the floor.">plus-minus</abbr> work most often skips: it reports uncertainty
+things public <abbr data-tip="Points scored minus points allowed while a player or lineup is on the floor.">plus-minus</abbr> work most often skips: it reports uncertainty
 honestly, and it rebuilds the whole thing from a second, independent unit
 of observation to see if the answer holds.</p>
 <details class="terms"><summary>Terms used in this analysis</summary><ul><li><strong>RAPM</strong>: Regularized adjusted plus-minus: a ridge regression crediting each player with net points per 100 possessions while adjusting for the other nine players on the floor.</li><li><strong>stint</strong>: A stretch of game time with no substitution at either end - the unit of observation for the stint-level RAPM model.</li><li><strong>plus-minus</strong>: Points scored minus points allowed while a player or lineup is on the floor.</li><li><strong>ridge</strong>: Ridge regression: least squares with an L2 penalty that keeps many-parameter models stable at the cost of a little bias.</li><li><strong>shrinkage weight</strong>: The fraction of an observed number that survives empirical-Bayes regression: 1 means fully trusted, 0 means replaced by the league mean.</li><li><strong>CI</strong>: Confidence interval.</li><li><strong>Spearman</strong>: Rank correlation: correlation of the orderings rather than the raw values.</li></ul></details>
 <p>The model's one free knob, how hard to shrink, is not a taste decision.
-Cross-validation chooses the <abbr title="Ridge regression: least squares with an L2 penalty that keeps many-parameter models stable at the cost of a little bias.">ridge</abbr> penalty (λ = 3200 in both seasons).
+Cross-validation chooses the <abbr data-tip="Ridge regression: least squares with an L2 penalty that keeps many-parameter models stable at the cost of a little bias.">ridge</abbr> penalty (λ = 3200 in both seasons).
 The figure below shows why that choice is defensible rather than
 decorative: predictive error falls, bottoms out, and rises again as the
 penalty grows. The model simply takes the minimum.</p>
-<figure class="figure-card"><iframe src="figures/2023-24/fig3_cv_curve.html" loading="lazy" title="Cv curve"></iframe><figcaption>The cross-validation curve that picks the <abbr title="Ridge regression: least squares with an L2 penalty that keeps many-parameter models stable at the cost of a little bias.">ridge</abbr> penalty. Necessary because <abbr title="The fraction of an observed number that survives empirical-Bayes regression: 1 means fully trusted, 0 means replaced by the league mean.">shrinkage</abbr> is the entire difference between this model and raw on/off. This figure is the evidence that the amount of <abbr title="The fraction of an observed number that survives empirical-Bayes regression: 1 means fully trusted, 0 means replaced by the league mean.">shrinkage</abbr> was chosen by held-out prediction, not by hand.</figcaption></figure>
+<figure class="figure-card"><iframe src="figures/2023-24/fig3_cv_curve.html" loading="lazy" title="Cv curve"></iframe><figcaption>The cross-validation curve that picks the <abbr data-tip="Ridge regression: least squares with an L2 penalty that keeps many-parameter models stable at the cost of a little bias.">ridge</abbr> penalty. Necessary because <abbr data-tip="The fraction of an observed number that survives empirical-Bayes regression: 1 means fully trusted, 0 means replaced by the league mean.">shrinkage</abbr> is the entire difference between this model and raw on/off. This figure is the evidence that the amount of <abbr data-tip="The fraction of an observed number that survives empirical-Bayes regression: 1 means fully trusted, 0 means replaced by the league mean.">shrinkage</abbr> was chosen by held-out prediction, not by hand.</figcaption></figure>
 <figure class="figure-card"><iframe src="figures/2023-24/fig2_shrinkage.html" loading="lazy" title="Shrinkage"></iframe><figcaption>Raw on/off versus the regularized estimate for every qualifying player. The before/after of the method: the players pulled hardest toward zero are exactly the low-minute, star-adjacent profiles whose raw numbers are most contaminated: visible teammate-context correction, one dot per player.</figcaption></figure>
 <p>What comes out the other side passes the eye test at the top: Jokić
 (+5.5 per 100), Anunoby, Brunson, George, Gilgeous-Alexander lead 2023-24;
 Wembanyama (+6.5) and Gilgeous-Alexander lead 2025-26. But the study's
 real headline is the <strong>width of the intervals</strong>: the median 95% bootstrap
-<abbr title="Confidence interval.">CI</abbr> spans about ±2.5 points per 100 possessions. One season of lineup data
+<abbr data-tip="Confidence interval.">CI</abbr> spans about ±2.5 points per 100 possessions. One season of lineup data
 genuinely cannot separate the 5th-best player from the 30th, and a model
 that pretends otherwise is selling something.</p>
 <figure class="figure-card"><iframe src="figures/2023-24/fig1_player_values.html" loading="lazy" title="Player values"></iframe><figcaption>The 2023-24 player values with their bootstrap intervals: the study's most important figure precisely because of the error bars. The ordering is the headline everywhere else; here the honest message is how much the intervals overlap, which is what a front office actually needs to know before acting on a single-season number.</figcaption></figure>
 <p>A ranking with intervals still deserves suspicion if it only exists in one
 model. So the study rebuilds valuation from scratch at a different grain:
-69,767 substitution-to-substitution <strong><abbr title="A stretch of game time with no substitution at either end - the unit of observation for the stint-level RAPM model.">stints</abbr></strong> parsed from all 1,230
+69,767 substitution-to-substitution <strong><abbr data-tip="A stretch of game time with no substitution at either end - the unit of observation for the stint-level RAPM model.">stints</abbr></strong> parsed from all 1,230
 games of play-by-play, with an opponent-adjusted design. Its unpenalized
 intercept lands at +2.2 points per 100. That is the home-court advantage,
 estimated as a byproduct rather than assumed, and a built-in sanity check
 that the design matrix means what it claims. The two models share no code
 path and no data feed.</p>
-<figure class="figure-card"><iframe src="figures/2023-24/fig4_stint_vs_lineup.html" loading="lazy" title="Stint vs lineup"></iframe><figcaption>Stint-level <abbr title="Regularized adjusted plus-minus: a ridge regression crediting each player with net points per 100 possessions while adjusting for the other nine players on the floor.">RAPM</abbr> against the aggregate lineup model, one dot per player (<abbr title="Rank correlation: correlation of the orderings rather than the raw values.">Spearman</abbr> 0.96). The convergent-validity figure: two independently built models, different units of observation, different feeds, near-identical player ordering. Agreement this strong is the best public-data evidence that the values reflect the players rather than the plumbing.</figcaption></figure>
+<figure class="figure-card"><iframe src="figures/2023-24/fig4_stint_vs_lineup.html" loading="lazy" title="Stint vs lineup"></iframe><figcaption>Stint-level <abbr data-tip="Regularized adjusted plus-minus: a ridge regression crediting each player with net points per 100 possessions while adjusting for the other nine players on the floor.">RAPM</abbr> against the aggregate lineup model, one dot per player (<abbr data-tip="Rank correlation: correlation of the orderings rather than the raw values.">Spearman</abbr> 0.96). The convergent-validity figure: two independently built models, different units of observation, different feeds, near-identical player ordering. Agreement this strong is the best public-data evidence that the values reflect the players rather than the plumbing.</figcaption></figure>
 <p>Lineups themselves get the descriptive treatment, where the volume filter
 does the honest work: among five-man units with 1,000+ possessions, the
 best of 2023-24 was Milwaukee's Lopez–Lillard–Middleton–Antetokounmpo–

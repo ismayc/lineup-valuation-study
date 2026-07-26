@@ -1,6 +1,6 @@
 # Unit tests for lineup-valuation-study/R/functions.R
 
-source(file.path(REPO, "lineup-valuation-study", "R", "functions.R"))
+source(file.path(REPO, "R", "functions.R"))
 
 test_that("ridge with zero penalty equals weighted least squares", {
   set.seed(7)

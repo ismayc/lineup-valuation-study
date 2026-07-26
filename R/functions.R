@@ -3,12 +3,15 @@
 # source them.
 
 #' Closed-form possession-weighted ridge; column 1 (intercept) unpenalized.
+#' Storage-agnostic: X may be a base matrix or a Matrix-package sparse matrix
+#' (the design is ~7 nonzeros per row, so sparse crossprod is what makes the
+#' 500-rep bootstrap finish in seconds rather than an hour).
 ridge_fit <- function(X, y, w, lam) {
   Xw <- X * w
-  A <- crossprod(X, Xw)
+  A <- as.matrix(crossprod(X, Xw))
   pen <- rep(lam, ncol(X)); pen[1] <- 0
   diag(A) <- diag(A) + pen
-  solve(A, crossprod(Xw, y))[, 1]
+  as.vector(solve(A, as.matrix(crossprod(Xw, y))))
 }
 
 #' Deterministic 5-fold CV over a lambda grid; fold of 0-based row i is

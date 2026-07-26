@@ -37,8 +37,8 @@ def check_season(season: str) -> bool:
     print(f"  {'PASS' if good else 'FAIL'}  player_values: {m.height} players, "
           f"max est diff {est_diff:.2e}, CI overlap {'all' if overlap else 'NOT all'}")
 
-    cpy = pl.read_csv(out / "cv_curve.csv")
-    cr = pl.read_csv(out / "cv_curve_r.csv")
+    cpy = pl.read_csv(out / "cv_curve.csv").with_columns(pl.col("lam").cast(pl.Float64))
+    cr = pl.read_csv(out / "cv_curve_r.csv").with_columns(pl.col("lam").cast(pl.Float64))
     cm = cpy.join(cr, on="lam", suffix="_r")
     cv_diff = (cm["cv_wmse"] - cm["cv_wmse_r"]).abs().max()
     good = cm.height == cpy.height == cr.height and cv_diff <= TOL_EST

@@ -1,14 +1,812 @@
 <html>
-<head><style>html,body{margin:0;height:100%}</style><meta charset="utf-8" /></head>
+<head><style>html,body{margin:0;height:100%}
+@media (prefers-color-scheme: dark){
+  body:not(.fam-light){background:#1a1a19;color:#c3c2b7}
+  body:not(.fam-light) .controls button{background:#1a1a19;color:#c3c2b7;border-color:#383835}
+  body:not(.fam-light) .controls button.on{background:#3987e5;color:#0f0e0d;border-color:#3987e5}
+  body:not(.fam-light) .seasonlab{color:#f5f3ec}
+}
+body.fam-dark{background:#1a1a19;color:#c3c2b7}
+body.fam-dark .controls button{background:#1a1a19;color:#c3c2b7;border-color:#383835}
+body.fam-dark .controls button.on{background:#3987e5;color:#0f0e0d;border-color:#3987e5}
+body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
 <body>
     <div style="height:100%; width:100%;">                        <script>window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
-        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.7.0.min.js" integrity="sha256-jvTGqxNp8AGWEcvNLVuKr+8j5dGe9Yw51LQkmDH+IYA=" crossorigin="anonymous"></script>                <div id="3f6da3ab-fbdd-4939-98da-848007ca2611" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("3f6da3ab-fbdd-4939-98da-848007ca2611")) {                    Plotly.newPlot(                        "3f6da3ab-fbdd-4939-98da-848007ca2611",                        [{"hoverinfo":"skip","line":{"color":"#c3c2b7","dash":"dot","width":1},"mode":"lines","x":[-5.80461555762524,5.80461555762524],"y":[-5.80461555762524,5.80461555762524],"type":"scatter"},{"hovertemplate":"%{text}: lineup %{x:+.2f}, stint %{y:+.2f}\u003cextra\u003e\u003c\u002fextra\u003e","marker":{"color":"#2a78d6","opacity":0.55,"size":6},"mode":"markers","text":["Nikola Jokić","OG Anunoby","Jalen Brunson","Paul George","Shai Gilgeous-Alexander","Derrick White","Jusuf Nurkić","Dante Exum","Luka Dončić","Sam Hauser","Isaiah Hartenstein","Donovan Mitchell","Kentavious Caldwell-Pope","Brandin Podziemski","Tyrese Haliburton","Kawhi Leonard","Damian Lillard","Kyrie Irving","Jose Alvarado","Bogdan Bogdanović","Jock Landale","Isaiah Joe","Joel Embiid","Fred VanVleet","Tre Jones","LeBron James","Jimmy Butler III","Giannis Antetokounmpo","Alex Len","Payton Pritchard","De'Aaron Fox","Jonathan Isaac","Rudy Gobert","Tyrese Maxey","Lauri Markkanen","Nikola Jović","Franz Wagner","Trey Lyles","Anthony Edwards","Jordan McLaughlin","Svi Mykhailiuk","Jayson Tatum","Devin Booker","Josh Hart","Kristaps Porziņģis","Trey Murphy III","Joe Ingles","Naji Marshall","De'Anthony Melton","Neemias Queta","Karl-Anthony Towns","Draymond Green","Dean Wade","Josh Giddey","Nickeil Alexander-Walker","Al Horford","Chris Boucher","Spencer Dinwiddie","Seth Curry","Myles Turner","D'Angelo Russell","Stephen Curry","Sandro Mamukelashvili","Norman Powell","Max Strus","Kevin Love","Tari Eason","Aaron Holiday","Herbert Jones","Chet Holmgren","Anthony Davis","Robert Covington","Kris Dunn","Keegan Murray","Simone Fontecchio","Dereck Lively II","Keon Ellis","T.J. McConnell","Jalen Williams","Malcolm Brogdon","Maxi Kleber","Malik Beasley","Royce O'Neale","Anthony Gill","JT Thor","Day'Ron Sharpe","Obi Toppin","Jaime Jaquez Jr.","Chris Paul","Delon Wright","AJ Green","Rui Hachimura","Vince Williams Jr.","Nicolas Batum","Monte Morris","Daniel Gafford","Michael Porter Jr.","Tristan Vukcevic","James Harden","Kevin Durant","Dalen Terry","Brook Lopez","Naz Reid","Jamal Murray","A.J. Lawson","Jevon Carter","Paul Reed","Mark Williams","Alex Caruso","Furkan Korkmaz","Coby White","Gary Payton II","Jae'Sean Tate","Marcus Smart","Kenrich Williams","Devonte' Graham","Luke Kornet","Tobias Harris","Jules Bernard","Victor Wembanyama","Jalen Wilson","Ja Morant","Amen Thompson","Ben Sheppard","Toumani Camara","Aaron Nesmith","Vasilije Micic","Justin Holiday","Kevin Huerter","Lamar Stevens","Isaiah Stewart","CJ McCollum","Cody Zeller","Caris LeVert","Mike Conley","Moses Moody","Johnny Juzang","Javonte Green","Goga Bitadze","Deni Avdija","Otto Porter Jr.","Grayson Allen","Darius Garland","Lonnie Walker IV","Brandon Ingram","Jarred Vanderbilt","Ashton Hagans","Immanuel Quickley","Gary Harris","Julius Randle","Gabe Vincent","Jaylin Williams","Saddiq Bey","Patrick Baldwin Jr.","Clint Capela","Andre Drummond","Daniel Theis","Kris Murray","Jarace Walker","Jonathan Kuminga","Eric Gordon","Saben Lee","Isaiah Jackson","Terry Taylor","Jarrett Allen","Ricky Council IV","Jrue Holiday","Leaky Black","Oshae Brissett","Dwight Powell","Vít Krejčí","Alperen Sengun","Sam Merrill","Gui Santos","Jonas Valanciunas","Wendell Carter Jr.","Marvin Bagley III","Pascal Siakam","Derrick Rose","Aaron Gordon","Moritz Wagner","Cole Anthony","Matt Ryan","Colby Jones","Lester Quiñones","Kenneth Lofton Jr.","Jalen Suggs","Caleb Martin","Orlando Robinson","Christian Wood","Duncan Robinson","Patrick Williams","Dominick Barlow","Domantas Sabonis","DeMar DeRozan","Collin Gillespie","Bam Adebayo","Dyson Daniels","KJ Martin","Jared Butler","Thomas Bryant","Bismack Biyombo","Jakob Poeltl","Danuel House Jr.","Julian Phillips","Davis Bertans","JaVale McGee","De'Andre Hunter","Tre Mann","Kevon Looney","Buddy Hield","Dennis Smith Jr.","Bol Bol","Patty Mills","Trevelin Queen","Kevin Knox II","Aaron Wiggins","Cameron Johnson","Jared Rhoden","Jalen Green","Thaddeus Young","Jericho Sims","Ivica Zubac","Collin Sexton","Tyler Herro","Luka Samanic","Max Christie","Trayce Jackson-Davis","Dorian Finney-Smith","Mason Plumlee","Matisse Thybulle","Khris Middleton","Zion Williamson","Scotty Pippen Jr.","Georges Niang","Luguentz Dort","Cameron Payne","Jaylen Nowell","Zavier Simpson","Markelle Fultz","Onyeka Okongwu","P.J. Washington","Larry Nance Jr.","Mike Muscala","Sasha Vezenkov","Micah Potter","Richaun Holmes","Duop Reath","Cody Martin","Haywood Highsmith","Dennis Schröder","Danilo Gallinari","Kyle Anderson","MarJon Beauchamp","Russell Westbrook","Craig Porter Jr.","Jaylen Brown","Caleb Houstan","Jontay Porter","Cory Joseph","John Konchar","Ousmane Dieng","Jordan Goodwin","Jaden Ivey","Blake Wesley","Xavier Tillman","Ben Simmons","Tristan Thompson","Reggie Jackson","Josh Okogie","Andrew Nembhard","Darius Bazley","Aleksej Pokusevski","Jalen Johnson","Garrett Temple","Joe Harris","Jordan Clarkson","Gary Trent Jr.","Bradley Beal","Jake LaRavia","Trendon Watford","Charles Bassey","Mitchell Robinson","Taj Gibson","Mikal Bridges","Jamal Cain","Noah Clowney","Kobe Bufkin","Ausar Thompson","Cam Whitmore","Jalen Smith","Christian Braun","Ochai Agbaji","Talen Horton-Tucker","Davion Mitchell","Justin Minaya","Miles McBride","Thanasis Antetokounmpo","Jordan Hawkins","Bobby Portis Jr.","Landry Shamet","Kelly Olynyk","Rayan Rupert","Kyle Lowry","Onuralp Bitim","Derrick Jones Jr.","Stanley Umude","Chimezie Metu","Jeremiah Robinson-Earl","Moses Brown","Mo Bamba","Anthony Black","Kessler Edwards","Julian Champagnie","Devin Vassell","Malik Monk","LaMelo Ball","GG Jackson","Isaac Okoro","Walker Kessler","Desmond Bane","Dillon Brooks","Garrison Mathews","Lindy Waters III","Justin Champagnie","Cason Wallace","Gordon Hayward","Taylor Hendricks","Theo Maledon","Scottie Barnes","Dario Saric","Keldon Johnson","AJ Griffin","Evan Mobley","P.J. Tucker","Yuta Watanabe","Trae Young","Marcus Sasser","Deandre Ayton","Zach LaVine","Pat Connaughton","Chuma Okeke","Precious Achiuwa","Bruno Fernando","Jaden Springer","Reggie Bullock Jr.","Klay Thompson","Markieff Morris","Trey Jemison III","Cam Reddish","Tim Hardaway Jr.","Skylar Mays","Paolo Banchero","Evan Fournier","Kira Lewis Jr.","Shake Milton","Keita Bates-Diop","Wesley Matthews","Bones Hyland","Jalen Duren","Ayo Dosunmu","Doug McDermott","Cade Cunningham","Bryce McGowens","Kobe Brown","Luke Kennard","Nikola Vučević","Cam Thomas","Marcus Morris Sr.","Chris Duarte","Julian Strawther","Ibou Badji","Jaden McDaniels","Peyton Watson","Olivier-Maxence Prosper","Donte DiVincenzo","DeAndre Jordan","David Roddy","Troy Brown Jr.","RJ Barrett","Santi Aldama","Jabari Walker","Kelly Oubre Jr.","Dejounte Murray","Tosan Evbuomwan","Johnny Davis","Patrick Beverley","Jeff Green","Nick Smith Jr.","Jabari Smith Jr.","Jaxson Hayes","Jerami Grant","Trent Forrest","Brandon Miller","Brandon Boston Jr.","Omer Yurtseven","Jaren Jackson Jr.","Jacob Gilyard","Jordan Nwora","Quentin Grimes","Terance Mann","Jeremy Sochan","Drew Eubanks","Malachi Flynn","Jaden Hardy","Nate Mensah","Alec Burks","Nassir Little","Killian Hayes","Javon Freeman-Liberty","Damian Jones","Eugene Omoruyi","Jalen McDaniels","Austin Reaves","Andrew Wiggins","Andre Jackson Jr.","Bilal Coulibaly","Nick Richards","Bruce Brown","Anfernee Simons","Terry Rozier","Shaedon Sharpe","Brice Sensabaugh","Amir Coffey","Corey Kispert","Bennedict Mathurin","Josh Richardson","Torrey Craig","Ziaire Williams","Dalano Banton","Grant Williams","Nic Claxton","Kyle Kuzma","Josh Green","Taurean Prince","Jae Crowder","Harrison Barnes","Isaiah Livers","Tyus Jones","Jordan Poole","Zeke Nnaji","Keyonte George","James Wiseman","Malaki Branham","John Collins","Ish Smith","Miles Bridges","Zach Collins","Bojan Bogdanovic","Cedi Osman","Gradey Dick","Scoot Henderson"],"x":[5.528205292976419,5.271962637716082,4.939514475959601,4.835255788034981,4.802198877950691,4.195536075939405,4.068251510627419,3.771494123126636,3.7711229768999295,3.7577885521635057,3.71072381499032,3.7035009674591537,3.6475447019822287,3.635820335932251,3.6231222771907494,3.6130718650037026,3.603051509047146,3.477988885591159,3.4626750215727444,3.442133093336255,3.404133253257503,3.3728162350040316,3.36593026597498,3.3279854952758026,3.3278797202377453,3.298819350321893,3.257627039577388,3.1288435132291705,3.0529801346493395,2.9917497417241607,2.9782825507757926,2.9563709682349635,2.8030405874323683,2.795002381208382,2.7714328456214052,2.7685180148246142,2.7402315049798096,2.7210286049557966,2.7041821538113378,2.7037622567540316,2.669617970282105,2.6399801369981137,2.6264961201475363,2.6082179974136577,2.431212998879912,2.4272280830155326,2.423815854232822,2.423136320298356,2.37353915727572,2.3481825379693504,2.29278923597263,2.2871290126298165,2.2019775859615702,2.1597086605372295,2.156453780140406,2.1505630898113295,2.1500228582635117,2.1356726546285114,2.135374533425227,2.1105789940431854,2.1098534256384447,2.0276083296615113,1.9566884038913035,1.95092136119159,1.925853702438319,1.923094764472155,1.8028332376034573,1.7923052192940399,1.7750896009643564,1.690889607428239,1.6865676228919444,1.6840323226867686,1.6724917599507854,1.6405384239023126,1.6381137394927434,1.6186758868537452,1.6162581230930002,1.614342208946739,1.6020238029322913,1.5910273522958802,1.587038870969967,1.5756051161401314,1.565879118464743,1.5585370962586746,1.5545185871875935,1.5433461812693732,1.5416213430737866,1.5335872035843237,1.5325668917701911,1.5299049876933348,1.503285907754943,1.480082659931775,1.4508721254549453,1.426049168482273,1.4240341385988966,1.4112836011511152,1.4036004591088538,1.388208415786729,1.3437561281588446,1.3123913054385123,1.304074907968014,1.286737026625519,1.2620282972216004,1.2487268563693688,1.2441485362057867,1.2306602230036428,1.217598887687061,1.214716470295985,1.210641737014683,1.191752810931274,1.1578816705903876,1.1370861852396665,1.1280807762701945,1.1271950478918673,1.1252704195832801,1.1173691471346714,1.1145644866999702,1.1092027286806383,1.0932479396457284,1.0520582873129365,1.0470615160116317,1.0303726388140841,1.0024929608767208,0.990450218110816,0.9775614131653675,0.9755436939316395,0.96190131823767,0.9613634055777942,0.9459468890890083,0.9379967945622947,0.9371050697596311,0.9098863866838796,0.9071337436680255,0.8995799342231516,0.8985259680822025,0.8941965204507448,0.8938755572439224,0.8538844511508126,0.8313769815392457,0.8195971262789429,0.8146565260709354,0.8143810719868168,0.808040539947062,0.8020686777909002,0.7897155926160456,0.7802631517462799,0.7681657610068461,0.750383498487219,0.7348190099913746,0.7221205278265715,0.7123363334771715,0.7102573694045287,0.7017279496532195,0.6968803667066292,0.6930635653872339,0.66762983315876,0.6334712332562416,0.6267607941766742,0.6050742597728502,0.5928430818919649,0.5713725715145009,0.5628050825712764,0.5343029303844715,0.5248532093489747,0.5199641695519757,0.5197499470864365,0.5065548159049535,0.499310890726897,0.4877867720064651,0.48701630226532905,0.48292852283503623,0.4793535375032696,0.4674625925803033,0.44417873770644434,0.42673076936340354,0.41224045346007543,0.40661995104777177,0.4030966752030217,0.39116795837562657,0.38532417427953464,0.38492464501228324,0.38381680343320196,0.37333113630826503,0.3566785066424161,0.3389320291473388,0.3383359373179899,0.3333005083798761,0.3329637007433733,0.3220878225310934,0.31287857741377484,0.30584596150066024,0.3057348756110336,0.3036519974363967,0.29102034659629045,0.2819574033803739,0.2311780197205735,0.22901428250118383,0.214375381577058,0.20686729636050102,0.2008971070776801,0.16908037669438097,0.16141403592747586,0.15754585581170177,0.14986209841137826,0.12899852980269616,0.10725052348022589,0.10566013401253586,0.0844853845196441,0.07680142704720391,0.0735871776325764,0.060291527441343744,0.04218117778046751,0.019105048436306785,0.013374193278721374,0.01169097024249497,-0.009227451226244509,-0.016646594623433847,-0.030000844045849656,-0.034165150002395894,-0.036567959974913855,-0.04823453243835653,-0.07016162402312004,-0.10946198882151165,-0.11835122557605621,-0.12229709808259753,-0.13760942788778308,-0.15036798769898846,-0.1587994068432182,-0.1686030994425073,-0.18149804599729868,-0.21477350219357838,-0.22101825631625083,-0.23782937966012666,-0.24061896548920336,-0.2573522090420546,-0.2756861529873933,-0.2845596530879406,-0.2869527257790104,-0.2877471373319562,-0.28905832273286736,-0.29298435549740903,-0.2932674922049728,-0.29497381597872124,-0.295888943068038,-0.33139228717038544,-0.33447209442530756,-0.3420684969178701,-0.3592577172880178,-0.37093294799926424,-0.3844337569408078,-0.3937314321997524,-0.3937564146889268,-0.3940160240821225,-0.3992954337703894,-0.40625534416262726,-0.42973417323397095,-0.4371415001485582,-0.4526277966468457,-0.4606706441624394,-0.4610799833399287,-0.47036630373344546,-0.49241390369671845,-0.4959914161382794,-0.5104557939229395,-0.5145644873347228,-0.5203279558956123,-0.5255786392861982,-0.5259341233838252,-0.5389759195643767,-0.5508828332840553,-0.55406575986685,-0.5553320075324023,-0.5673614057820581,-0.5961722258545983,-0.6226679476990958,-0.631643806596585,-0.6419906587050843,-0.6443962630700582,-0.6570603022856566,-0.665471011336191,-0.6680665410871984,-0.6709874567232506,-0.6799073697799509,-0.6842327174417555,-0.6945542728881963,-0.6975455153452297,-0.7000041394060788,-0.7239766222626421,-0.736915978887059,-0.7627439694658302,-0.7648697189170093,-0.776385655714866,-0.7850748466011424,-0.7933498944094752,-0.8004766058639078,-0.8046999750531617,-0.8049378268319224,-0.8237699162667144,-0.8396667695128542,-0.8496590197574085,-0.8530293764997625,-0.879820433770572,-0.8800101936804587,-0.8818788305640026,-0.8854682543500683,-0.8966854975413326,-0.903622786812015,-0.9036770375222831,-0.9190308143687715,-0.9308958662439684,-0.9370166306467348,-0.9546307676834496,-0.956277524233667,-0.9678560351662683,-0.9736616777532009,-0.9766029244176215,-0.9851887964796493,-0.9906059043206414,-1.0177289055237795,-1.0239411047132727,-1.0304071050076775,-1.0404334827812431,-1.0434097101076496,-1.0481064162394322,-1.0701454904201506,-1.071308420110808,-1.090761069437686,-1.1520736198226185,-1.1525082088068852,-1.154301895395651,-1.158777364470456,-1.1631109295224071,-1.173932802860324,-1.1843477486866905,-1.1843500687804034,-1.1872520068779941,-1.2004489172842405,-1.2147923513300034,-1.2209522597739695,-1.236484056761066,-1.2522863553735974,-1.2527581706778077,-1.2673188807977125,-1.27299857966417,-1.2912980870761956,-1.3228348998062576,-1.3290708957889823,-1.3339418200190791,-1.345970708586736,-1.3466889243922608,-1.3583250229937551,-1.377432216843454,-1.3791932270874983,-1.391713265324817,-1.412117204252671,-1.4260020354447303,-1.4570544756180124,-1.4618283080510668,-1.5017135250774474,-1.534923511566817,-1.5350292281216675,-1.5392466244373968,-1.5843609492659132,-1.5921675301014189,-1.6209851910814073,-1.636276205196024,-1.636674998610954,-1.6619043327038299,-1.6817932298444587,-1.6863872756955327,-1.6888583653361755,-1.6919263790617765,-1.7117982752138838,-1.7716221496711027,-1.7770986650769574,-1.80056901440476,-1.8051845629516234,-1.8099426866346686,-1.8391329136737347,-1.848626043171654,-1.855280541026197,-1.8891774342698198,-1.8968153317966998,-1.9039530085323533,-1.9402634534550256,-1.9522484413287298,-1.9654564930236469,-1.9698469305972959,-1.985626714870245,-2.0349314154290474,-2.0542094558623347,-2.056199025717617,-2.05749767192653,-2.06152468147388,-2.07013661749155,-2.0705250270831788,-2.0917720444331156,-2.101629862667841,-2.1250600861666595,-2.134648876782436,-2.167333220625544,-2.1713152057141762,-2.171489401188273,-2.191296338282673,-2.1943557312831072,-2.1969976384945706,-2.2044982443562966,-2.214717103899278,-2.2186336572085965,-2.221336202429909,-2.228829482977081,-2.244226269555382,-2.260025498844133,-2.360311066783456,-2.405852305706769,-2.413195003887403,-2.4309998365919956,-2.4466627928181666,-2.454919780151245,-2.4726668537228385,-2.4846850129282982,-2.4936655066197653,-2.5849715906370165,-2.6120144052689467,-2.626910881722218,-2.6857570734367977,-2.689736472645921,-2.749969693823844,-2.752958178448227,-2.7767424017222244,-2.8242097879075696,-2.8295176511720954,-2.851242541978331,-2.852017523929633,-2.913991404081833,-2.9158815818457717,-2.9360151722744376,-2.945951331448503,-2.9837950225400904,-3.0518120801688426,-3.081364031781529,-3.1288906885893737,-3.1425376074380527,-3.252959560429089,-3.3542473763127036,-3.467895962067621,-3.490758419968625,-3.605189116081467,-3.8318258345560534,-4.004825763760327,-4.186419681413553,-4.564638993538651],"y":[5.118187901693804,5.272490542655767,4.922710483447889,4.830371643672569,5.525206700085102,4.414967900735185,4.73690803093876,3.816976217129912,3.7555175450173635,3.6289517385266614,3.7283257842091593,3.4627710695144356,3.8214937030925027,3.0094070572497778,3.0457813404274936,3.7934751290880544,4.056795734729113,3.690142662457522,3.155710840222961,3.5552542616254295,2.318465502782171,1.263096289404689,3.0703114156412807,3.6037658913589197,3.501639673914159,3.4106685561805055,3.541503472616065,3.6115425198975686,2.655170439293659,2.775034105935425,3.5533865458051612,4.11259066751276,3.203733255800663,3.1017899095812504,2.915531414070998,3.306808353456325,2.616756042126994,2.6516280811607027,3.4944658817452243,2.6134812140573036,1.9351661367103024,3.237817192300571,2.465175743814223,2.9492714136744413,2.502794392696102,2.0039539983639845,1.5004355424140576,2.3664711131777088,2.234290174042201,1.7194470236165507,2.204839561409297,2.864783555869308,3.674685747442317,0.5162653509477513,2.6492247965269535,1.887836222302038,1.8676036861642822,2.5951779640015875,1.4815580780024848,2.6010782555734346,1.8280525166235184,1.9363381486436908,2.049461663538325,2.056490548652413,1.58365762498751,1.8398560310036862,1.9148400416765579,1.487158976712225,2.85449499658351,2.299326071419811,2.540496569675752,1.57993837210382,2.0529200064024047,1.800067428763095,1.304640272466775,1.5275756481912746,1.394475162687983,1.6602840391779725,1.6659947983631402,1.438610308057105,2.005424614115136,1.7205672754854109,2.1825878685663853,1.4156570920734723,0.9952831013228586,1.6941810835979147,2.098832971894812,1.1491334105493634,0.8662040242597241,1.1427407869488093,1.2423377070898498,1.268262590626893,1.761135597596888,0.9510239149801234,0.9685742702380213,1.371011862314705,1.1820346464797389,1.1314945032244654,1.5956792363453312,1.4794675010107985,0.6713200871193248,0.7786394193965319,0.11778075202823311,1.6235373589113078,0.6544527277200078,1.2080332610464728,1.1717177199848419,1.3094387553033249,1.0896141999946443,0.6448960965111065,1.581219298105854,2.2739690637917547,1.4646291392792492,1.4668601136540071,1.7399755578441385,1.1297717506705685,0.7123752498905274,1.2489574181312155,1.0272526864481049,1.1968588269483074,0.2879277563132934,0.969257060980896,0.6687892383026092,0.697939793137491,0.9619021900702777,2.095868063962526,0.9197932146183035,0.9678912033211047,1.0691720964719569,0.9243762936909786,0.2889845438869208,0.790682537389409,0.25213571363825776,1.042947863070795,-0.048129968875799206,0.3380331973951703,1.0052340028689777,1.3962292617122953,1.415137302043647,0.9848440982400801,0.6323374972443498,1.1101595829405833,0.6752198602881386,0.16366590353328472,0.887204657076204,1.396735959350998,0.5587076312138869,1.0910729333609617,0.7254097981232168,0.8638614509908898,0.6620908661235457,0.8752941030061041,0.8648307984094808,0.5074956683309957,0.6318714289106033,0.26174253903933953,-0.09859074396612921,0.23301329259032816,0.7128649608622416,1.5109417939932717,0.41990807290002735,0.24770702358729646,0.11514929306376047,0.19724365125186585,1.259742516618678,0.4328243435642478,0.9666857063341212,-0.004030499056892087,0.6051542259856396,0.8553397076083831,0.2858766709833124,1.1141761910754298,-0.6875663346652452,0.443712673469252,0.7043099516663898,0.12429074898093861,0.3646185335891095,0.4834988212406953,-0.07264596906574865,1.8369515004276054,-0.3522240380742603,-0.8520237959071867,-0.09395014631171508,0.32940938843313283,0.0005604424556885964,0.1067101428933768,0.7386064451628613,0.13505460639840283,0.02877134499952716,0.035989884705775396,0.03171485675502529,0.6043797577437644,0.008390254127995912,0.9076093689354005,0.3899995238386676,-0.06358587642268641,0.6361697200294945,0.7654023874202972,0.34803231912190147,-0.2633328361798294,0.14253599271136022,0.4350395076477436,0.9048480977512824,0.2765824320620809,-0.1446807721427033,-0.9273632764347375,-0.7347186909401766,0.4912055976525435,0.28009312292795907,1.1477465831660794,-0.14672281550981675,0.9043936840787166,0.13972477661939356,-0.19881889438224176,0.3966133780367145,-0.5154228255586681,0.4788383683375355,-0.6955045572412553,-0.15921607288978454,-1.1117767537351462,-0.08759938020891966,-0.45569735910166353,-0.2698095979808029,0.19461311556358935,0.6511218589429545,-0.6205838995186369,-0.5098497850081566,-0.32993268318991803,0.2879795380888902,-0.49180279917405517,-0.587360214038997,0.19313495008970544,-0.3444814267454915,-0.3810165563054178,-0.8456464029652427,1.2283393764276271,-0.6203885336738036,-0.6883876349030756,-0.5484259481085213,-0.5443424978777832,0.11169614591143612,0.17140642351054947,0.5923602159961355,-0.9404628165618746,-0.015385440040289836,-0.27902424703241285,-0.8334205243935126,-0.030862666887817403,-0.35441961951089646,-0.5134562947306732,-0.5926022061108698,-0.7969396974510756,0.135360349380031,-0.7917631088968796,0.07487025169629072,-0.5902921212649276,0.5836891124372257,-0.5032607603721274,-0.4035633562344128,-0.31205662505670406,-0.6798102169730355,-1.133816118039938,-0.5417047069835333,-0.495873463405041,-0.7675404793091659,-0.20174412092302052,0.16561027005863727,-0.06025358553452307,-1.7077327776936009,-0.06360030677860529,-0.04655248151999736,-0.36983763797717495,-0.9105166188812853,-1.1826968515566474,-0.6741706425169388,-1.114930008780829,-1.0882170958113924,-1.0837022833019936,-0.20328127653061787,-0.8793659968373728,-0.6314400361734792,-0.6025734041411694,-0.2982015799752598,-0.38439313329533836,-0.7606577383749783,-0.787351264586722,-0.7497877656243406,-1.145817426728809,0.6902557254758334,-0.8012693414203614,-0.4616157425938256,-0.5383864761472821,-0.8751887450219593,-0.7177237822909714,-1.083432574965561,-1.0657632437873101,-0.9038788365670675,-1.1293478767295178,-2.02218119426231,-0.40142266162828555,-0.9646839730297188,-1.4883173908386456,-1.468087274639827,-0.6990887007725445,-0.8913548388569159,-0.38542243497072903,-1.075605415199973,-1.281223251512187,-0.6835864877063901,-1.4155176500607045,-0.5705538811346009,-0.04547845046990988,-0.7705270946663068,-0.6461532915742056,-0.5191771595078921,-1.8635285830201527,-0.6983989174479175,-0.44600010334507495,0.14383636395834515,-0.7334702720200451,-0.3759823625673994,0.4545312038996442,-1.6056610351844254,-1.8109354215904685,-1.2560741593999698,-0.02649172501196446,-1.6458547364546958,-1.2525953952118505,-1.3707856525427198,-0.9735877643320112,-1.6134226346431237,-1.3330904993489352,-1.041343881730854,-0.717203862843763,-1.0232411830371935,-1.5990252556103564,-1.3424320477464846,-1.6607268085909048,-0.4152618345988851,-1.5247081150611985,-1.9490422657024797,-1.4796181208533312,-1.668984111000732,-1.3406046358015198,-1.4102649837775871,-1.4410324053831975,-1.641427369685033,-1.666976060012416,-1.0808235742779824,-1.8398310002874896,-1.9020538337524495,-1.8971223252154237,-0.8190486054808285,-1.7786623284630332,-1.4531415131659542,-1.7945035535502576,-1.7305875126175623,-1.6846159891502281,-1.6443711870877253,-1.0394852708872926,-1.505533080950049,-2.816898230670464,-1.264907802007407,-1.8126516339209173,-1.888115914942023,-2.187731447298589,-1.1119171110234154,-1.6983296744475493,-1.5364376213870556,-1.6206530867895994,-2.0723217264895117,-1.603276430420661,-0.5507346680650449,-0.8031711784169289,-2.017676646720016,-1.3346082655085754,-2.0460855303609127,-2.2777726539590297,-2.174139272632321,-0.8816246398966583,-2.4917553724917485,-1.9120187617619941,-1.6226142199291276,-1.0181052968147892,-1.704412747794653,-2.0135574196067356,-1.1253522327145324,-2.2514880439559093,-2.9229711901563684,-1.8244767863299034,-2.049548874459675,-2.246009292018497,-2.2735021407561455,-2.2864208262113714,-2.1115150466463373,-2.319808601518119,-1.5157577400505784,-1.984945198777967,-2.6819725904420713,-1.9575503886418435,-1.2059066358896064,-1.4365070519520993,-2.886376561697536,-2.4002731489273827,-2.639564655654247,-2.831658630913919,-2.90786466004033,-2.38100629120063,-2.6711354624445742,-1.9773479016749882,-2.542340071366265,-2.049530000116464,-2.321089343558249,-1.6531061858589726,-1.1184324426535144,-2.306157400557455,-2.1212485941884522,-1.73236851086873,-2.3420076464198725,-1.9895946139429574,-2.191703108990726,-1.724318229907959,-2.817563402572746,-2.4916483565897924,-3.410368741108785,-3.0682587540933484,-2.8705407701047023,-2.284579289364052,-2.729933684588073,-2.6894848298506986,-2.5943787591008562,-2.512353356582527,-2.4399350879434536,-1.9086847595438254,-2.2014006909738777,-2.327437244853609,-2.15628542630562,-3.082218789232291,-2.3134930193066743,-3.004882417968841,-3.0774894993629225,-3.086892814971615,-3.6022522922491165,-3.4602590521202425,-2.542997081193763,-3.514869338339988,-3.0682160878473943,-2.9542855666591272,-3.624681787348001,-4.3183832126959985,-4.423001899087448,-3.9640925298285876],"type":"scatter"}],                        {"font":{"color":"#52514e","family":"system-ui, -apple-system, Segoe UI, sans-serif","size":12},"height":640,"margin":{"b":60,"l":80,"r":60,"t":90},"paper_bgcolor":"#fcfcfb","plot_bgcolor":"#fcfcfb","showlegend":false,"title":{"font":{"color":"#0b0b0b","size":17},"text":"\u003cb\u003eOpponent adjustment: stint RAPM vs lineup-aggregate model\u003c\u002fb\u003e\u003cbr\u003e\u003cspan style='font-size:12px;color:#52514e'\u003eEach dot is a player, 2023-24 · Spearman 0.96 · departures from the diagonal are opponent strength + estimation noise\u003c\u002fspan\u003e","x":0,"xanchor":"left"},"width":760,"xaxis":{"gridcolor":"#e1e0d9","linecolor":"#c3c2b7","showgrid":true,"tickfont":{"color":"#898781","size":11},"title":{"text":"Lineup-aggregate estimate (per 100)"},"zeroline":false},"yaxis":{"gridcolor":"#e1e0d9","linecolor":"#c3c2b7","showgrid":true,"tickfont":{"color":"#898781","size":11},"title":{"text":"Stint RAPM, opponent-adjusted (per 100)"},"zeroline":false},"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}}},                        {"responsive": true}                    )                };            </script>        </div>
+        <script>/* famplot — the family's SVG chart engine.
+ *
+ * Implements the subset of the Plotly API that the studies' figures use
+ * (newPlot / react / relayout / Plots.resize) and renders them as hand-drawn
+ * SVG in the family chart style: thin marks, 4px rounded data-ends, hairline
+ * grids, surface gaps, a dark-chip tooltip, selective direct labels via the
+ * spec's own annotations. Trace types: scatter (lines / markers / bands /
+ * dashed), bar (vertical, horizontal, grouped), histogram. Anything colors:
+ * whatever hexes the spec carries (the page runtime darkens them for dark
+ * scheme before calling react).
+ *
+ * The interactive plotly originals remain available by running each study's
+ * figure scripts on GitHub (python/0*.py -> figures/*.html).
+ */
+(function () {
+  "use strict";
+
+  var NS = "http://www.w3.org/2000/svg";
+
+  function el(tag, attrs, parent) {
+    var n = document.createElementNS(NS, tag);
+    for (var k in attrs) n.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(n);
+    return n;
+  }
+
+  /* plotly's write_html packs numeric arrays as {dtype, bdata(, shape)} —
+   * decode them back to plain arrays so the renderer sees numbers. */
+  var DTYPES = { f8: Float64Array, f4: Float32Array, i4: Int32Array,
+                 i2: Int16Array, i1: Int8Array, u4: Uint32Array,
+                 u2: Uint16Array, u1: Uint8Array };
+  function decode(v) {
+    if (!v || typeof v !== "object" || Array.isArray(v) || !v.bdata) return v;
+    var T = DTYPES[v.dtype] || Float64Array;
+    var bin = atob(v.bdata);
+    var bytes = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    var flat = Array.prototype.slice.call(new T(bytes.buffer));
+    var shape = v.shape && String(v.shape).split(",").map(Number);
+    if (shape && shape.length === 2) {
+      var rows = [];
+      for (var r = 0; r < shape[0]; r++) {
+        rows.push(flat.slice(r * shape[1], (r + 1) * shape[1]));
+      }
+      return rows;
+    }
+    return flat;
+  }
+  function decodeTrace(tr) {
+    ["x", "y", "customdata"].forEach(function (k) {
+      if (tr[k] != null) tr[k] = decode(tr[k]);
+    });
+    if (tr.marker && tr.marker.color != null) {
+      tr.marker.color = decode(tr.marker.color);
+    }
+    return tr;
+  }
+
+  /* Traces without explicit colors take the family categorical order,
+   * assigned by trace index (never re-cycled). Spec-carried colors are
+   * darkened by the page runtime; these engine-side fallbacks pick the
+   * dark steps themselves by checking the theme stamped on the body. */
+  var FAMILY_WAY = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100",
+                    "#e87ba4", "#008300", "#4a3aa7", "#e34948"];
+  var FAMILY_WAY_DARK = ["#3987e5", "#d95926", "#199e70", "#c98500",
+                         "#d55181", "#008300", "#9085e9", "#e66767"];
+  function isDarkDoc() {
+    var b = document.body;
+    if (b && b.classList.contains("fam-dark")) return true;
+    if (b && b.classList.contains("fam-light")) return false;
+    return window.matchMedia &&
+      matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+
+  /* Numeric marker colors map through the trace's colorscale. */
+  function hexToRgb(h) {
+    if (h[0] !== "#") return [128, 128, 128];
+    return [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16),
+            parseInt(h.slice(5, 7), 16)];
+  }
+  function scaleColor(scale, t) {
+    for (var i = 1; i < scale.length; i++) {
+      if (t <= scale[i][0]) {
+        var a = scale[i - 1], b = scale[i];
+        var f = (t - a[0]) / ((b[0] - a[0]) || 1);
+        var ca = hexToRgb(a[1]), cb = hexToRgb(b[1]);
+        return "rgb(" + ca.map(function (v, j) {
+          return Math.round(v + (cb[j] - v) * f);
+        }).join(",") + ")";
+      }
+    }
+    return scale[scale.length - 1][1];
+  }
+
+  function stripTags(s) {
+    return String(s == null ? "" : s)
+      .replace(/<br\s*\/?>/gi, "\n")
+      .replace(/<[^>]+>/g, "")
+      .replace(/&#8220;|&#8221;/g, '"')
+      .replace(/&#8216;|&#8217;/g, "'")
+      .replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">")
+      .replace(/&nbsp;/g, " ");
+  }
+
+  /* ---- d3-format-lite: the specifiers the figures actually use ---- */
+  function fmt(spec, v) {
+    if (v == null || typeof v !== "number" || !isFinite(v)) return String(v);
+    if (!spec) {
+      return String(Math.round(v * 1000) / 1000);
+    }
+    var plus = spec.indexOf("+") >= 0;
+    var comma = spec.indexOf(",") >= 0;
+    var m = spec.match(/\.(\d+)([f%])/);
+    var out;
+    if (m && m[2] === "%") {
+      out = (v * 100).toFixed(+m[1]) + "%";
+    } else if (m) {
+      out = v.toFixed(+m[1]);
+      if (comma) out = commas(out);
+    } else if (comma) {
+      out = commas(String(Math.round(v)));
+    } else {
+      out = String(v);
+    }
+    if (plus && v > 0) out = "+" + out;
+    return out;
+  }
+  function commas(s) {
+    var p = s.split(".");
+    p[0] = p[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return p.join(".");
+  }
+
+  /* Fill a hovertemplate for point i of trace tr. */
+  function hover(tr, i, xv, yv) {
+    var t = tr.hovertemplate;
+    if (!t) {
+      var name = tr.name ? tr.name + ": " : "";
+      return name + fmtVal(xv) + ", " + fmtVal(yv);
+    }
+    t = t.replace(/<extra>.*?<\/extra>/g, "");
+    t = t.replace(/%\{([^}]+)\}/g, function (_, expr) {
+      var parts = expr.split(":");
+      var path = parts[0], f = parts.slice(1).join(":");
+      var val;
+      if (path === "x") val = xv;
+      else if (path === "y") val = yv;
+      else if (path.indexOf("customdata[") === 0) {
+        var idx = +path.slice(11, -1);
+        val = tr.customdata && tr.customdata[i] ? tr.customdata[i][idx] : "";
+      } else if (path === "fullData.name") val = tr.name || "";
+      else val = "";
+      return typeof val === "number" ? fmt(f, val) : String(val);
+    });
+    return stripTags(t);
+  }
+  function fmtVal(v) {
+    return typeof v === "number" ? fmt(null, v) : String(v);
+  }
+
+  /* ---- scales ---- */
+  function linScale(d0, d1, r0, r1) {
+    var f = function (v) { return r0 + (v - d0) / (d1 - d0 || 1) * (r1 - r0); };
+    f.d0 = d0; f.d1 = d1;
+    return f;
+  }
+  function niceTicks(d0, d1, n) {
+    var span = d1 - d0 || 1;
+    var step = Math.pow(10, Math.floor(Math.log(span / n) / Math.LN10));
+    var err = span / n / step;
+    if (err >= 7.5) step *= 10; else if (err >= 3.5) step *= 5;
+    else if (err >= 1.5) step *= 2;
+    var ticks = [];
+    for (var v = Math.ceil(d0 / step) * step; v <= d1 + step / 1e6; v += step) {
+      ticks.push(Math.abs(v) < step / 1e6 ? 0 : Math.round(v * 1e9) / 1e9);
+    }
+    return ticks;
+  }
+
+  /* ---- histogram binning ---- */
+  function binHistogram(tr) {
+    var xs = tr.x.filter(function (v) { return v != null; });
+    var lo = Math.min.apply(null, xs), hi = Math.max.apply(null, xs);
+    var n = tr.nbinsx || Math.ceil(Math.sqrt(xs.length));
+    var step = (hi - lo) / n || 1;
+    var counts = new Array(n).fill(0);
+    xs.forEach(function (v) {
+      var b = Math.min(n - 1, Math.floor((v - lo) / step));
+      counts[b] += 1;
+    });
+    var total = xs.length;
+    return counts.map(function (c, i) {
+      return { x: lo + (i + 0.5) * step, w: step,
+               y: tr.histnorm === "probability" ? c / total : c };
+    });
+  }
+
+  /* ---- tooltip (one per document) ---- */
+  var tip = null;
+  function ensureTip() {
+    if (tip) return tip;
+    tip = document.createElement("div");
+    tip.className = "famplot-tip";
+    var st = document.createElement("style");
+    st.textContent =
+      ".famplot-tip{position:fixed;z-index:30;pointer-events:none;" +
+      "background:#262521;color:#f5f3ec;border-radius:6px;" +
+      "padding:.4rem .6rem;font:12.5px/1.45 system-ui,-apple-system," +
+      "'Segoe UI',sans-serif;box-shadow:0 4px 14px rgba(0,0,0,.28);" +
+      "opacity:0;max-width:260px;white-space:pre-line}" +
+      ".famplot-tip.on{opacity:1}" +
+      "body.fam-dark .famplot-tip{background:#f5f3ec;color:#161512}";
+    document.head.appendChild(st);
+    document.body.appendChild(tip);
+    return tip;
+  }
+  function showTip(evt, text) {
+    var t = ensureTip();
+    t.textContent = text;
+    t.classList.add("on");
+    var pad = 12;
+    var x = evt.clientX + pad, y = evt.clientY + pad;
+    var r = t.getBoundingClientRect();
+    if (x + r.width > innerWidth - 6) x = evt.clientX - r.width - pad;
+    if (y + r.height > innerHeight - 6) y = evt.clientY - r.height - pad;
+    t.style.left = x + "px"; t.style.top = y + "px";
+  }
+  function hideTip() { if (tip) tip.classList.remove("on"); }
+
+  /* ---- the renderer ---- */
+  function render(gd) {
+    var data = gd.data || [], layout = gd.layout || {};
+    gd.textContent = "";
+    var W = gd.clientWidth || layout.width || 700;
+    var H = layout.height || 480;
+    if (W < 560) H = Math.max(300, Math.round(H * (W / 560)));
+    var mg = layout.margin || {};
+    var M = { l: mg.l != null ? mg.l : 60, r: mg.r != null ? mg.r : 30,
+              t: mg.t != null ? mg.t : 60, b: mg.b != null ? mg.b : 50 };
+    if (W < 700 && M.r > 40) M.r = 24;
+    var fontCol = (layout.font && layout.font.color) || "#52514e";
+    var titleCol = (layout.title && layout.title.font &&
+                    layout.title.font.color) || fontCol;
+    var XA = layout.xaxis || {}, YA = layout.yaxis || {};
+    var grid = XA.gridcolor || YA.gridcolor || "#e1e0d9";
+    var axline = XA.linecolor || YA.linecolor || "#c3c2b7";
+
+    var svg = el("svg", { viewBox: "0 0 " + W + " " + H, width: "100%",
+                          role: "img" }, gd);
+    svg.style.display = "block";
+    svg.style.fontFamily = (layout.font && layout.font.family) ||
+      "system-ui, -apple-system, 'Segoe UI', sans-serif";
+    el("rect", { x: 0, y: 0, width: W, height: H,
+                 fill: layout.paper_bgcolor || "#fcfcfb" }, svg);
+
+    /* title (multi-line safe) */
+    var titleText = stripTags(layout.title && layout.title.text);
+    if (titleText) {
+      var tl = titleText.split("\n");
+      tl.forEach(function (line, i) {
+        var tt = el("text", { x: M.l, y: 24 + i * 19, fill: titleCol,
+          "font-size": "15px", "font-weight": i === 0 ? "600" : "400" }, svg);
+        if (i > 0) tt.setAttribute("fill", fontCol);
+        tt.textContent = line;
+      });
+      if (tl.length > 1 && M.t < 30 + tl.length * 19) {
+        M.t = 30 + tl.length * 19;
+      }
+    }
+
+    var pw = W - M.l - M.r, ph = H - M.t - M.b;
+    var plot = el("g", {}, svg);
+
+    /* ---- assemble series geometry ---- */
+    var tIdx = new Map();
+    data.forEach(function (tr, i) { tIdx.set(tr, i); });
+    function traceColor(tr) {
+      if (tr.line && tr.line.color) return tr.line.color;
+      if (tr.marker && typeof tr.marker.color === "string") {
+        return tr.marker.color;
+      }
+      var way = isDarkDoc() ? FAMILY_WAY_DARK : FAMILY_WAY;
+      return way[(tIdx.get(tr) || 0) % way.length];
+    }
+    var bars = [], hbars = [], lines = [], points = [], bands = [];
+    var catX = XA.type === "category";
+    var xCats = [], yCats = [];
+    data.forEach(function (tr) {
+      if (tr.visible === false) return;
+      var type = tr.type || "scatter";
+      if (type === "histogram") {
+        binHistogram(tr).forEach(function (b) {
+          bars.push({ tr: tr, x: b.x, y: b.y, w: b.w, i: -1 });
+        });
+      } else if (type === "bar" && tr.orientation === "h") {
+        (tr.y || []).forEach(function (yv, i) {
+          yCats.indexOf(yv) < 0 && yCats.push(yv);
+          hbars.push({ tr: tr, cat: yv, v: tr.x[i], i: i });
+        });
+      } else if (type === "bar") {
+        (tr.x || []).forEach(function (xv, i) {
+          if (catX || typeof xv === "string") {
+            xCats.indexOf(xv) < 0 && xCats.push(xv);
+          }
+          bars.push({ tr: tr, x: xv, y: tr.y[i], i: i });
+        });
+      } else { /* scatter */
+        var mode = tr.mode || "lines";
+        if (tr.fill === "toself") {
+          bands.push({ tr: tr, xs: tr.x, ys: tr.y });
+        } else if (tr.fill === "tonexty") {
+          bands.push({ tr: tr, xs: tr.x, ys: tr.y, tonext: true });
+          if (mode.indexOf("lines") >= 0) lines.push(tr);
+        } else {
+          if (mode.indexOf("lines") >= 0) lines.push(tr);
+          if (mode.indexOf("markers") >= 0) {
+            (tr.x || []).forEach(function (xv, i) {
+              if (catX || typeof xv === "string") {
+                xCats.indexOf(xv) < 0 && xCats.push(xv);
+              }
+              points.push({ tr: tr, x: xv, y: tr.y[i], i: i });
+            });
+          }
+        }
+      }
+    });
+    var barTraces = [];
+    data.forEach(function (tr) {
+      if ((tr.type === "bar" || tr.type === "histogram") &&
+          barTraces.indexOf(tr) < 0) barTraces.push(tr);
+    });
+
+    /* ---- domains ---- */
+    function extent(vals, pad, zero) {
+      var lo = Infinity, hi = -Infinity;
+      vals.forEach(function (v) {
+        if (typeof v === "number" && isFinite(v)) {
+          if (v < lo) lo = v; if (v > hi) hi = v;
+        }
+      });
+      if (lo === Infinity) { lo = 0; hi = 1; }
+      if (zero && lo > 0) lo = 0;
+      if (zero && hi < 0) hi = 0;
+      var span = (hi - lo) || Math.abs(hi) || 1;
+      return [lo - (zero && lo === 0 ? 0 : span * pad), hi + span * pad];
+    }
+    var xs = [], ys = [];
+    bands.forEach(function (b) { xs = xs.concat(b.xs); ys = ys.concat(b.ys); });
+    lines.forEach(function (tr) { xs = xs.concat(tr.x); ys = ys.concat(tr.y); });
+    points.forEach(function (p) { xs.push(p.x); ys.push(p.y); });
+    bars.forEach(function (b) {
+      if (typeof b.x === "number") { xs.push(b.x - (b.w || 1) / 2); xs.push(b.x + (b.w || 1) / 2); }
+      ys.push(b.y);
+    });
+    hbars.forEach(function (b) { xs.push(b.v); });
+
+    var zeroY = bars.length > 0, zeroX = hbars.length > 0;
+    var xd = XA.range ? XA.range.slice() : extent(xs, 0.04, zeroX);
+    var yd = YA.range ? YA.range.slice() : extent(ys, 0.06, zeroY);
+
+    var usingXCats = xCats.length > 0 && (bars.length || points.length);
+    var usingYCats = yCats.length > 0;
+    if (usingYCats && YA.autorange !== "reversed") yCats = yCats.slice();
+    var X, Y, xBand = 0, yBand = 0;
+    if (usingXCats) {
+      xBand = pw / xCats.length;
+      X = function (v) { return M.l + xCats.indexOf(v) * xBand + xBand / 2; };
+    } else {
+      X = linScale(xd[0], xd[1], M.l, M.l + pw);
+    }
+    if (usingYCats) {
+      yBand = ph / yCats.length;
+      Y = function (v) { return M.t + yCats.indexOf(v) * yBand + yBand / 2; };
+    } else {
+      Y = linScale(yd[0], yd[1], M.t + ph, M.t);
+    }
+
+    /* ---- grid + ticks ---- */
+    var tickCls = { fill: XA.tickfont && XA.tickfont.size
+      ? fontCol : fontCol };
+    function tickText(x, y, s, anchor, size) {
+      var t = el("text", { x: x, y: y, fill: fontCol,
+        "font-size": (size || 12) + "px", "text-anchor": anchor }, svg);
+      t.textContent = s;
+      return t;
+    }
+    if (!usingYCats) {
+      niceTicks(yd[0], yd[1], Math.max(3, Math.round(ph / 70))).forEach(function (v) {
+        var y = Y(v);
+        if (y < M.t - 1 || y > M.t + ph + 1) return;
+        el("line", { x1: M.l, y1: y, x2: M.l + pw, y2: y,
+                     stroke: grid, "stroke-width": 1 }, plot);
+        tickText(M.l - 8, y + 4, fmt(YA.tickformat, v), "end");
+      });
+    } else {
+      yCats.forEach(function (c) {
+        var size = (YA.tickfont && YA.tickfont.size) || 11.5;
+        tickText(M.l - 8, Y(c) + 3.5, stripTags(c), "end", size);
+      });
+    }
+    if (!usingXCats) {
+      niceTicks(xd[0], xd[1], Math.max(3, Math.round(pw / 90))).forEach(function (v) {
+        var x = X(v);
+        if (x < M.l - 1 || x > M.l + pw + 1) return;
+        if (hbars.length) {
+          el("line", { x1: x, y1: M.t, x2: x, y2: M.t + ph,
+                       stroke: grid, "stroke-width": 1 }, plot);
+        }
+        tickText(x, M.t + ph + 18, fmt(XA.tickformat, v), "middle");
+      });
+    } else {
+      var every = Math.ceil(xCats.length / Math.max(3, pw / 60));
+      var tickvals = XA.tickvals;
+      xCats.forEach(function (c, i) {
+        if (tickvals ? tickvals.indexOf(c) < 0 : i % every !== 0) return;
+        tickText(X(c), M.t + ph + 18, stripTags(c), "middle", 11);
+      });
+    }
+    el("line", { x1: M.l, y1: M.t + ph, x2: M.l + pw, y2: M.t + ph,
+                 stroke: axline, "stroke-width": 1 }, plot);
+    if (hbars.length || (!usingXCats && xd[0] < 0 && xd[1] > 0)) {
+      el("line", { x1: M.l, y1: M.t, x2: M.l, y2: M.t + ph,
+                   stroke: axline, "stroke-width": 1 }, plot);
+    }
+
+    /* axis titles */
+    var xt = stripTags(XA.title && XA.title.text);
+    var yt = stripTags(YA.title && YA.title.text);
+    if (xt) tickText(M.l + pw / 2, H - 10, xt, "middle");
+    if (yt) {
+      var ty = el("text", { x: 0, y: 0, fill: fontCol, "font-size": "12px",
+        "text-anchor": "middle",
+        transform: "translate(14," + (M.t + ph / 2) + ") rotate(-90)" }, svg);
+      ty.textContent = yt;
+    }
+
+    var surface = layout.plot_bgcolor || layout.paper_bgcolor || "#fcfcfb";
+
+    /* ---- bands (confidence fills) ---- */
+    bands.forEach(function (b) {
+      var d = "";
+      b.xs.forEach(function (xv, i) {
+        d += (i ? "L" : "M") + X(xv) + "," + Y(b.ys[i]);
+      });
+      if (b.tonext) {
+        d += "L" + X(b.xs[b.xs.length - 1]) + "," + (M.t + ph) +
+             "L" + X(b.xs[0]) + "," + (M.t + ph);
+      }
+      el("path", { d: d + "Z", fill: b.tr.fillcolor ||
+        "rgba(42,120,214,0.15)", stroke: "none" }, plot);
+    });
+
+    /* ---- vertical bars (incl. histogram, grouped) ---- */
+    if (bars.length) {
+      var groups = barTraces.filter(function (t) {
+        return bars.some(function (b) { return b.tr === t; });
+      });
+      var gN = layout.barmode === "group" ? groups.length : 1;
+      bars.forEach(function (b) {
+        var slot = usingXCats ? xBand
+          : (b.w ? X(b.w) - X(0) : pw / Math.max(bars.length / gN, 1));
+        var bw = Math.min(24, (slot - 2) / gN - (gN > 1 ? 2 : 0));
+        if (bw < 1) bw = Math.max(1, slot / gN - 1);
+        var gi = gN > 1 ? groups.indexOf(b.tr) : 0;
+        var cx = X(b.x) - (gN * bw + (gN - 1) * 2) / 2 + gi * (bw + 2);
+        var y0 = Y(Math.max(0, yd[0])), y1 = Y(b.y);
+        var top = Math.min(y0, y1), hgt = Math.abs(y0 - y1);
+        var r = Math.min(4, bw / 2, hgt);
+        var dPath = "M" + cx + "," + (top + hgt) +
+          "V" + (top + r) +
+          "Q" + cx + "," + top + " " + (cx + r) + "," + top +
+          "H" + (cx + bw - r) +
+          "Q" + (cx + bw) + "," + top + " " + (cx + bw) + "," + (top + r) +
+          "V" + (top + hgt) + "Z";
+        var node = el("path", { d: dPath, fill: traceColor(b.tr) }, plot);
+        attachHover(node, b.tr, b.i, b.x, b.y);
+      });
+    }
+
+    /* ---- horizontal bars ---- */
+    hbars.forEach(function (b) {
+      var bh = Math.min(24, yBand - 8);
+      var cy = Y(b.cat) - bh / 2;
+      var x0 = X(Math.max(0, xd[0])), x1 = X(b.v);
+      var left = Math.min(x0, x1), wid = Math.abs(x1 - x0);
+      var r = Math.min(4, bh / 2, wid);
+      var dPath = "M" + left + "," + cy +
+        "H" + (left + wid - r) +
+        "Q" + (left + wid) + "," + cy + " " + (left + wid) + "," + (cy + r) +
+        "V" + (cy + bh - r) +
+        "Q" + (left + wid) + "," + (cy + bh) + " " + (left + wid - r) + "," + (cy + bh) +
+        "H" + left + "Z";
+      var node = el("path", { d: dPath, fill: traceColor(b.tr) }, plot);
+      attachHover(node, b.tr, b.i, b.v, b.cat, true);
+    });
+
+    /* ---- lines ---- */
+    var linePts = [];
+    lines.forEach(function (tr) {
+      var d = "";
+      (tr.x || []).forEach(function (xv, i) {
+        var yv = tr.y[i];
+        if (yv == null) return;
+        d += (d ? "L" : "M") + X(xv) + "," + Y(yv);
+        linePts.push({ tr: tr, x: xv, y: yv, px: X(xv), py: Y(yv), i: i });
+      });
+      var ln = tr.line || {};
+      el("path", { d: d, fill: "none", stroke: ln.color || traceColor(tr),
+        "stroke-width": ln.width != null ? ln.width : 2,
+        "stroke-linejoin": "round", "stroke-linecap": "round",
+        "stroke-dasharray": ln.dash === "dot" ? "2,4"
+          : ln.dash === "dash" ? "7,4" : "none" }, plot);
+    });
+
+    /* ---- markers ---- */
+    points.forEach(function (p) {
+      if (p.y == null) return;
+      var mk = p.tr.marker || {};
+      var r = Math.max(3.5, (mk.size || 8) / 2);
+      var fill;
+      if (Array.isArray(mk.color)) {
+        var vals = mk.color;
+        var lo = mk.cmin != null ? mk.cmin : Math.min.apply(null, vals);
+        var hi = mk.cmax != null ? mk.cmax : Math.max.apply(null, vals);
+        var tval = (vals[p.i] - lo) / ((hi - lo) || 1);
+        fill = scaleColor(mk.colorscale || [[0, "#cde2fb"], [1, "#0d366b"]],
+                          Math.max(0, Math.min(1, tval)));
+      } else {
+        fill = mk.color || traceColor(p.tr);
+      }
+      el("circle", { cx: X(p.x), cy: Y(p.y), r: r + 2, fill: surface }, plot);
+      var node = el("circle", { cx: X(p.x), cy: Y(p.y), r: r, fill: fill,
+        "fill-opacity": mk.opacity != null ? mk.opacity : 1 }, plot);
+      attachHover(node, p.tr, p.i, p.x, p.y);
+    });
+
+    /* ---- colorbar (numeric marker colors with showscale) ---- */
+    data.forEach(function (tr) {
+      var mk = tr.marker || {};
+      if (!Array.isArray(mk.color) || !mk.showscale || M.r < 60) return;
+      var scale = mk.colorscale || [[0, "#cde2fb"], [1, "#0d366b"]];
+      var vals = mk.color;
+      var lo = mk.cmin != null ? mk.cmin : Math.min.apply(null, vals);
+      var hi = mk.cmax != null ? mk.cmax : Math.max.apply(null, vals);
+      var cbX = W - M.r + 24, cbH = Math.round(ph * 0.7);
+      var cbY = M.t + (ph - cbH) / 2;
+      var gid = "famgrad" + Math.abs((gd.id || "g").split("")
+        .reduce(function (a, c) { return a + c.charCodeAt(0); }, 0));
+      var defs = el("defs", {}, svg);
+      var grad = el("linearGradient",
+        { id: gid, x1: 0, y1: 1, x2: 0, y2: 0 }, defs);
+      scale.forEach(function (st) {
+        el("stop", { offset: (st[0] * 100) + "%", "stop-color": st[1] }, grad);
+      });
+      el("rect", { x: cbX, y: cbY, width: 10, height: cbH, rx: 3,
+                   fill: "url(#" + gid + ")" }, svg);
+      tickText(cbX + 15, cbY + 9, fmt(".2f", hi), "start", 10.5);
+      tickText(cbX + 15, cbY + cbH, fmt(".2f", lo), "start", 10.5);
+      var cbTitle = mk.colorbar && mk.colorbar.title &&
+        stripTags(mk.colorbar.title.text);
+      if (cbTitle) tickText(cbX - 4, cbY - 10, cbTitle, "start", 11);
+    });
+
+    /* ---- shapes (reference lines) ---- */
+    (layout.shapes || []).forEach(function (sh) {
+      if (sh.type !== "line") return;
+      var ln = sh.line || {};
+      var vertical = sh.x0 === sh.x1;
+      var coords;
+      function cx(v, ref) {
+        return /domain|paper/.test(ref || "") ? M.l + pw * v : X(v);
+      }
+      function cy(v, ref) {
+        return /domain|paper/.test(ref || "") ? M.t + ph * (1 - v) : Y(v);
+      }
+      if (vertical) {
+        coords = { x1: cx(sh.x0, sh.xref), x2: cx(sh.x0, sh.xref),
+                   y1: cy(sh.y0, sh.yref), y2: cy(sh.y1, sh.yref) };
+      } else {
+        coords = { x1: cx(sh.x0, sh.xref), x2: cx(sh.x1, sh.xref),
+                   y1: cy(sh.y0, sh.yref), y2: cy(sh.y0, sh.yref) };
+      }
+      coords.stroke = ln.color || axline;
+      coords["stroke-width"] = ln.width != null ? ln.width : 1.5;
+      if (ln.dash) coords["stroke-dasharray"] = "2,4";
+      el("line", coords, plot);
+    });
+
+    /* ---- annotations ---- */
+    (layout.annotations || []).forEach(function (an) {
+      var ax = /domain|paper/.test(an.xref || "")
+        ? M.l + pw * an.x : X(an.x);
+      var ay = an.yref && /domain|paper/.test(an.yref)
+        ? M.t + ph * (1 - an.y) : (an.y != null ? Y(an.y) : M.t + 14);
+      ax += (an.xshift || 0); ay -= (an.yshift || 0);
+      var anchor = an.xanchor === "right" ? "end"
+        : an.xanchor === "center" ? "middle" : "start";
+      var col = (an.font && an.font.color) || fontCol;
+      var size = (an.font && an.font.size) || 11.5;
+      var linesA = stripTags(an.text).split("\n");
+      var dy = an.yanchor === "bottom" ? -(linesA.length - 1) * (size + 2) - 4
+        : an.yanchor === "top" ? size : 0;
+      linesA.forEach(function (s, i) {
+        var t = el("text", { x: ax, y: ay + dy + i * (size + 2), fill: col,
+          "font-size": size + "px", "text-anchor": anchor }, svg);
+        t.textContent = s;
+      });
+    });
+
+    /* ---- legend ---- */
+    var legendTraces = data.filter(function (tr) {
+      return tr.name && tr.showlegend !== false &&
+        (layout.showlegend !== false || tr.showlegend === true);
+    });
+    if (layout.showlegend === false) legendTraces = [];
+    if (legendTraces.length > 1) {
+      var lx = M.l, lyy = H - (xt ? 26 : 6) - 14;
+      lyy = M.t - 14 > 20 ? M.t - 12 : lyy;
+      legendTraces.forEach(function (tr) {
+        var c = traceColor(tr);
+        el("rect", { x: lx, y: lyy - 9, width: 11, height: 11, rx: 3,
+                     fill: c }, svg);
+        var t = el("text", { x: lx + 16, y: lyy, fill: fontCol,
+          "font-size": "12px" }, svg);
+        t.textContent = tr.name;
+        lx += 16 + t.getComputedTextLength() + 18;
+      });
+    }
+
+    /* ---- hover plumbing ---- */
+    function attachHover(node, tr, i, xv, yv, horiz) {
+      if (tr.hoverinfo === "skip") return;
+      node.addEventListener("pointermove", function (e) {
+        showTip(e, horiz ? hover(tr, i, xv, yv) : hover(tr, i, xv, yv));
+      });
+      node.addEventListener("pointerleave", hideTip);
+    }
+    if (linePts.length) {
+      svg.addEventListener("pointermove", function (e) {
+        var rect = svg.getBoundingClientRect();
+        var sx = (e.clientX - rect.left) * W / rect.width;
+        var sy = (e.clientY - rect.top) * H / rect.height;
+        var best = null, bd = 30 * 30;
+        linePts.forEach(function (p) {
+          var dd = (p.px - sx) * (p.px - sx) + (p.py - sy) * (p.py - sy);
+          if (dd < bd) { bd = dd; best = p; }
+        });
+        if (best) showTip(e, hover(best.tr, best.i, best.x, best.y));
+        else if (!e.target.closest("path,circle")) hideTip();
+      });
+      svg.addEventListener("pointerleave", hideTip);
+    }
+  }
+
+  /* ---- Plotly-compatible API ---- */
+  function resolve(gd) {
+    return typeof gd === "string" ? document.getElementById(gd) : gd;
+  }
+  var observed = new WeakSet();
+  function plot(gd, data, layout, config) {
+    gd = resolve(gd);
+    gd.data = (data || []).map(decodeTrace);
+    gd.layout = layout || {};
+    gd.config = config || {};
+    gd.classList.add("js-plotly-plot");
+    render(gd);
+    if (!observed.has(gd) && window.ResizeObserver) {
+      observed.add(gd);
+      var pending = null;
+      new ResizeObserver(function () {
+        cancelAnimationFrame(pending);
+        pending = requestAnimationFrame(function () { render(gd); });
+      }).observe(gd);
+    }
+    return Promise.resolve(gd);
+  }
+  window.Plotly = {
+    newPlot: plot,
+    react: plot,
+    relayout: function (gd, patch) {
+      gd = resolve(gd);
+      for (var k in patch) {
+        if (patch[k] === null) delete gd.layout[k];
+        else gd.layout[k] = patch[k];
+      }
+      render(gd);
+      return Promise.resolve(gd);
+    },
+    Plots: { resize: function (gd) { render(resolve(gd)); } },
+  };
+})();
+</script>                <div id="3f6da3ab-fbdd-4939-98da-848007ca2611" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("3f6da3ab-fbdd-4939-98da-848007ca2611")) {                    Plotly.newPlot(                        "3f6da3ab-fbdd-4939-98da-848007ca2611",                        [{"hoverinfo":"skip","line":{"color":"#c3c2b7","dash":"dot","width":1},"mode":"lines","x":[-5.80461555762524,5.80461555762524],"y":[-5.80461555762524,5.80461555762524],"type":"scatter"},{"hovertemplate":"%{text}: lineup %{x:+.2f}, stint %{y:+.2f}\u003cextra\u003e\u003c\u002fextra\u003e","marker":{"color":"#2a78d6","opacity":0.55,"size":6},"mode":"markers","text":["Nikola Jokić","OG Anunoby","Jalen Brunson","Paul George","Shai Gilgeous-Alexander","Derrick White","Jusuf Nurkić","Dante Exum","Luka Dončić","Sam Hauser","Isaiah Hartenstein","Donovan Mitchell","Kentavious Caldwell-Pope","Brandin Podziemski","Tyrese Haliburton","Kawhi Leonard","Damian Lillard","Kyrie Irving","Jose Alvarado","Bogdan Bogdanović","Jock Landale","Isaiah Joe","Joel Embiid","Fred VanVleet","Tre Jones","LeBron James","Jimmy Butler III","Giannis Antetokounmpo","Alex Len","Payton Pritchard","De'Aaron Fox","Jonathan Isaac","Rudy Gobert","Tyrese Maxey","Lauri Markkanen","Nikola Jović","Franz Wagner","Trey Lyles","Anthony Edwards","Jordan McLaughlin","Svi Mykhailiuk","Jayson Tatum","Devin Booker","Josh Hart","Kristaps Porziņģis","Trey Murphy III","Joe Ingles","Naji Marshall","De'Anthony Melton","Neemias Queta","Karl-Anthony Towns","Draymond Green","Dean Wade","Josh Giddey","Nickeil Alexander-Walker","Al Horford","Chris Boucher","Spencer Dinwiddie","Seth Curry","Myles Turner","D'Angelo Russell","Stephen Curry","Sandro Mamukelashvili","Norman Powell","Max Strus","Kevin Love","Tari Eason","Aaron Holiday","Herbert Jones","Chet Holmgren","Anthony Davis","Robert Covington","Kris Dunn","Keegan Murray","Simone Fontecchio","Dereck Lively II","Keon Ellis","T.J. McConnell","Jalen Williams","Malcolm Brogdon","Maxi Kleber","Malik Beasley","Royce O'Neale","Anthony Gill","JT Thor","Day'Ron Sharpe","Obi Toppin","Jaime Jaquez Jr.","Chris Paul","Delon Wright","AJ Green","Rui Hachimura","Vince Williams Jr.","Nicolas Batum","Monte Morris","Daniel Gafford","Michael Porter Jr.","Tristan Vukcevic","James Harden","Kevin Durant","Dalen Terry","Brook Lopez","Naz Reid","Jamal Murray","A.J. Lawson","Jevon Carter","Paul Reed","Mark Williams","Alex Caruso","Furkan Korkmaz","Coby White","Gary Payton II","Jae'Sean Tate","Marcus Smart","Kenrich Williams","Devonte' Graham","Luke Kornet","Tobias Harris","Jules Bernard","Victor Wembanyama","Jalen Wilson","Ja Morant","Amen Thompson","Ben Sheppard","Toumani Camara","Aaron Nesmith","Vasilije Micic","Justin Holiday","Kevin Huerter","Lamar Stevens","Isaiah Stewart","CJ McCollum","Cody Zeller","Caris LeVert","Mike Conley","Moses Moody","Johnny Juzang","Javonte Green","Goga Bitadze","Deni Avdija","Otto Porter Jr.","Grayson Allen","Darius Garland","Lonnie Walker IV","Brandon Ingram","Jarred Vanderbilt","Ashton Hagans","Immanuel Quickley","Gary Harris","Julius Randle","Gabe Vincent","Jaylin Williams","Saddiq Bey","Patrick Baldwin Jr.","Clint Capela","Andre Drummond","Daniel Theis","Kris Murray","Jarace Walker","Jonathan Kuminga","Eric Gordon","Saben Lee","Isaiah Jackson","Terry Taylor","Jarrett Allen","Ricky Council IV","Jrue Holiday","Leaky Black","Oshae Brissett","Dwight Powell","Vít Krejčí","Alperen Sengun","Sam Merrill","Gui Santos","Jonas Valanciunas","Wendell Carter Jr.","Marvin Bagley III","Pascal Siakam","Derrick Rose","Aaron Gordon","Moritz Wagner","Cole Anthony","Matt Ryan","Colby Jones","Lester Quiñones","Kenneth Lofton Jr.","Jalen Suggs","Caleb Martin","Orlando Robinson","Christian Wood","Duncan Robinson","Patrick Williams","Dominick Barlow","Domantas Sabonis","DeMar DeRozan","Collin Gillespie","Bam Adebayo","Dyson Daniels","KJ Martin","Jared Butler","Thomas Bryant","Bismack Biyombo","Jakob Poeltl","Danuel House Jr.","Julian Phillips","Davis Bertans","JaVale McGee","De'Andre Hunter","Tre Mann","Kevon Looney","Buddy Hield","Dennis Smith Jr.","Bol Bol","Patty Mills","Trevelin Queen","Kevin Knox II","Aaron Wiggins","Cameron Johnson","Jared Rhoden","Jalen Green","Thaddeus Young","Jericho Sims","Ivica Zubac","Collin Sexton","Tyler Herro","Luka Samanic","Max Christie","Trayce Jackson-Davis","Dorian Finney-Smith","Mason Plumlee","Matisse Thybulle","Khris Middleton","Zion Williamson","Scotty Pippen Jr.","Georges Niang","Luguentz Dort","Cameron Payne","Jaylen Nowell","Zavier Simpson","Markelle Fultz","Onyeka Okongwu","P.J. Washington","Larry Nance Jr.","Mike Muscala","Sasha Vezenkov","Micah Potter","Richaun Holmes","Duop Reath","Cody Martin","Haywood Highsmith","Dennis Schröder","Danilo Gallinari","Kyle Anderson","MarJon Beauchamp","Russell Westbrook","Craig Porter Jr.","Jaylen Brown","Caleb Houstan","Jontay Porter","Cory Joseph","John Konchar","Ousmane Dieng","Jordan Goodwin","Jaden Ivey","Blake Wesley","Xavier Tillman","Ben Simmons","Tristan Thompson","Reggie Jackson","Josh Okogie","Andrew Nembhard","Darius Bazley","Aleksej Pokusevski","Jalen Johnson","Garrett Temple","Joe Harris","Jordan Clarkson","Gary Trent Jr.","Bradley Beal","Jake LaRavia","Trendon Watford","Charles Bassey","Mitchell Robinson","Taj Gibson","Mikal Bridges","Jamal Cain","Noah Clowney","Kobe Bufkin","Ausar Thompson","Cam Whitmore","Jalen Smith","Christian Braun","Ochai Agbaji","Talen Horton-Tucker","Davion Mitchell","Justin Minaya","Miles McBride","Thanasis Antetokounmpo","Jordan Hawkins","Bobby Portis Jr.","Landry Shamet","Kelly Olynyk","Rayan Rupert","Kyle Lowry","Onuralp Bitim","Derrick Jones Jr.","Stanley Umude","Chimezie Metu","Jeremiah Robinson-Earl","Moses Brown","Mo Bamba","Anthony Black","Kessler Edwards","Julian Champagnie","Devin Vassell","Malik Monk","LaMelo Ball","GG Jackson","Isaac Okoro","Walker Kessler","Desmond Bane","Dillon Brooks","Garrison Mathews","Lindy Waters III","Justin Champagnie","Cason Wallace","Gordon Hayward","Taylor Hendricks","Theo Maledon","Scottie Barnes","Dario Saric","Keldon Johnson","AJ Griffin","Evan Mobley","P.J. Tucker","Yuta Watanabe","Trae Young","Marcus Sasser","Deandre Ayton","Zach LaVine","Pat Connaughton","Chuma Okeke","Precious Achiuwa","Bruno Fernando","Jaden Springer","Reggie Bullock Jr.","Klay Thompson","Markieff Morris","Trey Jemison III","Cam Reddish","Tim Hardaway Jr.","Skylar Mays","Paolo Banchero","Evan Fournier","Kira Lewis Jr.","Shake Milton","Keita Bates-Diop","Wesley Matthews","Bones Hyland","Jalen Duren","Ayo Dosunmu","Doug McDermott","Cade Cunningham","Bryce McGowens","Kobe Brown","Luke Kennard","Nikola Vučević","Cam Thomas","Marcus Morris Sr.","Chris Duarte","Julian Strawther","Ibou Badji","Jaden McDaniels","Peyton Watson","Olivier-Maxence Prosper","Donte DiVincenzo","DeAndre Jordan","David Roddy","Troy Brown Jr.","RJ Barrett","Santi Aldama","Jabari Walker","Kelly Oubre Jr.","Dejounte Murray","Tosan Evbuomwan","Johnny Davis","Patrick Beverley","Jeff Green","Nick Smith Jr.","Jabari Smith Jr.","Jaxson Hayes","Jerami Grant","Trent Forrest","Brandon Miller","Brandon Boston Jr.","Omer Yurtseven","Jaren Jackson Jr.","Jacob Gilyard","Jordan Nwora","Quentin Grimes","Terance Mann","Jeremy Sochan","Drew Eubanks","Malachi Flynn","Jaden Hardy","Nate Mensah","Alec Burks","Nassir Little","Killian Hayes","Javon Freeman-Liberty","Damian Jones","Eugene Omoruyi","Jalen McDaniels","Austin Reaves","Andrew Wiggins","Andre Jackson Jr.","Bilal Coulibaly","Nick Richards","Bruce Brown","Anfernee Simons","Terry Rozier","Shaedon Sharpe","Brice Sensabaugh","Amir Coffey","Corey Kispert","Bennedict Mathurin","Josh Richardson","Torrey Craig","Ziaire Williams","Dalano Banton","Grant Williams","Nic Claxton","Kyle Kuzma","Josh Green","Taurean Prince","Jae Crowder","Harrison Barnes","Isaiah Livers","Tyus Jones","Jordan Poole","Zeke Nnaji","Keyonte George","James Wiseman","Malaki Branham","John Collins","Ish Smith","Miles Bridges","Zach Collins","Bojan Bogdanovic","Cedi Osman","Gradey Dick","Scoot Henderson"],"x":[5.528205292976419,5.271962637716082,4.939514475959601,4.835255788034981,4.802198877950691,4.195536075939405,4.068251510627419,3.771494123126636,3.7711229768999295,3.7577885521635057,3.71072381499032,3.7035009674591537,3.6475447019822287,3.635820335932251,3.6231222771907494,3.6130718650037026,3.603051509047146,3.477988885591159,3.4626750215727444,3.442133093336255,3.404133253257503,3.3728162350040316,3.36593026597498,3.3279854952758026,3.3278797202377453,3.298819350321893,3.257627039577388,3.1288435132291705,3.0529801346493395,2.9917497417241607,2.9782825507757926,2.9563709682349635,2.8030405874323683,2.795002381208382,2.7714328456214052,2.7685180148246142,2.7402315049798096,2.7210286049557966,2.7041821538113378,2.7037622567540316,2.669617970282105,2.6399801369981137,2.6264961201475363,2.6082179974136577,2.431212998879912,2.4272280830155326,2.423815854232822,2.423136320298356,2.37353915727572,2.3481825379693504,2.29278923597263,2.2871290126298165,2.2019775859615702,2.1597086605372295,2.156453780140406,2.1505630898113295,2.1500228582635117,2.1356726546285114,2.135374533425227,2.1105789940431854,2.1098534256384447,2.0276083296615113,1.9566884038913035,1.95092136119159,1.925853702438319,1.923094764472155,1.8028332376034573,1.7923052192940399,1.7750896009643564,1.690889607428239,1.6865676228919444,1.6840323226867686,1.6724917599507854,1.6405384239023126,1.6381137394927434,1.6186758868537452,1.6162581230930002,1.614342208946739,1.6020238029322913,1.5910273522958802,1.587038870969967,1.5756051161401314,1.565879118464743,1.5585370962586746,1.5545185871875935,1.5433461812693732,1.5416213430737866,1.5335872035843237,1.5325668917701911,1.5299049876933348,1.503285907754943,1.480082659931775,1.4508721254549453,1.426049168482273,1.4240341385988966,1.4112836011511152,1.4036004591088538,1.388208415786729,1.3437561281588446,1.3123913054385123,1.304074907968014,1.286737026625519,1.2620282972216004,1.2487268563693688,1.2441485362057867,1.2306602230036428,1.217598887687061,1.214716470295985,1.210641737014683,1.191752810931274,1.1578816705903876,1.1370861852396665,1.1280807762701945,1.1271950478918673,1.1252704195832801,1.1173691471346714,1.1145644866999702,1.1092027286806383,1.0932479396457284,1.0520582873129365,1.0470615160116317,1.0303726388140841,1.0024929608767208,0.990450218110816,0.9775614131653675,0.9755436939316395,0.96190131823767,0.9613634055777942,0.9459468890890083,0.9379967945622947,0.9371050697596311,0.9098863866838796,0.9071337436680255,0.8995799342231516,0.8985259680822025,0.8941965204507448,0.8938755572439224,0.8538844511508126,0.8313769815392457,0.8195971262789429,0.8146565260709354,0.8143810719868168,0.808040539947062,0.8020686777909002,0.7897155926160456,0.7802631517462799,0.7681657610068461,0.750383498487219,0.7348190099913746,0.7221205278265715,0.7123363334771715,0.7102573694045287,0.7017279496532195,0.6968803667066292,0.6930635653872339,0.66762983315876,0.6334712332562416,0.6267607941766742,0.6050742597728502,0.5928430818919649,0.5713725715145009,0.5628050825712764,0.5343029303844715,0.5248532093489747,0.5199641695519757,0.5197499470864365,0.5065548159049535,0.499310890726897,0.4877867720064651,0.48701630226532905,0.48292852283503623,0.4793535375032696,0.4674625925803033,0.44417873770644434,0.42673076936340354,0.41224045346007543,0.40661995104777177,0.4030966752030217,0.39116795837562657,0.38532417427953464,0.38492464501228324,0.38381680343320196,0.37333113630826503,0.3566785066424161,0.3389320291473388,0.3383359373179899,0.3333005083798761,0.3329637007433733,0.3220878225310934,0.31287857741377484,0.30584596150066024,0.3057348756110336,0.3036519974363967,0.29102034659629045,0.2819574033803739,0.2311780197205735,0.22901428250118383,0.214375381577058,0.20686729636050102,0.2008971070776801,0.16908037669438097,0.16141403592747586,0.15754585581170177,0.14986209841137826,0.12899852980269616,0.10725052348022589,0.10566013401253586,0.0844853845196441,0.07680142704720391,0.0735871776325764,0.060291527441343744,0.04218117778046751,0.019105048436306785,0.013374193278721374,0.01169097024249497,-0.009227451226244509,-0.016646594623433847,-0.030000844045849656,-0.034165150002395894,-0.036567959974913855,-0.04823453243835653,-0.07016162402312004,-0.10946198882151165,-0.11835122557605621,-0.12229709808259753,-0.13760942788778308,-0.15036798769898846,-0.1587994068432182,-0.1686030994425073,-0.18149804599729868,-0.21477350219357838,-0.22101825631625083,-0.23782937966012666,-0.24061896548920336,-0.2573522090420546,-0.2756861529873933,-0.2845596530879406,-0.2869527257790104,-0.2877471373319562,-0.28905832273286736,-0.29298435549740903,-0.2932674922049728,-0.29497381597872124,-0.295888943068038,-0.33139228717038544,-0.33447209442530756,-0.3420684969178701,-0.3592577172880178,-0.37093294799926424,-0.3844337569408078,-0.3937314321997524,-0.3937564146889268,-0.3940160240821225,-0.3992954337703894,-0.40625534416262726,-0.42973417323397095,-0.4371415001485582,-0.4526277966468457,-0.4606706441624394,-0.4610799833399287,-0.47036630373344546,-0.49241390369671845,-0.4959914161382794,-0.5104557939229395,-0.5145644873347228,-0.5203279558956123,-0.5255786392861982,-0.5259341233838252,-0.5389759195643767,-0.5508828332840553,-0.55406575986685,-0.5553320075324023,-0.5673614057820581,-0.5961722258545983,-0.6226679476990958,-0.631643806596585,-0.6419906587050843,-0.6443962630700582,-0.6570603022856566,-0.665471011336191,-0.6680665410871984,-0.6709874567232506,-0.6799073697799509,-0.6842327174417555,-0.6945542728881963,-0.6975455153452297,-0.7000041394060788,-0.7239766222626421,-0.736915978887059,-0.7627439694658302,-0.7648697189170093,-0.776385655714866,-0.7850748466011424,-0.7933498944094752,-0.8004766058639078,-0.8046999750531617,-0.8049378268319224,-0.8237699162667144,-0.8396667695128542,-0.8496590197574085,-0.8530293764997625,-0.879820433770572,-0.8800101936804587,-0.8818788305640026,-0.8854682543500683,-0.8966854975413326,-0.903622786812015,-0.9036770375222831,-0.9190308143687715,-0.9308958662439684,-0.9370166306467348,-0.9546307676834496,-0.956277524233667,-0.9678560351662683,-0.9736616777532009,-0.9766029244176215,-0.9851887964796493,-0.9906059043206414,-1.0177289055237795,-1.0239411047132727,-1.0304071050076775,-1.0404334827812431,-1.0434097101076496,-1.0481064162394322,-1.0701454904201506,-1.071308420110808,-1.090761069437686,-1.1520736198226185,-1.1525082088068852,-1.154301895395651,-1.158777364470456,-1.1631109295224071,-1.173932802860324,-1.1843477486866905,-1.1843500687804034,-1.1872520068779941,-1.2004489172842405,-1.2147923513300034,-1.2209522597739695,-1.236484056761066,-1.2522863553735974,-1.2527581706778077,-1.2673188807977125,-1.27299857966417,-1.2912980870761956,-1.3228348998062576,-1.3290708957889823,-1.3339418200190791,-1.345970708586736,-1.3466889243922608,-1.3583250229937551,-1.377432216843454,-1.3791932270874983,-1.391713265324817,-1.412117204252671,-1.4260020354447303,-1.4570544756180124,-1.4618283080510668,-1.5017135250774474,-1.534923511566817,-1.5350292281216675,-1.5392466244373968,-1.5843609492659132,-1.5921675301014189,-1.6209851910814073,-1.636276205196024,-1.636674998610954,-1.6619043327038299,-1.6817932298444587,-1.6863872756955327,-1.6888583653361755,-1.6919263790617765,-1.7117982752138838,-1.7716221496711027,-1.7770986650769574,-1.80056901440476,-1.8051845629516234,-1.8099426866346686,-1.8391329136737347,-1.848626043171654,-1.855280541026197,-1.8891774342698198,-1.8968153317966998,-1.9039530085323533,-1.9402634534550256,-1.9522484413287298,-1.9654564930236469,-1.9698469305972959,-1.985626714870245,-2.0349314154290474,-2.0542094558623347,-2.056199025717617,-2.05749767192653,-2.06152468147388,-2.07013661749155,-2.0705250270831788,-2.0917720444331156,-2.101629862667841,-2.1250600861666595,-2.134648876782436,-2.167333220625544,-2.1713152057141762,-2.171489401188273,-2.191296338282673,-2.1943557312831072,-2.1969976384945706,-2.2044982443562966,-2.214717103899278,-2.2186336572085965,-2.221336202429909,-2.228829482977081,-2.244226269555382,-2.260025498844133,-2.360311066783456,-2.405852305706769,-2.413195003887403,-2.4309998365919956,-2.4466627928181666,-2.454919780151245,-2.4726668537228385,-2.4846850129282982,-2.4936655066197653,-2.5849715906370165,-2.6120144052689467,-2.626910881722218,-2.6857570734367977,-2.689736472645921,-2.749969693823844,-2.752958178448227,-2.7767424017222244,-2.8242097879075696,-2.8295176511720954,-2.851242541978331,-2.852017523929633,-2.913991404081833,-2.9158815818457717,-2.9360151722744376,-2.945951331448503,-2.9837950225400904,-3.0518120801688426,-3.081364031781529,-3.1288906885893737,-3.1425376074380527,-3.252959560429089,-3.3542473763127036,-3.467895962067621,-3.490758419968625,-3.605189116081467,-3.8318258345560534,-4.004825763760327,-4.186419681413553,-4.564638993538651],"y":[5.118187901693804,5.272490542655767,4.922710483447889,4.830371643672569,5.525206700085102,4.414967900735185,4.73690803093876,3.816976217129912,3.7555175450173635,3.6289517385266614,3.7283257842091593,3.4627710695144356,3.8214937030925027,3.0094070572497778,3.0457813404274936,3.7934751290880544,4.056795734729113,3.690142662457522,3.155710840222961,3.5552542616254295,2.318465502782171,1.263096289404689,3.0703114156412807,3.6037658913589197,3.501639673914159,3.4106685561805055,3.541503472616065,3.6115425198975686,2.655170439293659,2.775034105935425,3.5533865458051612,4.11259066751276,3.203733255800663,3.1017899095812504,2.915531414070998,3.306808353456325,2.616756042126994,2.6516280811607027,3.4944658817452243,2.6134812140573036,1.9351661367103024,3.237817192300571,2.465175743814223,2.9492714136744413,2.502794392696102,2.0039539983639845,1.5004355424140576,2.3664711131777088,2.234290174042201,1.7194470236165507,2.204839561409297,2.864783555869308,3.674685747442317,0.5162653509477513,2.6492247965269535,1.887836222302038,1.8676036861642822,2.5951779640015875,1.4815580780024848,2.6010782555734346,1.8280525166235184,1.9363381486436908,2.049461663538325,2.056490548652413,1.58365762498751,1.8398560310036862,1.9148400416765579,1.487158976712225,2.85449499658351,2.299326071419811,2.540496569675752,1.57993837210382,2.0529200064024047,1.800067428763095,1.304640272466775,1.5275756481912746,1.394475162687983,1.6602840391779725,1.6659947983631402,1.438610308057105,2.005424614115136,1.7205672754854109,2.1825878685663853,1.4156570920734723,0.9952831013228586,1.6941810835979147,2.098832971894812,1.1491334105493634,0.8662040242597241,1.1427407869488093,1.2423377070898498,1.268262590626893,1.761135597596888,0.9510239149801234,0.9685742702380213,1.371011862314705,1.1820346464797389,1.1314945032244654,1.5956792363453312,1.4794675010107985,0.6713200871193248,0.7786394193965319,0.11778075202823311,1.6235373589113078,0.6544527277200078,1.2080332610464728,1.1717177199848419,1.3094387553033249,1.0896141999946443,0.6448960965111065,1.581219298105854,2.2739690637917547,1.4646291392792492,1.4668601136540071,1.7399755578441385,1.1297717506705685,0.7123752498905274,1.2489574181312155,1.0272526864481049,1.1968588269483074,0.2879277563132934,0.969257060980896,0.6687892383026092,0.697939793137491,0.9619021900702777,2.095868063962526,0.9197932146183035,0.9678912033211047,1.0691720964719569,0.9243762936909786,0.2889845438869208,0.790682537389409,0.25213571363825776,1.042947863070795,-0.048129968875799206,0.3380331973951703,1.0052340028689777,1.3962292617122953,1.415137302043647,0.9848440982400801,0.6323374972443498,1.1101595829405833,0.6752198602881386,0.16366590353328472,0.887204657076204,1.396735959350998,0.5587076312138869,1.0910729333609617,0.7254097981232168,0.8638614509908898,0.6620908661235457,0.8752941030061041,0.8648307984094808,0.5074956683309957,0.6318714289106033,0.26174253903933953,-0.09859074396612921,0.23301329259032816,0.7128649608622416,1.5109417939932717,0.41990807290002735,0.24770702358729646,0.11514929306376047,0.19724365125186585,1.259742516618678,0.4328243435642478,0.9666857063341212,-0.004030499056892087,0.6051542259856396,0.8553397076083831,0.2858766709833124,1.1141761910754298,-0.6875663346652452,0.443712673469252,0.7043099516663898,0.12429074898093861,0.3646185335891095,0.4834988212406953,-0.07264596906574865,1.8369515004276054,-0.3522240380742603,-0.8520237959071867,-0.09395014631171508,0.32940938843313283,0.0005604424556885964,0.1067101428933768,0.7386064451628613,0.13505460639840283,0.02877134499952716,0.035989884705775396,0.03171485675502529,0.6043797577437644,0.008390254127995912,0.9076093689354005,0.3899995238386676,-0.06358587642268641,0.6361697200294945,0.7654023874202972,0.34803231912190147,-0.2633328361798294,0.14253599271136022,0.4350395076477436,0.9048480977512824,0.2765824320620809,-0.1446807721427033,-0.9273632764347375,-0.7347186909401766,0.4912055976525435,0.28009312292795907,1.1477465831660794,-0.14672281550981675,0.9043936840787166,0.13972477661939356,-0.19881889438224176,0.3966133780367145,-0.5154228255586681,0.4788383683375355,-0.6955045572412553,-0.15921607288978454,-1.1117767537351462,-0.08759938020891966,-0.45569735910166353,-0.2698095979808029,0.19461311556358935,0.6511218589429545,-0.6205838995186369,-0.5098497850081566,-0.32993268318991803,0.2879795380888902,-0.49180279917405517,-0.587360214038997,0.19313495008970544,-0.3444814267454915,-0.3810165563054178,-0.8456464029652427,1.2283393764276271,-0.6203885336738036,-0.6883876349030756,-0.5484259481085213,-0.5443424978777832,0.11169614591143612,0.17140642351054947,0.5923602159961355,-0.9404628165618746,-0.015385440040289836,-0.27902424703241285,-0.8334205243935126,-0.030862666887817403,-0.35441961951089646,-0.5134562947306732,-0.5926022061108698,-0.7969396974510756,0.135360349380031,-0.7917631088968796,0.07487025169629072,-0.5902921212649276,0.5836891124372257,-0.5032607603721274,-0.4035633562344128,-0.31205662505670406,-0.6798102169730355,-1.133816118039938,-0.5417047069835333,-0.495873463405041,-0.7675404793091659,-0.20174412092302052,0.16561027005863727,-0.06025358553452307,-1.7077327776936009,-0.06360030677860529,-0.04655248151999736,-0.36983763797717495,-0.9105166188812853,-1.1826968515566474,-0.6741706425169388,-1.114930008780829,-1.0882170958113924,-1.0837022833019936,-0.20328127653061787,-0.8793659968373728,-0.6314400361734792,-0.6025734041411694,-0.2982015799752598,-0.38439313329533836,-0.7606577383749783,-0.787351264586722,-0.7497877656243406,-1.145817426728809,0.6902557254758334,-0.8012693414203614,-0.4616157425938256,-0.5383864761472821,-0.8751887450219593,-0.7177237822909714,-1.083432574965561,-1.0657632437873101,-0.9038788365670675,-1.1293478767295178,-2.02218119426231,-0.40142266162828555,-0.9646839730297188,-1.4883173908386456,-1.468087274639827,-0.6990887007725445,-0.8913548388569159,-0.38542243497072903,-1.075605415199973,-1.281223251512187,-0.6835864877063901,-1.4155176500607045,-0.5705538811346009,-0.04547845046990988,-0.7705270946663068,-0.6461532915742056,-0.5191771595078921,-1.8635285830201527,-0.6983989174479175,-0.44600010334507495,0.14383636395834515,-0.7334702720200451,-0.3759823625673994,0.4545312038996442,-1.6056610351844254,-1.8109354215904685,-1.2560741593999698,-0.02649172501196446,-1.6458547364546958,-1.2525953952118505,-1.3707856525427198,-0.9735877643320112,-1.6134226346431237,-1.3330904993489352,-1.041343881730854,-0.717203862843763,-1.0232411830371935,-1.5990252556103564,-1.3424320477464846,-1.6607268085909048,-0.4152618345988851,-1.5247081150611985,-1.9490422657024797,-1.4796181208533312,-1.668984111000732,-1.3406046358015198,-1.4102649837775871,-1.4410324053831975,-1.641427369685033,-1.666976060012416,-1.0808235742779824,-1.8398310002874896,-1.9020538337524495,-1.8971223252154237,-0.8190486054808285,-1.7786623284630332,-1.4531415131659542,-1.7945035535502576,-1.7305875126175623,-1.6846159891502281,-1.6443711870877253,-1.0394852708872926,-1.505533080950049,-2.816898230670464,-1.264907802007407,-1.8126516339209173,-1.888115914942023,-2.187731447298589,-1.1119171110234154,-1.6983296744475493,-1.5364376213870556,-1.6206530867895994,-2.0723217264895117,-1.603276430420661,-0.5507346680650449,-0.8031711784169289,-2.017676646720016,-1.3346082655085754,-2.0460855303609127,-2.2777726539590297,-2.174139272632321,-0.8816246398966583,-2.4917553724917485,-1.9120187617619941,-1.6226142199291276,-1.0181052968147892,-1.704412747794653,-2.0135574196067356,-1.1253522327145324,-2.2514880439559093,-2.9229711901563684,-1.8244767863299034,-2.049548874459675,-2.246009292018497,-2.2735021407561455,-2.2864208262113714,-2.1115150466463373,-2.319808601518119,-1.5157577400505784,-1.984945198777967,-2.6819725904420713,-1.9575503886418435,-1.2059066358896064,-1.4365070519520993,-2.886376561697536,-2.4002731489273827,-2.639564655654247,-2.831658630913919,-2.90786466004033,-2.38100629120063,-2.6711354624445742,-1.9773479016749882,-2.542340071366265,-2.049530000116464,-2.321089343558249,-1.6531061858589726,-1.1184324426535144,-2.306157400557455,-2.1212485941884522,-1.73236851086873,-2.3420076464198725,-1.9895946139429574,-2.191703108990726,-1.724318229907959,-2.817563402572746,-2.4916483565897924,-3.410368741108785,-3.0682587540933484,-2.8705407701047023,-2.284579289364052,-2.729933684588073,-2.6894848298506986,-2.5943787591008562,-2.512353356582527,-2.4399350879434536,-1.9086847595438254,-2.2014006909738777,-2.327437244853609,-2.15628542630562,-3.082218789232291,-2.3134930193066743,-3.004882417968841,-3.0774894993629225,-3.086892814971615,-3.6022522922491165,-3.4602590521202425,-2.542997081193763,-3.514869338339988,-3.0682160878473943,-2.9542855666591272,-3.624681787348001,-4.3183832126959985,-4.423001899087448,-3.9640925298285876],"type":"scatter"}],                        {"font":{"color":"#52514e","family":"system-ui, -apple-system, Segoe UI, sans-serif","size":12},"height":640,"margin":{"b":60,"l":80,"r":60,"t":90},"paper_bgcolor":"#fcfcfb","plot_bgcolor":"#fcfcfb","showlegend":false,"title":{"font":{"color":"#0b0b0b","size":17},"text":"\u003cb\u003eOpponent adjustment: stint RAPM vs lineup-aggregate model\u003c\u002fb\u003e\u003cbr\u003e\u003cspan style='font-size:12px;color:#52514e'\u003eEach dot is a player, 2023-24 · Spearman 0.96 · departures from the diagonal are opponent strength + estimation noise\u003c\u002fspan\u003e","x":0,"xanchor":"left"},"width":760,"xaxis":{"gridcolor":"#e1e0d9","linecolor":"#c3c2b7","showgrid":true,"tickfont":{"color":"#898781","size":11},"title":{"text":"Lineup-aggregate estimate (per 100)"},"zeroline":false},"yaxis":{"gridcolor":"#e1e0d9","linecolor":"#c3c2b7","showgrid":true,"tickfont":{"color":"#898781","size":11},"title":{"text":"Stint RAPM, opponent-adjusted (per 100)"},"zeroline":false},"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#52514e"},"error_y":{"color":"#52514e"},"marker":{"line":{"color":"#f2f1ea","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#52514e","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#52514e"},"baxis":{"endlinecolor":"#52514e","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#52514e"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#eceae2"},"line":{"color":"white"}},"header":{"fill":{"color":"#e1e0d9"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#f2f1ea","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#52514e"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"#fcfcfb","plot_bgcolor":"#f2f1ea","polar":{"bgcolor":"#f2f1ea","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#f2f1ea","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#f2f1ea","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#f2f1ea","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#f2f1ea","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#52514e"}},"annotationdefaults":{"arrowcolor":"#52514e","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#f2f1ea","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}}},                        {"responsive": true}                    )                };            </script>        </div>
 <script>
-window.addEventListener("load", function () {
-  var gs = document.querySelectorAll(".plotly-graph-div");
-  function fit() { gs.forEach(function (g) {
-    Plotly.relayout(g, {autosize: true, width: null, height: null}); }); }
-  fit(); window.addEventListener("resize", fit);
-});
+(function () {
+  // Figures are authored on the light family palette; on a dark scheme the
+  // same spec is re-rendered through this light->dark map (chrome and series
+  // steps from the family palette). Each plot's light spec is remembered so
+  // theme flips are lossless in both directions.
+  var MAP = {"white": "#1a1a19", "#fff": "#1a1a19", "#fcfcfb": "#1a1a19",
+    "#ffffff": "#1a1a19",
+    "#f2f1ea": "#21201e", "#eceae2": "#262624", "#e1e0d9": "#2c2c2a",
+    "#c3c2b7": "#383835", "#52514e": "#c3c2b7", "#2a3f5f": "#c3c2b7",
+    "#0b0b0b": "#f5f3ec", "#161512": "#f5f3ec", "#2a78d6": "#3987e5",
+    "#eb6834": "#d95926", "#1baf7a": "#199e70"};
+  var mq = window.matchMedia("(prefers-color-scheme: dark)");
+  // The parent page's manual theme toggle overrides the OS preference; it
+  // arrives as a postMessage from the embedding page.
+  var override = null;
+  var themeFn = null;
+  function isDark() {
+    return override ? override === "dark" : mq.matches;
+  }
+  function stampBody() {
+    document.body.classList.toggle("fam-dark", override === "dark");
+    document.body.classList.toggle("fam-light", override === "light");
+  }
+  window.addEventListener("message", function (e) {
+    if (!e.data || !e.data.famTheme) { return; }
+    var t = e.data.famTheme;
+    override = (t === "dark" || t === "light") ? t : null;
+    stampBody();
+    if (themeFn) { themeFn(); }
+  });
+  function darken(o) {
+    if (typeof o === "string") { return MAP[o.toLowerCase()] || o; }
+    if (Array.isArray(o)) { return o.map(darken); }
+    if (o && typeof o === "object") {
+      var r = {}; for (var k in o) { r[k] = darken(o[k]); } return r;
+    }
+    return o;
+  }
+  function copy(o) { return JSON.parse(JSON.stringify(o)); }
+  // Hand-built figure pages (e.g. animated histograms) often omit chrome
+  // colors and inherit plotly's defaults; pin those to the family's light
+  // values so the dark map has something to map.
+  function withDefaults(layout) {
+    var L = layout ? copy(layout) : {};
+    L.paper_bgcolor = L.paper_bgcolor || "#fcfcfb";
+    L.plot_bgcolor = L.plot_bgcolor || "#fcfcfb";
+    L.font = L.font || {}; L.font.color = L.font.color || "#52514e";
+    ["xaxis", "yaxis"].forEach(function (a) {
+      L[a] = L[a] || {};
+      L[a].gridcolor = L[a].gridcolor || "#e1e0d9";
+      if (L[a].zeroline !== false) {
+        L[a].zerolinecolor = L[a].zerolinecolor || "#e1e0d9";
+      }
+    });
+    return L;
+  }
+  // Route every author-side render through the theme: remember the light
+  // spec, darken it when the scheme is dark.
+  var origReact = null;
+  function installWrapper() {
+    if (origReact || !window.Plotly) { return; }
+    origReact = Plotly.react;
+    Plotly.react = function (gd, data, layout, config) {
+      var el = typeof gd === "string" ? document.getElementById(gd) : gd;
+      var L = withDefaults(layout), D = copy(data || []);
+      if (el) { el._lightSpec = {data: copy(D), layout: copy(L),
+                                 config: config}; }
+      if (isDark()) { D = darken(D); L = darken(L); }
+      return origReact.call(Plotly, el || gd, D, L, config);
+    };
+  }
+  installWrapper();
+  window.addEventListener("load", function () {
+    installWrapper();
+    var gs = Array.prototype.slice.call(
+      document.querySelectorAll(".plotly-graph-div, .js-plotly-plot"));
+    // Plots rendered before the wrapper installed (write_html pages, or a
+    // hand-built page that drew during parse): their current spec is the
+    // light spec.
+    gs.forEach(function (g) {
+      if (!g._lightSpec) {
+        g._lightSpec = {data: copy(g.data),
+                        layout: withDefaults(g.layout)};
+      }
+    });
+    // Re-render each plot from its light spec, darkened when the scheme is
+    // dark. Sizing is plotly's own job: the layouts get autosize and every
+    // figure ships config {responsive: true}, which react() preserves.
+    function theme() {
+      gs.forEach(function (g) {
+        var src = g._lightSpec;
+        var D = copy(src.data), L = copy(src.layout);
+        delete L.width; delete L.height; L.autosize = true;
+        if (isDark()) { D = darken(D); L = darken(L); }
+        origReact.call(Plotly, g, D, L, src.config);
+      });
+    }
+    themeFn = theme;
+    stampBody();
+    theme();
+    if (mq.addEventListener) { mq.addEventListener("change", theme); }
+  });
+})();
 </script></body>
 </html>

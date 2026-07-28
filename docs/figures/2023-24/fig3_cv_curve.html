@@ -1,14 +1,812 @@
 <html>
-<head><style>html,body{margin:0;height:100%}</style><meta charset="utf-8" /></head>
+<head><style>html,body{margin:0;height:100%}
+@media (prefers-color-scheme: dark){
+  body:not(.fam-light){background:#1a1a19;color:#c3c2b7}
+  body:not(.fam-light) .controls button{background:#1a1a19;color:#c3c2b7;border-color:#383835}
+  body:not(.fam-light) .controls button.on{background:#3987e5;color:#0f0e0d;border-color:#3987e5}
+  body:not(.fam-light) .seasonlab{color:#f5f3ec}
+}
+body.fam-dark{background:#1a1a19;color:#c3c2b7}
+body.fam-dark .controls button{background:#1a1a19;color:#c3c2b7;border-color:#383835}
+body.fam-dark .controls button.on{background:#3987e5;color:#0f0e0d;border-color:#3987e5}
+body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
 <body>
     <div style="height:100%; width:100%;">                        <script>window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
-        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.7.0.min.js" integrity="sha256-jvTGqxNp8AGWEcvNLVuKr+8j5dGe9Yw51LQkmDH+IYA=" crossorigin="anonymous"></script>                <div id="a081dda4-eb53-4922-b6bd-174fc3bef1af" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("a081dda4-eb53-4922-b6bd-174fc3bef1af")) {                    Plotly.newPlot(                        "a081dda4-eb53-4922-b6bd-174fc3bef1af",                        [{"hovertemplate":"lambda %{x:g}: %{y:.2f}\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"#2a78d6","width":2},"marker":{"color":"#2a78d6","size":8},"mode":"lines+markers","x":[100.0,200.0,400.0,800.0,1600.0,3200.0,6400.0],"y":[1931.9493339933704,1922.8929759113446,1912.278381632788,1902.4333312534668,1895.8992648595322,1893.8679219838154,1895.9021120897746],"type":"scatter"}],                        {"font":{"color":"#52514e","family":"system-ui, -apple-system, Segoe UI, sans-serif","size":12},"height":520,"margin":{"b":55,"l":80,"r":120,"t":85},"paper_bgcolor":"#fcfcfb","plot_bgcolor":"#fcfcfb","showlegend":false,"title":{"font":{"color":"#0b0b0b","size":17},"text":"\u003cb\u003ePenalty chosen by cross-validation\u003c\u002fb\u003e\u003cbr\u003e\u003cspan style='font-size:12px;color:#52514e'\u003ePossession-weighted MSE across 5 deterministic folds\u003c\u002fspan\u003e","x":0,"xanchor":"left"},"width":900,"xaxis":{"gridcolor":"#e1e0d9","gridwidth":0.5,"linecolor":"#c3c2b7","showgrid":true,"tickfont":{"color":"#898781","size":11},"title":{"font":{"color":"#52514e","size":12},"text":"Ridge penalty (log scale)"},"zeroline":false,"type":"log"},"yaxis":{"gridcolor":"#e1e0d9","gridwidth":0.5,"linecolor":"#c3c2b7","showgrid":true,"tickfont":{"color":"#898781","size":11},"title":{"font":{"color":"#52514e","size":12},"text":"CV weighted MSE"},"zeroline":false},"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"shapes":[{"line":{"color":"#eb6834","dash":"dot","width":1.5},"type":"line","x0":3200.0,"x1":3200.0,"xref":"x","y0":0,"y1":1,"yref":"y domain"}]},                        {"responsive": true}                    )                };            </script>        </div>
+        <script>/* famplot — the family's SVG chart engine.
+ *
+ * Implements the subset of the Plotly API that the studies' figures use
+ * (newPlot / react / relayout / Plots.resize) and renders them as hand-drawn
+ * SVG in the family chart style: thin marks, 4px rounded data-ends, hairline
+ * grids, surface gaps, a dark-chip tooltip, selective direct labels via the
+ * spec's own annotations. Trace types: scatter (lines / markers / bands /
+ * dashed), bar (vertical, horizontal, grouped), histogram. Anything colors:
+ * whatever hexes the spec carries (the page runtime darkens them for dark
+ * scheme before calling react).
+ *
+ * The interactive plotly originals remain available by running each study's
+ * figure scripts on GitHub (python/0*.py -> figures/*.html).
+ */
+(function () {
+  "use strict";
+
+  var NS = "http://www.w3.org/2000/svg";
+
+  function el(tag, attrs, parent) {
+    var n = document.createElementNS(NS, tag);
+    for (var k in attrs) n.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(n);
+    return n;
+  }
+
+  /* plotly's write_html packs numeric arrays as {dtype, bdata(, shape)} —
+   * decode them back to plain arrays so the renderer sees numbers. */
+  var DTYPES = { f8: Float64Array, f4: Float32Array, i4: Int32Array,
+                 i2: Int16Array, i1: Int8Array, u4: Uint32Array,
+                 u2: Uint16Array, u1: Uint8Array };
+  function decode(v) {
+    if (!v || typeof v !== "object" || Array.isArray(v) || !v.bdata) return v;
+    var T = DTYPES[v.dtype] || Float64Array;
+    var bin = atob(v.bdata);
+    var bytes = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    var flat = Array.prototype.slice.call(new T(bytes.buffer));
+    var shape = v.shape && String(v.shape).split(",").map(Number);
+    if (shape && shape.length === 2) {
+      var rows = [];
+      for (var r = 0; r < shape[0]; r++) {
+        rows.push(flat.slice(r * shape[1], (r + 1) * shape[1]));
+      }
+      return rows;
+    }
+    return flat;
+  }
+  function decodeTrace(tr) {
+    ["x", "y", "customdata"].forEach(function (k) {
+      if (tr[k] != null) tr[k] = decode(tr[k]);
+    });
+    if (tr.marker && tr.marker.color != null) {
+      tr.marker.color = decode(tr.marker.color);
+    }
+    return tr;
+  }
+
+  /* Traces without explicit colors take the family categorical order,
+   * assigned by trace index (never re-cycled). Spec-carried colors are
+   * darkened by the page runtime; these engine-side fallbacks pick the
+   * dark steps themselves by checking the theme stamped on the body. */
+  var FAMILY_WAY = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100",
+                    "#e87ba4", "#008300", "#4a3aa7", "#e34948"];
+  var FAMILY_WAY_DARK = ["#3987e5", "#d95926", "#199e70", "#c98500",
+                         "#d55181", "#008300", "#9085e9", "#e66767"];
+  function isDarkDoc() {
+    var b = document.body;
+    if (b && b.classList.contains("fam-dark")) return true;
+    if (b && b.classList.contains("fam-light")) return false;
+    return window.matchMedia &&
+      matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+
+  /* Numeric marker colors map through the trace's colorscale. */
+  function hexToRgb(h) {
+    if (h[0] !== "#") return [128, 128, 128];
+    return [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16),
+            parseInt(h.slice(5, 7), 16)];
+  }
+  function scaleColor(scale, t) {
+    for (var i = 1; i < scale.length; i++) {
+      if (t <= scale[i][0]) {
+        var a = scale[i - 1], b = scale[i];
+        var f = (t - a[0]) / ((b[0] - a[0]) || 1);
+        var ca = hexToRgb(a[1]), cb = hexToRgb(b[1]);
+        return "rgb(" + ca.map(function (v, j) {
+          return Math.round(v + (cb[j] - v) * f);
+        }).join(",") + ")";
+      }
+    }
+    return scale[scale.length - 1][1];
+  }
+
+  function stripTags(s) {
+    return String(s == null ? "" : s)
+      .replace(/<br\s*\/?>/gi, "\n")
+      .replace(/<[^>]+>/g, "")
+      .replace(/&#8220;|&#8221;/g, '"')
+      .replace(/&#8216;|&#8217;/g, "'")
+      .replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">")
+      .replace(/&nbsp;/g, " ");
+  }
+
+  /* ---- d3-format-lite: the specifiers the figures actually use ---- */
+  function fmt(spec, v) {
+    if (v == null || typeof v !== "number" || !isFinite(v)) return String(v);
+    if (!spec) {
+      return String(Math.round(v * 1000) / 1000);
+    }
+    var plus = spec.indexOf("+") >= 0;
+    var comma = spec.indexOf(",") >= 0;
+    var m = spec.match(/\.(\d+)([f%])/);
+    var out;
+    if (m && m[2] === "%") {
+      out = (v * 100).toFixed(+m[1]) + "%";
+    } else if (m) {
+      out = v.toFixed(+m[1]);
+      if (comma) out = commas(out);
+    } else if (comma) {
+      out = commas(String(Math.round(v)));
+    } else {
+      out = String(v);
+    }
+    if (plus && v > 0) out = "+" + out;
+    return out;
+  }
+  function commas(s) {
+    var p = s.split(".");
+    p[0] = p[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return p.join(".");
+  }
+
+  /* Fill a hovertemplate for point i of trace tr. */
+  function hover(tr, i, xv, yv) {
+    var t = tr.hovertemplate;
+    if (!t) {
+      var name = tr.name ? tr.name + ": " : "";
+      return name + fmtVal(xv) + ", " + fmtVal(yv);
+    }
+    t = t.replace(/<extra>.*?<\/extra>/g, "");
+    t = t.replace(/%\{([^}]+)\}/g, function (_, expr) {
+      var parts = expr.split(":");
+      var path = parts[0], f = parts.slice(1).join(":");
+      var val;
+      if (path === "x") val = xv;
+      else if (path === "y") val = yv;
+      else if (path.indexOf("customdata[") === 0) {
+        var idx = +path.slice(11, -1);
+        val = tr.customdata && tr.customdata[i] ? tr.customdata[i][idx] : "";
+      } else if (path === "fullData.name") val = tr.name || "";
+      else val = "";
+      return typeof val === "number" ? fmt(f, val) : String(val);
+    });
+    return stripTags(t);
+  }
+  function fmtVal(v) {
+    return typeof v === "number" ? fmt(null, v) : String(v);
+  }
+
+  /* ---- scales ---- */
+  function linScale(d0, d1, r0, r1) {
+    var f = function (v) { return r0 + (v - d0) / (d1 - d0 || 1) * (r1 - r0); };
+    f.d0 = d0; f.d1 = d1;
+    return f;
+  }
+  function niceTicks(d0, d1, n) {
+    var span = d1 - d0 || 1;
+    var step = Math.pow(10, Math.floor(Math.log(span / n) / Math.LN10));
+    var err = span / n / step;
+    if (err >= 7.5) step *= 10; else if (err >= 3.5) step *= 5;
+    else if (err >= 1.5) step *= 2;
+    var ticks = [];
+    for (var v = Math.ceil(d0 / step) * step; v <= d1 + step / 1e6; v += step) {
+      ticks.push(Math.abs(v) < step / 1e6 ? 0 : Math.round(v * 1e9) / 1e9);
+    }
+    return ticks;
+  }
+
+  /* ---- histogram binning ---- */
+  function binHistogram(tr) {
+    var xs = tr.x.filter(function (v) { return v != null; });
+    var lo = Math.min.apply(null, xs), hi = Math.max.apply(null, xs);
+    var n = tr.nbinsx || Math.ceil(Math.sqrt(xs.length));
+    var step = (hi - lo) / n || 1;
+    var counts = new Array(n).fill(0);
+    xs.forEach(function (v) {
+      var b = Math.min(n - 1, Math.floor((v - lo) / step));
+      counts[b] += 1;
+    });
+    var total = xs.length;
+    return counts.map(function (c, i) {
+      return { x: lo + (i + 0.5) * step, w: step,
+               y: tr.histnorm === "probability" ? c / total : c };
+    });
+  }
+
+  /* ---- tooltip (one per document) ---- */
+  var tip = null;
+  function ensureTip() {
+    if (tip) return tip;
+    tip = document.createElement("div");
+    tip.className = "famplot-tip";
+    var st = document.createElement("style");
+    st.textContent =
+      ".famplot-tip{position:fixed;z-index:30;pointer-events:none;" +
+      "background:#262521;color:#f5f3ec;border-radius:6px;" +
+      "padding:.4rem .6rem;font:12.5px/1.45 system-ui,-apple-system," +
+      "'Segoe UI',sans-serif;box-shadow:0 4px 14px rgba(0,0,0,.28);" +
+      "opacity:0;max-width:260px;white-space:pre-line}" +
+      ".famplot-tip.on{opacity:1}" +
+      "body.fam-dark .famplot-tip{background:#f5f3ec;color:#161512}";
+    document.head.appendChild(st);
+    document.body.appendChild(tip);
+    return tip;
+  }
+  function showTip(evt, text) {
+    var t = ensureTip();
+    t.textContent = text;
+    t.classList.add("on");
+    var pad = 12;
+    var x = evt.clientX + pad, y = evt.clientY + pad;
+    var r = t.getBoundingClientRect();
+    if (x + r.width > innerWidth - 6) x = evt.clientX - r.width - pad;
+    if (y + r.height > innerHeight - 6) y = evt.clientY - r.height - pad;
+    t.style.left = x + "px"; t.style.top = y + "px";
+  }
+  function hideTip() { if (tip) tip.classList.remove("on"); }
+
+  /* ---- the renderer ---- */
+  function render(gd) {
+    var data = gd.data || [], layout = gd.layout || {};
+    gd.textContent = "";
+    var W = gd.clientWidth || layout.width || 700;
+    var H = layout.height || 480;
+    if (W < 560) H = Math.max(300, Math.round(H * (W / 560)));
+    var mg = layout.margin || {};
+    var M = { l: mg.l != null ? mg.l : 60, r: mg.r != null ? mg.r : 30,
+              t: mg.t != null ? mg.t : 60, b: mg.b != null ? mg.b : 50 };
+    if (W < 700 && M.r > 40) M.r = 24;
+    var fontCol = (layout.font && layout.font.color) || "#52514e";
+    var titleCol = (layout.title && layout.title.font &&
+                    layout.title.font.color) || fontCol;
+    var XA = layout.xaxis || {}, YA = layout.yaxis || {};
+    var grid = XA.gridcolor || YA.gridcolor || "#e1e0d9";
+    var axline = XA.linecolor || YA.linecolor || "#c3c2b7";
+
+    var svg = el("svg", { viewBox: "0 0 " + W + " " + H, width: "100%",
+                          role: "img" }, gd);
+    svg.style.display = "block";
+    svg.style.fontFamily = (layout.font && layout.font.family) ||
+      "system-ui, -apple-system, 'Segoe UI', sans-serif";
+    el("rect", { x: 0, y: 0, width: W, height: H,
+                 fill: layout.paper_bgcolor || "#fcfcfb" }, svg);
+
+    /* title (multi-line safe) */
+    var titleText = stripTags(layout.title && layout.title.text);
+    if (titleText) {
+      var tl = titleText.split("\n");
+      tl.forEach(function (line, i) {
+        var tt = el("text", { x: M.l, y: 24 + i * 19, fill: titleCol,
+          "font-size": "15px", "font-weight": i === 0 ? "600" : "400" }, svg);
+        if (i > 0) tt.setAttribute("fill", fontCol);
+        tt.textContent = line;
+      });
+      if (tl.length > 1 && M.t < 30 + tl.length * 19) {
+        M.t = 30 + tl.length * 19;
+      }
+    }
+
+    var pw = W - M.l - M.r, ph = H - M.t - M.b;
+    var plot = el("g", {}, svg);
+
+    /* ---- assemble series geometry ---- */
+    var tIdx = new Map();
+    data.forEach(function (tr, i) { tIdx.set(tr, i); });
+    function traceColor(tr) {
+      if (tr.line && tr.line.color) return tr.line.color;
+      if (tr.marker && typeof tr.marker.color === "string") {
+        return tr.marker.color;
+      }
+      var way = isDarkDoc() ? FAMILY_WAY_DARK : FAMILY_WAY;
+      return way[(tIdx.get(tr) || 0) % way.length];
+    }
+    var bars = [], hbars = [], lines = [], points = [], bands = [];
+    var catX = XA.type === "category";
+    var xCats = [], yCats = [];
+    data.forEach(function (tr) {
+      if (tr.visible === false) return;
+      var type = tr.type || "scatter";
+      if (type === "histogram") {
+        binHistogram(tr).forEach(function (b) {
+          bars.push({ tr: tr, x: b.x, y: b.y, w: b.w, i: -1 });
+        });
+      } else if (type === "bar" && tr.orientation === "h") {
+        (tr.y || []).forEach(function (yv, i) {
+          yCats.indexOf(yv) < 0 && yCats.push(yv);
+          hbars.push({ tr: tr, cat: yv, v: tr.x[i], i: i });
+        });
+      } else if (type === "bar") {
+        (tr.x || []).forEach(function (xv, i) {
+          if (catX || typeof xv === "string") {
+            xCats.indexOf(xv) < 0 && xCats.push(xv);
+          }
+          bars.push({ tr: tr, x: xv, y: tr.y[i], i: i });
+        });
+      } else { /* scatter */
+        var mode = tr.mode || "lines";
+        if (tr.fill === "toself") {
+          bands.push({ tr: tr, xs: tr.x, ys: tr.y });
+        } else if (tr.fill === "tonexty") {
+          bands.push({ tr: tr, xs: tr.x, ys: tr.y, tonext: true });
+          if (mode.indexOf("lines") >= 0) lines.push(tr);
+        } else {
+          if (mode.indexOf("lines") >= 0) lines.push(tr);
+          if (mode.indexOf("markers") >= 0) {
+            (tr.x || []).forEach(function (xv, i) {
+              if (catX || typeof xv === "string") {
+                xCats.indexOf(xv) < 0 && xCats.push(xv);
+              }
+              points.push({ tr: tr, x: xv, y: tr.y[i], i: i });
+            });
+          }
+        }
+      }
+    });
+    var barTraces = [];
+    data.forEach(function (tr) {
+      if ((tr.type === "bar" || tr.type === "histogram") &&
+          barTraces.indexOf(tr) < 0) barTraces.push(tr);
+    });
+
+    /* ---- domains ---- */
+    function extent(vals, pad, zero) {
+      var lo = Infinity, hi = -Infinity;
+      vals.forEach(function (v) {
+        if (typeof v === "number" && isFinite(v)) {
+          if (v < lo) lo = v; if (v > hi) hi = v;
+        }
+      });
+      if (lo === Infinity) { lo = 0; hi = 1; }
+      if (zero && lo > 0) lo = 0;
+      if (zero && hi < 0) hi = 0;
+      var span = (hi - lo) || Math.abs(hi) || 1;
+      return [lo - (zero && lo === 0 ? 0 : span * pad), hi + span * pad];
+    }
+    var xs = [], ys = [];
+    bands.forEach(function (b) { xs = xs.concat(b.xs); ys = ys.concat(b.ys); });
+    lines.forEach(function (tr) { xs = xs.concat(tr.x); ys = ys.concat(tr.y); });
+    points.forEach(function (p) { xs.push(p.x); ys.push(p.y); });
+    bars.forEach(function (b) {
+      if (typeof b.x === "number") { xs.push(b.x - (b.w || 1) / 2); xs.push(b.x + (b.w || 1) / 2); }
+      ys.push(b.y);
+    });
+    hbars.forEach(function (b) { xs.push(b.v); });
+
+    var zeroY = bars.length > 0, zeroX = hbars.length > 0;
+    var xd = XA.range ? XA.range.slice() : extent(xs, 0.04, zeroX);
+    var yd = YA.range ? YA.range.slice() : extent(ys, 0.06, zeroY);
+
+    var usingXCats = xCats.length > 0 && (bars.length || points.length);
+    var usingYCats = yCats.length > 0;
+    if (usingYCats && YA.autorange !== "reversed") yCats = yCats.slice();
+    var X, Y, xBand = 0, yBand = 0;
+    if (usingXCats) {
+      xBand = pw / xCats.length;
+      X = function (v) { return M.l + xCats.indexOf(v) * xBand + xBand / 2; };
+    } else {
+      X = linScale(xd[0], xd[1], M.l, M.l + pw);
+    }
+    if (usingYCats) {
+      yBand = ph / yCats.length;
+      Y = function (v) { return M.t + yCats.indexOf(v) * yBand + yBand / 2; };
+    } else {
+      Y = linScale(yd[0], yd[1], M.t + ph, M.t);
+    }
+
+    /* ---- grid + ticks ---- */
+    var tickCls = { fill: XA.tickfont && XA.tickfont.size
+      ? fontCol : fontCol };
+    function tickText(x, y, s, anchor, size) {
+      var t = el("text", { x: x, y: y, fill: fontCol,
+        "font-size": (size || 12) + "px", "text-anchor": anchor }, svg);
+      t.textContent = s;
+      return t;
+    }
+    if (!usingYCats) {
+      niceTicks(yd[0], yd[1], Math.max(3, Math.round(ph / 70))).forEach(function (v) {
+        var y = Y(v);
+        if (y < M.t - 1 || y > M.t + ph + 1) return;
+        el("line", { x1: M.l, y1: y, x2: M.l + pw, y2: y,
+                     stroke: grid, "stroke-width": 1 }, plot);
+        tickText(M.l - 8, y + 4, fmt(YA.tickformat, v), "end");
+      });
+    } else {
+      yCats.forEach(function (c) {
+        var size = (YA.tickfont && YA.tickfont.size) || 11.5;
+        tickText(M.l - 8, Y(c) + 3.5, stripTags(c), "end", size);
+      });
+    }
+    if (!usingXCats) {
+      niceTicks(xd[0], xd[1], Math.max(3, Math.round(pw / 90))).forEach(function (v) {
+        var x = X(v);
+        if (x < M.l - 1 || x > M.l + pw + 1) return;
+        if (hbars.length) {
+          el("line", { x1: x, y1: M.t, x2: x, y2: M.t + ph,
+                       stroke: grid, "stroke-width": 1 }, plot);
+        }
+        tickText(x, M.t + ph + 18, fmt(XA.tickformat, v), "middle");
+      });
+    } else {
+      var every = Math.ceil(xCats.length / Math.max(3, pw / 60));
+      var tickvals = XA.tickvals;
+      xCats.forEach(function (c, i) {
+        if (tickvals ? tickvals.indexOf(c) < 0 : i % every !== 0) return;
+        tickText(X(c), M.t + ph + 18, stripTags(c), "middle", 11);
+      });
+    }
+    el("line", { x1: M.l, y1: M.t + ph, x2: M.l + pw, y2: M.t + ph,
+                 stroke: axline, "stroke-width": 1 }, plot);
+    if (hbars.length || (!usingXCats && xd[0] < 0 && xd[1] > 0)) {
+      el("line", { x1: M.l, y1: M.t, x2: M.l, y2: M.t + ph,
+                   stroke: axline, "stroke-width": 1 }, plot);
+    }
+
+    /* axis titles */
+    var xt = stripTags(XA.title && XA.title.text);
+    var yt = stripTags(YA.title && YA.title.text);
+    if (xt) tickText(M.l + pw / 2, H - 10, xt, "middle");
+    if (yt) {
+      var ty = el("text", { x: 0, y: 0, fill: fontCol, "font-size": "12px",
+        "text-anchor": "middle",
+        transform: "translate(14," + (M.t + ph / 2) + ") rotate(-90)" }, svg);
+      ty.textContent = yt;
+    }
+
+    var surface = layout.plot_bgcolor || layout.paper_bgcolor || "#fcfcfb";
+
+    /* ---- bands (confidence fills) ---- */
+    bands.forEach(function (b) {
+      var d = "";
+      b.xs.forEach(function (xv, i) {
+        d += (i ? "L" : "M") + X(xv) + "," + Y(b.ys[i]);
+      });
+      if (b.tonext) {
+        d += "L" + X(b.xs[b.xs.length - 1]) + "," + (M.t + ph) +
+             "L" + X(b.xs[0]) + "," + (M.t + ph);
+      }
+      el("path", { d: d + "Z", fill: b.tr.fillcolor ||
+        "rgba(42,120,214,0.15)", stroke: "none" }, plot);
+    });
+
+    /* ---- vertical bars (incl. histogram, grouped) ---- */
+    if (bars.length) {
+      var groups = barTraces.filter(function (t) {
+        return bars.some(function (b) { return b.tr === t; });
+      });
+      var gN = layout.barmode === "group" ? groups.length : 1;
+      bars.forEach(function (b) {
+        var slot = usingXCats ? xBand
+          : (b.w ? X(b.w) - X(0) : pw / Math.max(bars.length / gN, 1));
+        var bw = Math.min(24, (slot - 2) / gN - (gN > 1 ? 2 : 0));
+        if (bw < 1) bw = Math.max(1, slot / gN - 1);
+        var gi = gN > 1 ? groups.indexOf(b.tr) : 0;
+        var cx = X(b.x) - (gN * bw + (gN - 1) * 2) / 2 + gi * (bw + 2);
+        var y0 = Y(Math.max(0, yd[0])), y1 = Y(b.y);
+        var top = Math.min(y0, y1), hgt = Math.abs(y0 - y1);
+        var r = Math.min(4, bw / 2, hgt);
+        var dPath = "M" + cx + "," + (top + hgt) +
+          "V" + (top + r) +
+          "Q" + cx + "," + top + " " + (cx + r) + "," + top +
+          "H" + (cx + bw - r) +
+          "Q" + (cx + bw) + "," + top + " " + (cx + bw) + "," + (top + r) +
+          "V" + (top + hgt) + "Z";
+        var node = el("path", { d: dPath, fill: traceColor(b.tr) }, plot);
+        attachHover(node, b.tr, b.i, b.x, b.y);
+      });
+    }
+
+    /* ---- horizontal bars ---- */
+    hbars.forEach(function (b) {
+      var bh = Math.min(24, yBand - 8);
+      var cy = Y(b.cat) - bh / 2;
+      var x0 = X(Math.max(0, xd[0])), x1 = X(b.v);
+      var left = Math.min(x0, x1), wid = Math.abs(x1 - x0);
+      var r = Math.min(4, bh / 2, wid);
+      var dPath = "M" + left + "," + cy +
+        "H" + (left + wid - r) +
+        "Q" + (left + wid) + "," + cy + " " + (left + wid) + "," + (cy + r) +
+        "V" + (cy + bh - r) +
+        "Q" + (left + wid) + "," + (cy + bh) + " " + (left + wid - r) + "," + (cy + bh) +
+        "H" + left + "Z";
+      var node = el("path", { d: dPath, fill: traceColor(b.tr) }, plot);
+      attachHover(node, b.tr, b.i, b.v, b.cat, true);
+    });
+
+    /* ---- lines ---- */
+    var linePts = [];
+    lines.forEach(function (tr) {
+      var d = "";
+      (tr.x || []).forEach(function (xv, i) {
+        var yv = tr.y[i];
+        if (yv == null) return;
+        d += (d ? "L" : "M") + X(xv) + "," + Y(yv);
+        linePts.push({ tr: tr, x: xv, y: yv, px: X(xv), py: Y(yv), i: i });
+      });
+      var ln = tr.line || {};
+      el("path", { d: d, fill: "none", stroke: ln.color || traceColor(tr),
+        "stroke-width": ln.width != null ? ln.width : 2,
+        "stroke-linejoin": "round", "stroke-linecap": "round",
+        "stroke-dasharray": ln.dash === "dot" ? "2,4"
+          : ln.dash === "dash" ? "7,4" : "none" }, plot);
+    });
+
+    /* ---- markers ---- */
+    points.forEach(function (p) {
+      if (p.y == null) return;
+      var mk = p.tr.marker || {};
+      var r = Math.max(3.5, (mk.size || 8) / 2);
+      var fill;
+      if (Array.isArray(mk.color)) {
+        var vals = mk.color;
+        var lo = mk.cmin != null ? mk.cmin : Math.min.apply(null, vals);
+        var hi = mk.cmax != null ? mk.cmax : Math.max.apply(null, vals);
+        var tval = (vals[p.i] - lo) / ((hi - lo) || 1);
+        fill = scaleColor(mk.colorscale || [[0, "#cde2fb"], [1, "#0d366b"]],
+                          Math.max(0, Math.min(1, tval)));
+      } else {
+        fill = mk.color || traceColor(p.tr);
+      }
+      el("circle", { cx: X(p.x), cy: Y(p.y), r: r + 2, fill: surface }, plot);
+      var node = el("circle", { cx: X(p.x), cy: Y(p.y), r: r, fill: fill,
+        "fill-opacity": mk.opacity != null ? mk.opacity : 1 }, plot);
+      attachHover(node, p.tr, p.i, p.x, p.y);
+    });
+
+    /* ---- colorbar (numeric marker colors with showscale) ---- */
+    data.forEach(function (tr) {
+      var mk = tr.marker || {};
+      if (!Array.isArray(mk.color) || !mk.showscale || M.r < 60) return;
+      var scale = mk.colorscale || [[0, "#cde2fb"], [1, "#0d366b"]];
+      var vals = mk.color;
+      var lo = mk.cmin != null ? mk.cmin : Math.min.apply(null, vals);
+      var hi = mk.cmax != null ? mk.cmax : Math.max.apply(null, vals);
+      var cbX = W - M.r + 24, cbH = Math.round(ph * 0.7);
+      var cbY = M.t + (ph - cbH) / 2;
+      var gid = "famgrad" + Math.abs((gd.id || "g").split("")
+        .reduce(function (a, c) { return a + c.charCodeAt(0); }, 0));
+      var defs = el("defs", {}, svg);
+      var grad = el("linearGradient",
+        { id: gid, x1: 0, y1: 1, x2: 0, y2: 0 }, defs);
+      scale.forEach(function (st) {
+        el("stop", { offset: (st[0] * 100) + "%", "stop-color": st[1] }, grad);
+      });
+      el("rect", { x: cbX, y: cbY, width: 10, height: cbH, rx: 3,
+                   fill: "url(#" + gid + ")" }, svg);
+      tickText(cbX + 15, cbY + 9, fmt(".2f", hi), "start", 10.5);
+      tickText(cbX + 15, cbY + cbH, fmt(".2f", lo), "start", 10.5);
+      var cbTitle = mk.colorbar && mk.colorbar.title &&
+        stripTags(mk.colorbar.title.text);
+      if (cbTitle) tickText(cbX - 4, cbY - 10, cbTitle, "start", 11);
+    });
+
+    /* ---- shapes (reference lines) ---- */
+    (layout.shapes || []).forEach(function (sh) {
+      if (sh.type !== "line") return;
+      var ln = sh.line || {};
+      var vertical = sh.x0 === sh.x1;
+      var coords;
+      function cx(v, ref) {
+        return /domain|paper/.test(ref || "") ? M.l + pw * v : X(v);
+      }
+      function cy(v, ref) {
+        return /domain|paper/.test(ref || "") ? M.t + ph * (1 - v) : Y(v);
+      }
+      if (vertical) {
+        coords = { x1: cx(sh.x0, sh.xref), x2: cx(sh.x0, sh.xref),
+                   y1: cy(sh.y0, sh.yref), y2: cy(sh.y1, sh.yref) };
+      } else {
+        coords = { x1: cx(sh.x0, sh.xref), x2: cx(sh.x1, sh.xref),
+                   y1: cy(sh.y0, sh.yref), y2: cy(sh.y0, sh.yref) };
+      }
+      coords.stroke = ln.color || axline;
+      coords["stroke-width"] = ln.width != null ? ln.width : 1.5;
+      if (ln.dash) coords["stroke-dasharray"] = "2,4";
+      el("line", coords, plot);
+    });
+
+    /* ---- annotations ---- */
+    (layout.annotations || []).forEach(function (an) {
+      var ax = /domain|paper/.test(an.xref || "")
+        ? M.l + pw * an.x : X(an.x);
+      var ay = an.yref && /domain|paper/.test(an.yref)
+        ? M.t + ph * (1 - an.y) : (an.y != null ? Y(an.y) : M.t + 14);
+      ax += (an.xshift || 0); ay -= (an.yshift || 0);
+      var anchor = an.xanchor === "right" ? "end"
+        : an.xanchor === "center" ? "middle" : "start";
+      var col = (an.font && an.font.color) || fontCol;
+      var size = (an.font && an.font.size) || 11.5;
+      var linesA = stripTags(an.text).split("\n");
+      var dy = an.yanchor === "bottom" ? -(linesA.length - 1) * (size + 2) - 4
+        : an.yanchor === "top" ? size : 0;
+      linesA.forEach(function (s, i) {
+        var t = el("text", { x: ax, y: ay + dy + i * (size + 2), fill: col,
+          "font-size": size + "px", "text-anchor": anchor }, svg);
+        t.textContent = s;
+      });
+    });
+
+    /* ---- legend ---- */
+    var legendTraces = data.filter(function (tr) {
+      return tr.name && tr.showlegend !== false &&
+        (layout.showlegend !== false || tr.showlegend === true);
+    });
+    if (layout.showlegend === false) legendTraces = [];
+    if (legendTraces.length > 1) {
+      var lx = M.l, lyy = H - (xt ? 26 : 6) - 14;
+      lyy = M.t - 14 > 20 ? M.t - 12 : lyy;
+      legendTraces.forEach(function (tr) {
+        var c = traceColor(tr);
+        el("rect", { x: lx, y: lyy - 9, width: 11, height: 11, rx: 3,
+                     fill: c }, svg);
+        var t = el("text", { x: lx + 16, y: lyy, fill: fontCol,
+          "font-size": "12px" }, svg);
+        t.textContent = tr.name;
+        lx += 16 + t.getComputedTextLength() + 18;
+      });
+    }
+
+    /* ---- hover plumbing ---- */
+    function attachHover(node, tr, i, xv, yv, horiz) {
+      if (tr.hoverinfo === "skip") return;
+      node.addEventListener("pointermove", function (e) {
+        showTip(e, horiz ? hover(tr, i, xv, yv) : hover(tr, i, xv, yv));
+      });
+      node.addEventListener("pointerleave", hideTip);
+    }
+    if (linePts.length) {
+      svg.addEventListener("pointermove", function (e) {
+        var rect = svg.getBoundingClientRect();
+        var sx = (e.clientX - rect.left) * W / rect.width;
+        var sy = (e.clientY - rect.top) * H / rect.height;
+        var best = null, bd = 30 * 30;
+        linePts.forEach(function (p) {
+          var dd = (p.px - sx) * (p.px - sx) + (p.py - sy) * (p.py - sy);
+          if (dd < bd) { bd = dd; best = p; }
+        });
+        if (best) showTip(e, hover(best.tr, best.i, best.x, best.y));
+        else if (!e.target.closest("path,circle")) hideTip();
+      });
+      svg.addEventListener("pointerleave", hideTip);
+    }
+  }
+
+  /* ---- Plotly-compatible API ---- */
+  function resolve(gd) {
+    return typeof gd === "string" ? document.getElementById(gd) : gd;
+  }
+  var observed = new WeakSet();
+  function plot(gd, data, layout, config) {
+    gd = resolve(gd);
+    gd.data = (data || []).map(decodeTrace);
+    gd.layout = layout || {};
+    gd.config = config || {};
+    gd.classList.add("js-plotly-plot");
+    render(gd);
+    if (!observed.has(gd) && window.ResizeObserver) {
+      observed.add(gd);
+      var pending = null;
+      new ResizeObserver(function () {
+        cancelAnimationFrame(pending);
+        pending = requestAnimationFrame(function () { render(gd); });
+      }).observe(gd);
+    }
+    return Promise.resolve(gd);
+  }
+  window.Plotly = {
+    newPlot: plot,
+    react: plot,
+    relayout: function (gd, patch) {
+      gd = resolve(gd);
+      for (var k in patch) {
+        if (patch[k] === null) delete gd.layout[k];
+        else gd.layout[k] = patch[k];
+      }
+      render(gd);
+      return Promise.resolve(gd);
+    },
+    Plots: { resize: function (gd) { render(resolve(gd)); } },
+  };
+})();
+</script>                <div id="a081dda4-eb53-4922-b6bd-174fc3bef1af" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("a081dda4-eb53-4922-b6bd-174fc3bef1af")) {                    Plotly.newPlot(                        "a081dda4-eb53-4922-b6bd-174fc3bef1af",                        [{"hovertemplate":"lambda %{x:g}: %{y:.2f}\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"#2a78d6","width":2},"marker":{"color":"#2a78d6","size":8},"mode":"lines+markers","x":[100.0,200.0,400.0,800.0,1600.0,3200.0,6400.0],"y":[1931.9493339933704,1922.8929759113446,1912.278381632788,1902.4333312534668,1895.8992648595322,1893.8679219838154,1895.9021120897746],"type":"scatter"}],                        {"font":{"color":"#52514e","family":"system-ui, -apple-system, Segoe UI, sans-serif","size":12},"height":520,"margin":{"b":55,"l":80,"r":120,"t":85},"paper_bgcolor":"#fcfcfb","plot_bgcolor":"#fcfcfb","showlegend":false,"title":{"font":{"color":"#0b0b0b","size":17},"text":"\u003cb\u003ePenalty chosen by cross-validation\u003c\u002fb\u003e\u003cbr\u003e\u003cspan style='font-size:12px;color:#52514e'\u003ePossession-weighted MSE across 5 deterministic folds\u003c\u002fspan\u003e","x":0,"xanchor":"left"},"width":900,"xaxis":{"gridcolor":"#e1e0d9","gridwidth":0.5,"linecolor":"#c3c2b7","showgrid":true,"tickfont":{"color":"#898781","size":11},"title":{"font":{"color":"#52514e","size":12},"text":"Ridge penalty (log scale)"},"zeroline":false,"type":"log"},"yaxis":{"gridcolor":"#e1e0d9","gridwidth":0.5,"linecolor":"#c3c2b7","showgrid":true,"tickfont":{"color":"#898781","size":11},"title":{"font":{"color":"#52514e","size":12},"text":"CV weighted MSE"},"zeroline":false},"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#52514e"},"error_y":{"color":"#52514e"},"marker":{"line":{"color":"#f2f1ea","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#52514e","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#52514e"},"baxis":{"endlinecolor":"#52514e","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#52514e"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#eceae2"},"line":{"color":"white"}},"header":{"fill":{"color":"#e1e0d9"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#f2f1ea","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#52514e"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"#fcfcfb","plot_bgcolor":"#f2f1ea","polar":{"bgcolor":"#f2f1ea","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#f2f1ea","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#f2f1ea","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#f2f1ea","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#f2f1ea","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#52514e"}},"annotationdefaults":{"arrowcolor":"#52514e","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#f2f1ea","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"shapes":[{"line":{"color":"#eb6834","dash":"dot","width":1.5},"type":"line","x0":3200.0,"x1":3200.0,"xref":"x","y0":0,"y1":1,"yref":"y domain"}]},                        {"responsive": true}                    )                };            </script>        </div>
 <script>
-window.addEventListener("load", function () {
-  var gs = document.querySelectorAll(".plotly-graph-div");
-  function fit() { gs.forEach(function (g) {
-    Plotly.relayout(g, {autosize: true, width: null, height: null}); }); }
-  fit(); window.addEventListener("resize", fit);
-});
+(function () {
+  // Figures are authored on the light family palette; on a dark scheme the
+  // same spec is re-rendered through this light->dark map (chrome and series
+  // steps from the family palette). Each plot's light spec is remembered so
+  // theme flips are lossless in both directions.
+  var MAP = {"white": "#1a1a19", "#fff": "#1a1a19", "#fcfcfb": "#1a1a19",
+    "#ffffff": "#1a1a19",
+    "#f2f1ea": "#21201e", "#eceae2": "#262624", "#e1e0d9": "#2c2c2a",
+    "#c3c2b7": "#383835", "#52514e": "#c3c2b7", "#2a3f5f": "#c3c2b7",
+    "#0b0b0b": "#f5f3ec", "#161512": "#f5f3ec", "#2a78d6": "#3987e5",
+    "#eb6834": "#d95926", "#1baf7a": "#199e70"};
+  var mq = window.matchMedia("(prefers-color-scheme: dark)");
+  // The parent page's manual theme toggle overrides the OS preference; it
+  // arrives as a postMessage from the embedding page.
+  var override = null;
+  var themeFn = null;
+  function isDark() {
+    return override ? override === "dark" : mq.matches;
+  }
+  function stampBody() {
+    document.body.classList.toggle("fam-dark", override === "dark");
+    document.body.classList.toggle("fam-light", override === "light");
+  }
+  window.addEventListener("message", function (e) {
+    if (!e.data || !e.data.famTheme) { return; }
+    var t = e.data.famTheme;
+    override = (t === "dark" || t === "light") ? t : null;
+    stampBody();
+    if (themeFn) { themeFn(); }
+  });
+  function darken(o) {
+    if (typeof o === "string") { return MAP[o.toLowerCase()] || o; }
+    if (Array.isArray(o)) { return o.map(darken); }
+    if (o && typeof o === "object") {
+      var r = {}; for (var k in o) { r[k] = darken(o[k]); } return r;
+    }
+    return o;
+  }
+  function copy(o) { return JSON.parse(JSON.stringify(o)); }
+  // Hand-built figure pages (e.g. animated histograms) often omit chrome
+  // colors and inherit plotly's defaults; pin those to the family's light
+  // values so the dark map has something to map.
+  function withDefaults(layout) {
+    var L = layout ? copy(layout) : {};
+    L.paper_bgcolor = L.paper_bgcolor || "#fcfcfb";
+    L.plot_bgcolor = L.plot_bgcolor || "#fcfcfb";
+    L.font = L.font || {}; L.font.color = L.font.color || "#52514e";
+    ["xaxis", "yaxis"].forEach(function (a) {
+      L[a] = L[a] || {};
+      L[a].gridcolor = L[a].gridcolor || "#e1e0d9";
+      if (L[a].zeroline !== false) {
+        L[a].zerolinecolor = L[a].zerolinecolor || "#e1e0d9";
+      }
+    });
+    return L;
+  }
+  // Route every author-side render through the theme: remember the light
+  // spec, darken it when the scheme is dark.
+  var origReact = null;
+  function installWrapper() {
+    if (origReact || !window.Plotly) { return; }
+    origReact = Plotly.react;
+    Plotly.react = function (gd, data, layout, config) {
+      var el = typeof gd === "string" ? document.getElementById(gd) : gd;
+      var L = withDefaults(layout), D = copy(data || []);
+      if (el) { el._lightSpec = {data: copy(D), layout: copy(L),
+                                 config: config}; }
+      if (isDark()) { D = darken(D); L = darken(L); }
+      return origReact.call(Plotly, el || gd, D, L, config);
+    };
+  }
+  installWrapper();
+  window.addEventListener("load", function () {
+    installWrapper();
+    var gs = Array.prototype.slice.call(
+      document.querySelectorAll(".plotly-graph-div, .js-plotly-plot"));
+    // Plots rendered before the wrapper installed (write_html pages, or a
+    // hand-built page that drew during parse): their current spec is the
+    // light spec.
+    gs.forEach(function (g) {
+      if (!g._lightSpec) {
+        g._lightSpec = {data: copy(g.data),
+                        layout: withDefaults(g.layout)};
+      }
+    });
+    // Re-render each plot from its light spec, darkened when the scheme is
+    // dark. Sizing is plotly's own job: the layouts get autosize and every
+    // figure ships config {responsive: true}, which react() preserves.
+    function theme() {
+      gs.forEach(function (g) {
+        var src = g._lightSpec;
+        var D = copy(src.data), L = copy(src.layout);
+        delete L.width; delete L.height; L.autosize = true;
+        if (isDark()) { D = darken(D); L = darken(L); }
+        origReact.call(Plotly, g, D, L, src.config);
+      });
+    }
+    themeFn = theme;
+    stampBody();
+    theme();
+    if (mq.addEventListener) { mq.addEventListener("change", theme); }
+  });
+})();
 </script></body>
 </html>

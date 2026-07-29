@@ -209,8 +209,8 @@ Cross-validation chooses the <abbr data-tip="Ridge regression: least squares wit
 The figure below shows why that choice is defensible rather than
 decorative: predictive error falls, bottoms out, and rises again as the
 penalty grows. The model simply takes the minimum.</p>
-<figure class="figure-card"><iframe src="figures/2023-24/fig3_cv_curve.html" loading="lazy" title="Cv curve"></iframe><figcaption>The cross-validation curve that picks the <abbr data-tip="Ridge regression: least squares with an L2 penalty that keeps many-parameter models stable at the cost of a little bias.">ridge</abbr> penalty. Necessary because <abbr data-tip="The fraction of an observed number that survives empirical-Bayes regression: 1 means fully trusted, 0 means replaced by the league mean.">shrinkage</abbr> is the entire difference between this model and raw on/off. This figure is the evidence that the amount of <abbr data-tip="The fraction of an observed number that survives empirical-Bayes regression: 1 means fully trusted, 0 means replaced by the league mean.">shrinkage</abbr> was chosen by held-out prediction, not by hand.</figcaption></figure>
-<figure class="figure-card"><iframe src="figures/2023-24/fig2_shrinkage.html" loading="lazy" title="Shrinkage"></iframe><figcaption>Raw on/off versus the regularized estimate for every qualifying player. The before/after of the method: the players pulled hardest toward zero are exactly the low-minute, star-adjacent profiles whose raw numbers are most contaminated: visible teammate-context correction, one dot per player.</figcaption></figure>
+<figure class="figure-card"><iframe src="figures/2023-24/fig3_cv_curve.html" loading="lazy" style="height:536px" title="Cv curve"></iframe><figcaption>The cross-validation curve that picks the <abbr data-tip="Ridge regression: least squares with an L2 penalty that keeps many-parameter models stable at the cost of a little bias.">ridge</abbr> penalty. Necessary because <abbr data-tip="The fraction of an observed number that survives empirical-Bayes regression: 1 means fully trusted, 0 means replaced by the league mean.">shrinkage</abbr> is the entire difference between this model and raw on/off. This figure is the evidence that the amount of <abbr data-tip="The fraction of an observed number that survives empirical-Bayes regression: 1 means fully trusted, 0 means replaced by the league mean.">shrinkage</abbr> was chosen by held-out prediction, not by hand.</figcaption></figure>
+<figure class="figure-card"><iframe src="figures/2023-24/fig2_shrinkage.html" loading="lazy" style="height:536px" title="Shrinkage"></iframe><figcaption>Raw on/off versus the regularized estimate for every qualifying player. The before/after of the method: the players pulled hardest toward zero are exactly the low-minute, star-adjacent profiles whose raw numbers are most contaminated: visible teammate-context correction, one dot per player.</figcaption></figure>
 <div class="eyebrow beat">The ranking</div>
 
 <h2>The error bars are the real headline</h2>
@@ -221,7 +221,7 @@ real headline is the <strong>width of the intervals</strong>: the median 95% boo
 <abbr data-tip="Confidence interval.">CI</abbr> spans about ±2.5 points per 100 possessions. One season of lineup data
 genuinely cannot separate the 5th-best player from the 30th, and a model
 that pretends otherwise is selling something.</p>
-<figure class="figure-card"><iframe src="figures/2023-24/fig1_player_values.html" loading="lazy" title="Player values"></iframe><figcaption>The 2023-24 player values with their bootstrap intervals: the study's most important figure precisely because of the error bars. The ordering is the headline everywhere else; here the honest message is how much the intervals overlap, which is what a front office actually needs to know before acting on a single-season number.</figcaption></figure>
+<figure class="figure-card"><iframe src="figures/2023-24/fig1_player_values.html" loading="lazy" style="height:776px" title="Player values"></iframe><figcaption>The 2023-24 player values with their bootstrap intervals: the study's most important figure precisely because of the error bars. The ordering is the headline everywhere else; here the honest message is how much the intervals overlap, which is what a front office actually needs to know before acting on a single-season number.</figcaption></figure>
 <div class="eyebrow beat">The replication</div>
 
 <h2>Two models, no shared plumbing, one answer</h2>
@@ -233,7 +233,7 @@ intercept lands at +2.2 points per 100. That is the home-court advantage,
 estimated as a byproduct rather than assumed, and a built-in sanity check
 that the design matrix means what it claims. The two models share no code
 path and no data feed.</p>
-<figure class="figure-card"><iframe src="figures/2023-24/fig4_stint_vs_lineup.html" loading="lazy" title="Stint vs lineup"></iframe><figcaption>Stint-level <abbr data-tip="Regularized adjusted plus-minus: a ridge regression crediting each player with net points per 100 possessions while adjusting for the other nine players on the floor.">RAPM</abbr> against the aggregate lineup model, one dot per player (<abbr data-tip="Rank correlation: correlation of the orderings rather than the raw values.">Spearman</abbr> 0.96). The convergent-validity figure: two independently built models, different units of observation, different feeds, near-identical player ordering. Agreement this strong is the best public-data evidence that the values reflect the players rather than the plumbing.</figcaption></figure>
+<figure class="figure-card"><iframe src="figures/2023-24/fig4_stint_vs_lineup.html" loading="lazy" style="height:656px" title="Stint vs lineup"></iframe><figcaption>Stint-level <abbr data-tip="Regularized adjusted plus-minus: a ridge regression crediting each player with net points per 100 possessions while adjusting for the other nine players on the floor.">RAPM</abbr> against the aggregate lineup model, one dot per player (<abbr data-tip="Rank correlation: correlation of the orderings rather than the raw values.">Spearman</abbr> 0.96). The convergent-validity figure: two independently built models, different units of observation, different feeds, near-identical player ordering. Agreement this strong is the best public-data evidence that the values reflect the players rather than the plumbing.</figcaption></figure>
 <div class="eyebrow beat">Five-man units</div>
 
 <h2>Lineup claims are gated by an audit</h2>
@@ -251,9 +251,9 @@ season, trust the tier, not the rank; trust a value more when two
 independent constructions agree on it; and treat any lineup-value claim
 without an error bar as marketing.</p>
 <h2>Additional figures</h2>
-<figure class="figure-card"><iframe src="figures/2025-26/fig1_player_values.html" loading="lazy" title="Player values"></iframe><figcaption>Player values (2025-26)</figcaption></figure>
-<figure class="figure-card"><iframe src="figures/2025-26/fig2_shrinkage.html" loading="lazy" title="Shrinkage"></iframe><figcaption>Shrinkage (2025-26)</figcaption></figure>
-<figure class="figure-card"><iframe src="figures/2025-26/fig3_cv_curve.html" loading="lazy" title="Cv curve"></iframe><figcaption>Cv curve (2025-26)</figcaption></figure>
+<figure class="figure-card"><iframe src="figures/2025-26/fig1_player_values.html" loading="lazy" style="height:776px" title="Player values"></iframe><figcaption>Player values (2025-26)</figcaption></figure>
+<figure class="figure-card"><iframe src="figures/2025-26/fig2_shrinkage.html" loading="lazy" style="height:536px" title="Shrinkage"></iframe><figcaption>Shrinkage (2025-26)</figcaption></figure>
+<figure class="figure-card"><iframe src="figures/2025-26/fig3_cv_curve.html" loading="lazy" style="height:536px" title="Cv curve"></iframe><figcaption>Cv curve (2025-26)</figcaption></figure>
 <h2>Method, code, and verification</h2><p>The full technical write-up (data provenance, model specification, validation gates, and stated limitations) is the <a href="https://github.com/ismayc/lineup-valuation-study#readme">README</a>. The analysis is implemented independently in R and Python and reconciled to numeric tolerance; <code>run_checks.sh</code> replays every gate.</p>
 </main>
 <footer>Public data · dual-implementation reconciled · every gate scripted ·

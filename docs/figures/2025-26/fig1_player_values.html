@@ -247,11 +247,19 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
     gd.textContent = "";
     var W = gd.clientWidth || layout.width || 700;
     var H = layout.height || 480;
-    if (W < 560) H = Math.max(300, Math.round(H * (W / 560)));
+    var mobile = W < 640;
+    // Category-row charts keep their height (rows must stay readable);
+    // x-y charts scale down with the viewport.
+    var hasHBars = data.some(function (tr) {
+      return tr.type === "bar" && tr.orientation === "h" &&
+        tr.visible !== false;
+    });
+    if (W < 560 && !hasHBars) H = Math.max(300, Math.round(H * (W / 560)));
     var mg = layout.margin || {};
     var M = { l: mg.l != null ? mg.l : 60, r: mg.r != null ? mg.r : 30,
               t: mg.t != null ? mg.t : 60, b: mg.b != null ? mg.b : 50 };
     if (W < 700 && M.r > 40) M.r = 24;
+    if (mobile && M.l > 108) M.l = 108;
     var fontCol = (layout.font && layout.font.color) || "#52514e";
     var titleCol = (layout.title && layout.title.font &&
                     layout.title.font.color) || fontCol;
@@ -267,19 +275,32 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
     el("rect", { x: 0, y: 0, width: W, height: H,
                  fill: layout.paper_bgcolor || "#fcfcfb" }, svg);
 
-    /* title (multi-line safe) */
+    /* title: wrap to the actual width so narrow screens never clip it */
     var titleText = stripTags(layout.title && layout.title.text);
     if (titleText) {
-      var tl = titleText.split("\n");
+      var tfs = mobile ? 13.5 : 15;
+      var maxChars = Math.max(18, Math.floor((W - M.l - 12) / (tfs * 0.52)));
+      var tl = [];
+      titleText.split("\n").forEach(function (para) {
+        var line = "";
+        para.split(" ").forEach(function (word) {
+          if ((line + " " + word).trim().length > maxChars && line) {
+            tl.push(line); line = word;
+          } else {
+            line = (line ? line + " " : "") + word;
+          }
+        });
+        if (line) tl.push(line);
+      });
       tl.forEach(function (line, i) {
-        var tt = el("text", { x: M.l, y: 24 + i * 19, fill: titleCol,
-          "font-size": "15px", "font-weight": i === 0 ? "600" : "400" }, svg);
+        var tt = el("text", { x: M.l, y: 22 + i * (tfs + 4), fill: titleCol,
+          "font-size": tfs + "px",
+          "font-weight": i === 0 ? "600" : "400" }, svg);
         if (i > 0) tt.setAttribute("fill", fontCol);
         tt.textContent = line;
       });
-      if (tl.length > 1 && M.t < 30 + tl.length * 19) {
-        M.t = 30 + tl.length * 19;
-      }
+      var needT = 30 + tl.length * (tfs + 4);
+      if (M.t < needT) M.t = needT;
     }
 
     var pw = W - M.l - M.r, ph = H - M.t - M.b;
@@ -409,7 +430,10 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
     } else {
       yCats.forEach(function (c) {
         var size = (YA.tickfont && YA.tickfont.size) || 11.5;
-        tickText(M.l - 8, Y(c) + 3.5, stripTags(c), "end", size);
+        var lab = stripTags(c);
+        var maxC = Math.max(6, Math.floor((M.l - 14) / (size * 0.5)));
+        if (lab.length > maxC) lab = lab.slice(0, maxC - 1) + "\u2026";
+        tickText(M.l - 8, Y(c) + 3.5, lab, "end", size);
       });
     }
     if (!usingXCats) {
@@ -612,6 +636,21 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
       var col = (an.font && an.font.color) || fontCol;
       var size = (an.font && an.font.size) || 11.5;
       var linesA = stripTags(an.text).split("\n");
+      // Width-aware clamping so annotation text never leaves the svg.
+      var est = Math.max.apply(null, linesA.map(function (s) {
+        return s.length;
+      })) * size * 0.52;
+      if (anchor === "start" && ax + est > W - 8) {
+        anchor = "end";
+        ax = Math.max(ax, Math.min(8 + est, W - 8));
+      } else if (anchor === "end" && ax - est < 8) {
+        ax = Math.min(8 + est, W - 8);
+      } else if (anchor === "middle") {
+        if (ax + est / 2 > W - 8) ax = W - 8 - est / 2;
+        if (ax - est / 2 < 8) ax = 8 + est / 2;
+      }
+      if (ax > W - 8) { ax = W - 8; anchor = "end"; }
+      if (ax < 8) { ax = 8; anchor = "start"; }
       var dy = an.yanchor === "bottom" ? -(linesA.length - 1) * (size + 2) - 4
         : an.yanchor === "top" ? size : 0;
       linesA.forEach(function (s, i) {
@@ -632,6 +671,8 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
       lyy = M.t - 14 > 20 ? M.t - 12 : lyy;
       legendTraces.forEach(function (tr) {
         var c = traceColor(tr);
+        var est = 16 + String(tr.name).length * 6.4 + 18;
+        if (lx > M.l && lx + est > W - 8) { lx = M.l; lyy += 16; }
         el("rect", { x: lx, y: lyy - 9, width: 11, height: 11, rx: 3,
                      fill: c }, svg);
         var t = el("text", { x: lx + 16, y: lyy, fill: fontCol,
@@ -681,11 +722,30 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
     if (!observed.has(gd) && window.ResizeObserver) {
       observed.add(gd);
       var pending = null;
-      new ResizeObserver(function () {
-        cancelAnimationFrame(pending);
-        pending = requestAnimationFrame(function () { render(gd); });
-      }).observe(gd);
+      // Keep a strong reference on the element (an unreferenced observer
+      // can be GC'd) and debounce with setTimeout, which still fires in
+      // offscreen iframes where requestAnimationFrame stalls.
+      gd._famResizeObserver = new ResizeObserver(function () {
+        clearTimeout(pending);
+        pending = setTimeout(function () {
+          if (Math.abs((gd.clientWidth || 0) - gd._famLastW) > 1) {
+            render(gd);
+          }
+        }, 80);
+      });
+      gd._famResizeObserver.observe(gd);
+      // Fallback for environments where observer callbacks are deferred
+      // (offscreen iframes): the frame's own resize event.
+      window.addEventListener("resize", function () {
+        clearTimeout(pending);
+        pending = setTimeout(function () {
+          if (Math.abs((gd.clientWidth || 0) - gd._famLastW) > 1) {
+            render(gd);
+          }
+        }, 120);
+      });
     }
+    gd._famLastW = gd.clientWidth || 0;
     return Promise.resolve(gd);
   }
   window.Plotly = {

@@ -34,6 +34,19 @@
       document.documentElement.dataset.theme = t;
     }
   } catch (e) {}
+  try {
+    if ("IntersectionObserver" in window &&
+        !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      document.documentElement.classList.add("reveal");
+      // Failsafe: if the observer never runs (script error, blocked
+      // inline JS), un-hide everything rather than serve a blank page.
+      setTimeout(function () {
+        if (!window.__revealReady) {
+          document.documentElement.classList.remove("reveal");
+        }
+      }, 2500);
+    }
+  } catch (e) {}
 })();
 </script>
 <style>
@@ -41,6 +54,7 @@
   --ink: #161512; --ink-2: #52514e; --ink-3: #898781;
   --surface: #faf9f6; --surface-2: #f2f1ea; --rule: #e1e0d9;
   --accent: #eb6834; --accent-ink: #a83f12; --fig-surface: #fcfcfb;
+  --ease: cubic-bezier(.22, .61, .36, 1);
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
@@ -162,6 +176,28 @@ details.terms li { margin: .3rem 0; color: var(--ink-2); }
 .hero { padding: 2.2rem 0 .6rem; }
 .hero h1 { font-size: clamp(3rem, 7vw, 4.6rem); margin: .4rem 0 .5rem; }
 .hero p.deck { font-size: 1.15rem; color: var(--ink-2); max-width: 50rem; }
+/* scroll reveals — each block of the page rises a little as it enters
+   the viewport, siblings staggered. The html.reveal gate is set in the
+   head boot script, and only when the reader hasn't asked for reduced
+   motion, so no-JS and reduce-motion readers get plain static copy. The
+   grid containers are exempted: their cells animate individually. */
+html.reveal main > *,
+html.reveal .hero > *,
+html.reveal .tiles > *,
+html.reveal .cards > * {
+  opacity: 0; transform: translateY(18px);
+  transition: opacity .7s var(--ease), transform .7s var(--ease);
+}
+html.reveal main > .hero,
+html.reveal main > .tiles,
+html.reveal main > .cards,
+html.reveal .is-in { opacity: 1; transform: none; }
+@media print {
+  html.reveal main > *, html.reveal .hero > *,
+  html.reveal .tiles > *, html.reveal .cards > * {
+    opacity: 1 !important; transform: none !important; transition: none;
+  }
+}
 </style>
 </head>
 <body>
@@ -288,6 +324,30 @@ without an error bar as marketing.</p>
       try { f.contentWindow.postMessage({famTheme: t}, "*"); } catch (e) {}
     });
   });
+})();
+</script>
+<script>
+(function () {
+  var root = document.documentElement;
+  if (!root.classList.contains("reveal")) { return; }
+  var els = document.querySelectorAll(
+    "main > *:not(.hero):not(.tiles):not(.cards)," +
+    " .hero > *, .tiles > *, .cards > *");
+  var io = new IntersectionObserver(function (entries) {
+    // Stagger within the batch that crossed together, not by absolute
+    // sibling index: a card grid cascades, a lone paragraph scrolled to
+    // on its own gets no delay at all.
+    var n = 0;
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) { return; }
+      var el = entry.target;
+      el.style.transitionDelay = Math.min(n++ * 70, 420) + "ms";
+      el.classList.add("is-in");
+      io.unobserve(el);
+    });
+  }, {threshold: 0.08, rootMargin: "0px 0px -6% 0px"});
+  Array.prototype.forEach.call(els, function (el) { io.observe(el); });
+  window.__revealReady = true;
 })();
 </script>
 </body>

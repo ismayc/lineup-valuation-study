@@ -64,9 +64,18 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
     ["x", "y", "customdata"].forEach(function (k) {
       if (tr[k] != null) tr[k] = decode(tr[k]);
     });
-    if (tr.marker && tr.marker.color != null) {
-      tr.marker.color = decode(tr.marker.color);
+    if (tr.marker) {
+      ["color", "size", "opacity"].forEach(function (k) {
+        if (tr.marker[k] != null) tr.marker[k] = decode(tr.marker[k]);
+      });
     }
+    ["error_x", "error_y"].forEach(function (k) {
+      var e = tr[k];
+      if (!e) return;
+      ["array", "arrayminus"].forEach(function (a) {
+        if (e[a] != null) e[a] = decode(e[a]);
+      });
+    });
     return tr;
   }
 
@@ -319,6 +328,7 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
     }
     var bars = [], hbars = [], lines = [], points = [], bands = [];
     var catX = XA.type === "category";
+    var catY = YA.type === "category";
     var xCats = [], yCats = [];
     data.forEach(function (tr) {
       if (tr.visible === false) return;
@@ -353,7 +363,14 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
               if (catX || typeof xv === "string") {
                 xCats.indexOf(xv) < 0 && xCats.push(xv);
               }
-              points.push({ tr: tr, x: xv, y: tr.y[i], i: i });
+              /* A dot plot against named rows (players, teams) arrives as a
+               * scatter whose y values are strings; band them like the
+               * horizontal-bar path rather than scaling them as numbers. */
+              var yv = tr.y ? tr.y[i] : null;
+              if (catY || typeof yv === "string") {
+                yCats.indexOf(yv) < 0 && yCats.push(yv);
+              }
+              points.push({ tr: tr, x: xv, y: yv, i: i });
             });
           }
         }
@@ -382,7 +399,24 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
     var xs = [], ys = [];
     bands.forEach(function (b) { xs = xs.concat(b.xs); ys = ys.concat(b.ys); });
     lines.forEach(function (tr) { xs = xs.concat(tr.x); ys = ys.concat(tr.y); });
-    points.forEach(function (p) { xs.push(p.x); ys.push(p.y); });
+    /* Error bars widen the axis they run along: a CI whisker that reaches
+     * past the last dot must still land inside the plotting surface. */
+    function errSpan(tr, key, v, i) {
+      var e = tr[key];
+      if (!e || e.visible === false ||
+          typeof v !== "number" || !isFinite(v)) return [v];
+      var plus = Array.isArray(e.array) ? e.array[i] : e.array;
+      var minus = e.symmetric === false
+        ? (Array.isArray(e.arrayminus) ? e.arrayminus[i] : e.arrayminus)
+        : plus;
+      if (typeof plus !== "number" || !isFinite(plus)) plus = 0;
+      if (typeof minus !== "number" || !isFinite(minus)) minus = 0;
+      return [v - minus, v + plus];
+    }
+    points.forEach(function (p) {
+      xs = xs.concat(errSpan(p.tr, "error_x", p.x, p.i));
+      ys = ys.concat(errSpan(p.tr, "error_y", p.y, p.i));
+    });
     bars.forEach(function (b) {
       if (typeof b.x === "number") { xs.push(b.x - (b.w || 1) / 2); xs.push(b.x + (b.w || 1) / 2); }
       ys.push(b.y);
@@ -395,7 +429,13 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
 
     var usingXCats = xCats.length > 0 && (bars.length || points.length);
     var usingYCats = yCats.length > 0;
-    if (usingYCats && YA.autorange !== "reversed") yCats = yCats.slice();
+    /* Plotly puts the first category at the BOTTOM of a y axis, and
+     * autorange:"reversed" puts it at the top. Row index 0 is drawn at the
+     * top here, so an un-reversed axis has to be flipped or the ranking
+     * reads upside down. */
+    if (usingYCats && YA.autorange !== "reversed") {
+      yCats = yCats.slice().reverse();
+    }
     var X, Y, xBand = 0, yBand = 0;
     if (usingXCats) {
       xBand = pw / xCats.length;
@@ -440,7 +480,7 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
       niceTicks(xd[0], xd[1], Math.max(3, Math.round(pw / 90))).forEach(function (v) {
         var x = X(v);
         if (x < M.l - 1 || x > M.l + pw + 1) return;
-        if (hbars.length) {
+        if (hbars.length || usingYCats) {
           el("line", { x1: x, y1: M.t, x2: x, y2: M.t + ph,
                        stroke: grid, "stroke-width": 1 }, plot);
         }
@@ -456,7 +496,8 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
     }
     el("line", { x1: M.l, y1: M.t + ph, x2: M.l + pw, y2: M.t + ph,
                  stroke: axline, "stroke-width": 1 }, plot);
-    if (hbars.length || (!usingXCats && xd[0] < 0 && xd[1] > 0)) {
+    if (hbars.length || usingYCats ||
+        (!usingXCats && xd[0] < 0 && xd[1] > 0)) {
       el("line", { x1: M.l, y1: M.t, x2: M.l, y2: M.t + ph,
                    stroke: axline, "stroke-width": 1 }, plot);
     }
@@ -556,13 +597,47 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
           : ln.dash === "dash" ? "7,4" : "none" }, plot);
     });
 
+    /* ---- error bars (drawn under the markers they belong to) ---- */
+    points.forEach(function (p) {
+      if (p.y == null) return;
+      ["error_x", "error_y"].forEach(function (key) {
+        var e = p.tr[key];
+        if (!e || e.visible === false) return;
+        var horiz = key === "error_x";
+        var v = horiz ? p.x : p.y;
+        if (typeof v !== "number" || !isFinite(v)) return;
+        var plus = Array.isArray(e.array) ? e.array[p.i] : e.array;
+        var minus = e.symmetric === false
+          ? (Array.isArray(e.arrayminus) ? e.arrayminus[p.i] : e.arrayminus)
+          : plus;
+        if (typeof plus !== "number" || !isFinite(plus)) plus = 0;
+        if (typeof minus !== "number" || !isFinite(minus)) minus = 0;
+        if (!plus && !minus) return;
+        var lo = horiz ? X(v - minus) : Y(v - minus);
+        var hi = horiz ? X(v + plus) : Y(v + plus);
+        var at = horiz ? Y(p.y) : X(p.x);
+        el("line", {
+          x1: horiz ? lo : at, y1: horiz ? at : lo,
+          x2: horiz ? hi : at, y2: horiz ? at : hi,
+          stroke: e.color || axline,
+          "stroke-width": e.thickness != null ? e.thickness : 1,
+          "stroke-linecap": "round"
+        }, plot);
+      });
+    });
+
     /* ---- markers ---- */
     points.forEach(function (p) {
       if (p.y == null) return;
       var mk = p.tr.marker || {};
-      var r = Math.max(3.5, (mk.size || 8) / 2);
+      var msize = Array.isArray(mk.size) ? mk.size[p.i] : mk.size;
+      if (typeof msize !== "number" || !isFinite(msize)) msize = 8;
+      var r = Math.max(3.5, msize / 2);
       var fill;
-      if (Array.isArray(mk.color)) {
+      if (Array.isArray(mk.color) && typeof mk.color[0] === "string") {
+        /* Per-point literal colors (a sign split, a highlight set). */
+        fill = mk.color[p.i] || traceColor(p.tr);
+      } else if (Array.isArray(mk.color)) {
         var vals = mk.color;
         var lo = mk.cmin != null ? mk.cmin : Math.min.apply(null, vals);
         var hi = mk.cmax != null ? mk.cmax : Math.max.apply(null, vals);

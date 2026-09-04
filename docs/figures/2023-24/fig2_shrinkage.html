@@ -187,6 +187,38 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
     f.d0 = d0; f.d1 = d1;
     return f;
   }
+  /* A log axis carries its domain in log10 units (plotly's convention for
+   * `range` on `type:"log"`) while the data stays in linear units, so the
+   * scale takes the log here rather than at every call site. */
+  function log10(v) { return Math.log(v) / Math.LN10; }
+  function logScale(d0, d1, r0, r1) {
+    var f = function (v) {
+      if (!(v > 0)) return NaN;
+      return r0 + (log10(v) - d0) / (d1 - d0 || 1) * (r1 - r0);
+    };
+    f.d0 = d0; f.d1 = d1;
+    return f;
+  }
+  /* Decade ticks, subdivided when the span is short enough to read. Values
+   * come back in data units so the existing formatter labels them 100,
+   * 1,000 rather than 2, 3. */
+  function logTicks(d0, d1) {
+    var lo = Math.floor(Math.min(d0, d1)), hi = Math.ceil(Math.max(d0, d1));
+    var decades = hi - lo;
+    var mant = decades <= 1 ? [1, 2, 3, 5, 7]
+      : decades <= 4 ? [1, 2, 5] : [1];
+    var out = [];
+    for (var e = lo; e <= hi; e++) {
+      for (var i = 0; i < mant.length; i++) {
+        var v = mant[i] * Math.pow(10, e);
+        var l = log10(v);
+        if (l >= Math.min(d0, d1) - 1e-9 && l <= Math.max(d0, d1) + 1e-9) {
+          out.push(v);
+        }
+      }
+    }
+    return out;
+  }
   function niceTicks(d0, d1, n) {
     var span = d1 - d0 || 1;
     var step = Math.pow(10, Math.floor(Math.log(span / n) / Math.LN10));
@@ -424,8 +456,21 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
     hbars.forEach(function (b) { xs.push(b.v); });
 
     var zeroY = bars.length > 0, zeroX = hbars.length > 0;
-    var xd = XA.range ? XA.range.slice() : extent(xs, 0.04, zeroX);
-    var yd = YA.range ? YA.range.slice() : extent(ys, 0.06, zeroY);
+    /* On a log axis the domain lives in log10 units, so the extent is taken
+     * over the logged values. Non-positive values have no place on one and
+     * drop out rather than poisoning the range. */
+    var logX = XA.type === "log", logY = YA.type === "log";
+    function logged(vals) {
+      var out = [];
+      vals.forEach(function (v) {
+        if (typeof v === "number" && isFinite(v) && v > 0) out.push(log10(v));
+      });
+      return out;
+    }
+    var xd = XA.range ? XA.range.slice()
+      : logX ? extent(logged(xs), 0.04, false) : extent(xs, 0.04, zeroX);
+    var yd = YA.range ? YA.range.slice()
+      : logY ? extent(logged(ys), 0.06, false) : extent(ys, 0.06, zeroY);
 
     var usingXCats = xCats.length > 0 && (bars.length || points.length);
     var usingYCats = yCats.length > 0;
@@ -441,13 +486,13 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
       xBand = pw / xCats.length;
       X = function (v) { return M.l + xCats.indexOf(v) * xBand + xBand / 2; };
     } else {
-      X = linScale(xd[0], xd[1], M.l, M.l + pw);
+      X = (logX ? logScale : linScale)(xd[0], xd[1], M.l, M.l + pw);
     }
     if (usingYCats) {
       yBand = ph / yCats.length;
       Y = function (v) { return M.t + yCats.indexOf(v) * yBand + yBand / 2; };
     } else {
-      Y = linScale(yd[0], yd[1], M.t + ph, M.t);
+      Y = (logY ? logScale : linScale)(yd[0], yd[1], M.t + ph, M.t);
     }
 
     /* ---- grid + ticks ---- */
@@ -460,7 +505,9 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
       return t;
     }
     if (!usingYCats) {
-      niceTicks(yd[0], yd[1], Math.max(3, Math.round(ph / 70))).forEach(function (v) {
+      (logY ? logTicks(yd[0], yd[1])
+        : niceTicks(yd[0], yd[1], Math.max(3, Math.round(ph / 70)))
+      ).forEach(function (v) {
         var y = Y(v);
         if (y < M.t - 1 || y > M.t + ph + 1) return;
         el("line", { x1: M.l, y1: y, x2: M.l + pw, y2: y,
@@ -477,7 +524,9 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
       });
     }
     if (!usingXCats) {
-      niceTicks(xd[0], xd[1], Math.max(3, Math.round(pw / 90))).forEach(function (v) {
+      (logX ? logTicks(xd[0], xd[1])
+        : niceTicks(xd[0], xd[1], Math.max(3, Math.round(pw / 90)))
+      ).forEach(function (v) {
         var x = X(v);
         if (x < M.l - 1 || x > M.l + pw + 1) return;
         if (hbars.length || usingYCats) {

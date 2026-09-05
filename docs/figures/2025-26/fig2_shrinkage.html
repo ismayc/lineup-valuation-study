@@ -171,6 +171,13 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
       else if (path.indexOf("customdata[") === 0) {
         var idx = +path.slice(11, -1);
         val = tr.customdata && tr.customdata[i] ? tr.customdata[i][idx] : "";
+      } else if (path === "text" || path === "hovertext") {
+        /* Scatter traces carry the point's label in `text` and lead their
+         * template with it ("%{text}<br>xPPS %{x}"). Without this branch it
+         * resolved to "" and every tooltip lost the player's name. */
+        var src = path === "text" ? tr.text : (tr.hovertext || tr.text);
+        val = Array.isArray(src) ? (src[i] == null ? "" : src[i])
+          : (src == null ? "" : src);
       } else if (path === "fullData.name") val = tr.name || "";
       else val = "";
       return typeof val === "number" ? fmt(f, val) : String(val);
@@ -578,6 +585,42 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
         "rgba(42,120,214,0.15)", stroke: "none" }, plot);
     });
 
+    /* Value labels on a bar. Only bars: on a scatter, `text` is the hover
+     * payload unless the mode explicitly asks for "text", and drawing it
+     * would stamp 450 player names across a scatterplot. */
+    function barLabel(tr, i, cx, top, value) {
+      if (!tr.text || tr.textposition === "none") return;
+      var lab = Array.isArray(tr.text) ? tr.text[i] : tr.text;
+      if (lab == null || lab === "") return;
+      var tf = tr.textfont || {};
+      var size = tf.size || 11;
+      var inside = tr.textposition === "inside";
+      var t = el("text", {
+        x: cx, y: inside ? top + size + 4 : top - 5,
+        fill: tf.color || fontCol, "font-size": size + "px",
+        "text-anchor": "middle"
+      }, svg);
+      t.textContent = stripTags(lab);
+      return t;
+    }
+
+    /* The same, past the end of a horizontal bar. */
+    function hbarLabel(tr, i, endX, midY) {
+      if (!tr.text || tr.textposition === "none") return;
+      var lab = Array.isArray(tr.text) ? tr.text[i] : tr.text;
+      if (lab == null || lab === "") return;
+      var tf = tr.textfont || {};
+      var size = tf.size || 11;
+      var inside = tr.textposition === "inside";
+      var t = el("text", {
+        x: inside ? endX - 6 : endX + 6, y: midY + size * 0.35,
+        fill: tf.color || fontCol, "font-size": size + "px",
+        "text-anchor": inside ? "end" : "start"
+      }, svg);
+      t.textContent = stripTags(lab);
+      return t;
+    }
+
     /* ---- vertical bars (incl. histogram, grouped) ---- */
     if (bars.length) {
       var groups = barTraces.filter(function (t) {
@@ -602,6 +645,7 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
           "V" + (top + hgt) + "Z";
         var node = el("path", { d: dPath, fill: traceColor(b.tr) }, plot);
         attachHover(node, b.tr, b.i, b.x, b.y);
+        barLabel(b.tr, b.i, cx + bw / 2, top, b.y);
       });
     }
 
@@ -626,6 +670,7 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
         "H" + left + "Z";
       var node = el("path", { d: dPath, fill: traceColor(b.tr) }, plot);
       attachHover(node, b.tr, b.i, b.v, b.cat, true);
+      hbarLabel(b.tr, b.i, left + wid, cy + bh / 2);
     });
 
     /* ---- lines ---- */

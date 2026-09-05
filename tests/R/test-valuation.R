@@ -35,3 +35,64 @@ test_that("cv_lambda is deterministic and returns a grid value", {
   expect_equal(a$curve, b$curve)
   expect_true(a$best %in% grid)
 })
+
+# ---- bootstrap CIs -----------------------------------------------------------
+# The study's headline is the width of these intervals, so they get the same
+# scrutiny as the point estimates rather than being taken on trust.
+
+toy_design <- function(seed = 11, n = 240, p = 6) {
+  set.seed(seed)
+  X <- matrix(0, n, p + 1)
+  X[, 1] <- 1
+  for (i in seq_len(n)) X[i, 1 + sample.int(p, 3)] <- 1
+  beta <- c(0, seq(-3, 3, length.out = p))
+  w <- runif(n, 50, 400)
+  y <- as.vector(X %*% beta) + rnorm(n, sd = 4)
+  list(X = X, y = y, w = w)
+}
+
+test_that("bootstrap CIs are reproducible from the seed", {
+  d <- toy_design()
+  a <- bootstrap_ci(d$X, d$y, d$w, lam = 100, reps = 40, seed = 3)
+  b <- bootstrap_ci(d$X, d$y, d$w, lam = 100, reps = 40, seed = 3)
+  expect_identical(a, b)
+  c2 <- bootstrap_ci(d$X, d$y, d$w, lam = 100, reps = 40, seed = 4)
+  expect_false(isTRUE(all.equal(a, c2)))
+})
+
+test_that("bootstrap CIs are ordered and shaped like the design", {
+  # The pipeline slices columns 2:(1 + p) off this and beta together, so a
+  # shape mismatch would attach every player to the wrong interval.
+  d <- toy_design()
+  ci <- bootstrap_ci(d$X, d$y, d$w, lam = 100, reps = 60, seed = 5)
+  expect_equal(dim(ci), c(2L, ncol(d$X)))
+  expect_true(all(ci[1, ] < ci[2, ]))
+})
+
+test_that("bootstrap CIs bracket the point estimate", {
+  # A percentile interval that misses the full-sample fit would mean the
+  # resampling is not centered on the estimator it describes.
+  d <- toy_design()
+  beta <- ridge_fit(d$X, d$y, d$w, 100)
+  ci <- bootstrap_ci(d$X, d$y, d$w, lam = 100, reps = 200, seed = 6)
+  expect_true(all(ci[1, ] <= beta))
+  expect_true(all(beta <= ci[2, ]))
+})
+
+test_that("bootstrap CIs narrow as evidence grows", {
+  # The claim about error bars is that they track evidence, so ten times the
+  # lineups must tighten the intervals rather than merely move them.
+  small <- toy_design(seed = 12, n = 120)
+  large <- toy_design(seed = 12, n = 1200)
+  ws <- diff(bootstrap_ci(small$X, small$y, small$w, 100, reps = 80, seed = 8))
+  wl <- diff(bootstrap_ci(large$X, large$y, large$w, 100, reps = 80, seed = 8))
+  expect_lt(median(wl), median(ws))
+})
+
+test_that("bootstrap resamples lineups with replacement", {
+  # Sampling without replacement would refit identical data every rep and
+  # collapse the intervals to zero width.
+  d <- toy_design()
+  ci <- bootstrap_ci(d$X, d$y, d$w, lam = 100, reps = 50, seed = 9)
+  expect_true(all(ci[2, ] - ci[1, ] > 0))
+})

@@ -181,6 +181,29 @@ def cv_lambda(X: np.ndarray, y: np.ndarray, w: np.ndarray) -> tuple[float, pl.Da
     return best, curve
 
 
+def bootstrap_ci(X: np.ndarray, y: np.ndarray, w: np.ndarray, lam: float,
+                 reps: int = BOOT_REPS,
+                 seed: int = SEED) -> tuple[np.ndarray, np.ndarray]:
+    """Percentile bootstrap over lineups at a fixed penalty.
+
+    Resampling rows treats the lineup-season as the sampling unit, so the
+    interval reflects how much a player's estimate depends on which lineups
+    happened to exist rather than on within-lineup sampling. Returns the
+    2.5th and 97.5th percentiles of the replicate coefficients, one entry per
+    design column (so element 0 is the intercept, as in ridge_fit).
+
+    Seeded per call, which is what makes the published CIs reproducible.
+    """
+    rng = np.random.default_rng(seed)
+    boots = np.empty((reps, X.shape[1]))
+    n = X.shape[0]
+    for b in range(reps):
+        idx = rng.integers(0, n, n)
+        boots[b] = ridge_fit(X[idx], y[idx], w[idx], lam)
+    lo, hi = np.quantile(boots, [0.025, 0.975], axis=0)
+    return lo, hi
+
+
 # ------------------------------------------------------------------ main -----
 def run(season: str) -> int:
     raw = RAW_ROOT / season
@@ -207,16 +230,7 @@ def run(season: str) -> int:
 
     beta = ridge_fit(X, y, w, best_lam)
 
-    # Bootstrap over lineups at the chosen lambda. Resampling rows treats the
-    # lineup-season as the sampling unit; the CI reflects how much each player's
-    # estimate depends on which lineups happened to exist.
-    rng = np.random.default_rng(SEED)
-    boots = np.empty((BOOT_REPS, X.shape[1]))
-    n = X.shape[0]
-    for b in range(BOOT_REPS):
-        idx = rng.integers(0, n, n)
-        boots[b] = ridge_fit(X[idx], y[idx], w[idx], best_lam)
-    lo, hi = np.quantile(boots, [0.025, 0.975], axis=0)
+    lo, hi = bootstrap_ci(X, y, w, best_lam)
 
     poss_kept = {pid: 0.0 for pid in kept}
     for ids, poss in zip(df["player_ids"].to_list(), df["POSS"].to_list()):

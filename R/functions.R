@@ -31,3 +31,25 @@ cv_lambda <- function(X, y, w, lambdas, n_folds = 5) {
   })
   list(best = curve$lam[which.min(curve$cv_wmse)], curve = curve)
 }
+
+#' Percentile bootstrap over lineups at a fixed penalty.
+#'
+#' Resampling rows treats the lineup-season as the sampling unit, so the
+#' interval reflects how much a player's estimate depends on which lineups
+#' happened to exist rather than on within-lineup sampling. Returns a 2 x
+#' ncol(X) matrix: row 1 the 2.5th percentile, row 2 the 97.5th, one column
+#' per design column (column 1 is the intercept, as in ridge_fit).
+#'
+#' Seeded per call, which is what makes the published CIs reproducible. The
+#' Python twin draws from a different generator on purpose; the two are
+#' reconciled by interval overlap, not by equality.
+bootstrap_ci <- function(X, y, w, lam, reps, seed = 2026) {
+  set.seed(seed)
+  n <- nrow(X)
+  boots <- matrix(NA_real_, reps, ncol(X))
+  for (b in seq_len(reps)) {
+    idx <- sample.int(n, n, replace = TRUE)
+    boots[b, ] <- ridge_fit(X[idx, , drop = FALSE], y[idx], w[idx], lam)
+  }
+  apply(boots, 2, quantile, probs = c(0.025, 0.975))
+}

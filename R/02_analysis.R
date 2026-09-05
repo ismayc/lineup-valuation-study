@@ -111,13 +111,7 @@ run_season <- function(season) {
   beta <- ridge_fit(X, y, w, best_lam)
 
   # ---- bootstrap over lineups (R RNG; reconciled by CI overlap) ------------
-  set.seed(2026)
-  boots <- matrix(NA_real_, BOOT_REPS, ncol(X))
-  for (b in seq_len(BOOT_REPS)) {
-    idx <- sample.int(n, n, replace = TRUE)
-    boots[b, ] <- ridge_fit(X[idx, , drop = FALSE], y[idx], w[idx], best_lam)
-  }
-  ci <- apply(boots, 2, quantile, probs = c(0.025, 0.975))
+  ci <- bootstrap_ci(X, y, w, best_lam, BOOT_REPS)
 
   poss_kept <- poss_by_player[kept]
 

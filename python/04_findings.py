@@ -7,6 +7,8 @@ Run: python python/04_findings.py
 """
 from __future__ import annotations
 
+import re
+import sys
 from pathlib import Path
 
 import polars as pl
@@ -165,13 +167,31 @@ written.
 {cross_season()}"""
 
 
-def main() -> int:
-    text = README.read_text()
+# glossary.py --sync wraps terms in hover tags after this runs; strip them
+# before comparing, as the other studies' generators do.
+ABBR = re.compile(r'<abbr title="[^"]*">([^<]*)</abbr>')
+
+
+def regenerate(text: str) -> str:
     head = text.split(MARKER)[0].rstrip()
-    README.write_text(head + "\n\n" + build())
+    return head + "\n\n" + build()
+
+
+def main(argv: list[str]) -> int:
+    current = README.read_text()
+    if "--check" in argv:
+        plain = ABBR.sub(r"\1", current)
+        if plain != regenerate(plain):
+            print("README Findings differ from what output/ supports. Fix: "
+                  "python python/04_findings.py, then glossary.py --sync.")
+            print("FINDINGS CHECK FAILED")
+            return 1
+        print("FINDINGS CHECK PASSED (README Findings regenerate from output/)")
+        return 0
+    README.write_text(regenerate(current))
     print(f"Updated Findings in {README}")
     return 0
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(main(sys.argv[1:]))

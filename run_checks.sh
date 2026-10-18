@@ -15,3 +15,7 @@ Rscript tests/R/run_tests.R
 echo
 echo "=== reconciliation / validation ==="
 $PY python/03_reconcile.py | tail -1
+
+echo
+echo "=== findings: README Findings regenerate from outputs ==="
+$PY python/04_findings.py --check | tail -1

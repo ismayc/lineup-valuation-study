@@ -23,6 +23,7 @@ Inputs : data/stints_2023.parquet    (from 05_build_stints.py)
 Outputs: output/2023-24/stint_player_values.csv
          output/2023-24/stint_validation.csv
          output/2023-24/stint_vs_lineup.csv
+         output/2023-24/stint_scale.csv
          figures/2023-24/fig4_stint_vs_lineup.{png,html}
 
 Run: python python/06_stint_rapm.py
@@ -254,6 +255,10 @@ def main() -> int:
     ])
     validation.write_csv(OUT / "stint_validation.csv")
     print(validation)
+
+    # Scale facts the story and BRIEF quote: stints as parsed, then as modeled.
+    pl.DataFrame([{"stints_parsed": full.height, "stints_modeled": st.height,
+                   "games": built_games}]).write_csv(OUT / "stint_scale.csv")
 
     print("\nTop 10 (opponent-adjusted):")
     for r in values.head(10).iter_rows(named=True):

@@ -11,7 +11,7 @@
 #   * The CV fold of row i (0-based) is i %% 5 on the sorted rows.
 #
 # Outputs per season: output/<season>/player_values_r.csv, cv_curve_r.csv,
-#                     lineup_table_r.csv, validation_r.csv, bootstrap CIs
+#                     lineup_table_r.csv, validation_r.csv, scale_r.csv, bootstrap CIs
 #                     figures/<season>/fig1_player_values_r.png
 #
 # Run:  Rscript R/02_analysis.R
@@ -166,6 +166,18 @@ run_season <- function(season) {
   write_csv(validation, file.path(out_dir, "validation_r.csv"))
   print(as.data.frame(validation))
   stopifnot(all(validation$pass))
+
+  # Scale facts the README and BRIEF quote (see python/02_analysis.py).
+  team_poss <- df_full %>% group_by(TEAM_ID) %>% summarise(poss = sum(POSS), .groups = "drop")
+  fit <- coef(lm(net_100 ~ NET_RATING, data = big))
+  tibble(
+    lineup_rows = nrow(df_full), model_rows = nrow(df),
+    possessions = sum(df_full$POSS),
+    team_poss_min = min(team_poss$poss), team_poss_max = max(team_poss$poss),
+    net_rating_slope = unname(fit[["NET_RATING"]]),
+    net_rating_intercept = unname(fit[["(Intercept)"]])
+  ) %>%
+    write_csv(file.path(out_dir, "scale_r.csv"))
 
   # ---- figure --------------------------------------------------------------
   show <- bind_rows(head(values, 15), tail(values, 15)) %>%

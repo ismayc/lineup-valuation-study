@@ -7,6 +7,7 @@ Run: python python/04_findings.py
 """
 from __future__ import annotations
 
+import math
 import re
 import sys
 from pathlib import Path
@@ -106,8 +107,11 @@ def stint_section() -> str:
 
     rho = float(val.filter(pl.col("check").str.contains("Spearman"))["value"][0])
     hca = float(val.filter(pl.col("check").str.contains("home-court"))["value"][0])
-    stints = pl.read_parquet(ROOT / "data" / "stints_2023.parquet")
-    n_stints, n_games = stints.height, stints["game_id"].n_unique()
+    r_min = float(val.filter(pl.col("check") == "on-floor minutes vs official minutes (r)")["value"][0])
+    # floored, so "r > 0.999" never overstates the agreement
+    r_min_shown = f"> {math.floor(r_min * 1000) / 1000:.3f}"
+    scale = pl.read_csv(out / "stint_scale.csv")
+    n_stints, n_games = int(scale["stints_parsed"][0]), int(scale["games"][0])
     top5 = ", ".join(sv.head(5)["player"].to_list())
     up = comp.sort("delta", descending=True).head(3)
     movers = ", ".join(f"{r['player']} ({r['delta']:+.1f})"
@@ -123,7 +127,7 @@ filled offline, micro-stints from free-throw substitutions absorbed into their
 neighbours so no points leave the model, and a +1/−1 design that adjusts every
 player for teammates *and opponents*. Validation gates all pass: stint points
 reconstruct the official league point total, per-player on-floor minutes
-reconstruct official minutes (r = 0.999), and the unpenalized intercept
+reconstruct official minutes (r {r_min_shown}), and the unpenalized intercept
 estimates **home-court advantage at {hca:+.1f} points per 100** without being
 asked to.
 

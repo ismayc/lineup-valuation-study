@@ -62,6 +62,13 @@ def check_season(season: str) -> bool:
     ok &= good
     print(f"  {'PASS' if good else 'FAIL'}  validation: max diff {v_diff:.2e}, all pass")
 
+    spy = pl.read_csv(out / "scale.csv")
+    sr = pl.read_csv(out / "scale_r.csv")
+    s_diff = max(abs(float(spy[c][0]) - float(sr[c][0])) for c in spy.columns)
+    good = spy.columns == sr.columns and s_diff <= TOL_EST
+    ok &= good
+    print(f"  {'PASS' if good else 'FAIL'}  scale: {len(spy.columns)} facts, max diff {s_diff:.2e}")
+
     return bool(ok)
 
 

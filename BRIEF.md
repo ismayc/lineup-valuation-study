@@ -11,7 +11,7 @@ generated originals).
 crediting them for their teammates?**
 
 We modeled every five-man lineup's scoring margin across a full season
-(~15,000–19,000 lineups per season, covering every minute of every game) and
+(~16,000–19,500 lineups per season, covering every minute of every game) and
 split the credit among the five players on the floor, shrinking toward average
 wherever the evidence is thin.
 

@@ -306,6 +306,18 @@ def run(season: str) -> int:
         print("VALIDATION FAILED")
         return 1
 
+    # Scale facts the README and BRIEF quote: lineup rows (zero-possession
+    # ones included, as in the coverage check), per-team possession sums, and
+    # net_100 regressed on NET_RATING over the same 200+ possession lineups.
+    team_poss = df_full.group_by("TEAM_ID").agg(pl.col("POSS").sum())["POSS"]
+    slope, intercept = np.polyfit(big["NET_RATING"].to_numpy(), big["net_100"].to_numpy(), 1)
+    pl.DataFrame([{
+        "lineup_rows": df_full.height, "model_rows": df.height,
+        "possessions": float(df_full["POSS"].sum()),
+        "team_poss_min": float(team_poss.min()), "team_poss_max": float(team_poss.max()),
+        "net_rating_slope": float(slope), "net_rating_intercept": float(intercept),
+    }]).write_csv(OUT / "scale.csv")
+
     # ---- figures ------------------------------------------------------------
     top = values.head(15)
     bot = values.tail(15).sort("rapm_100")

@@ -65,10 +65,10 @@ caps at 2,000 rows, so per-team calls stay under it):
 
 Scale: ~15,900 lineup rows (2023-24) and ~19,500 (2025-26) covering ~255k
 possessions per season. `POSS` is the lineup's **offensive-possession count**
-(per-team sums land at 8,200-8,800, matching a season's offensive possession
+(per-team sums land at 8,200-8,900, matching a season's offensive possession
 totals), so `100 * PLUS_MINUS / POSS` sits on the same scale as the league's
-<abbr title="Net points per 100 possessions: 100 x plus-minus / possessions; sits on the same scale as the NBA's published net rating.">NET_RATING</abbr> - verified: regressing one on the other gives slope 1.001,
-intercept +0.07.
+<abbr title="Net points per 100 possessions: 100 x plus-minus / possessions; sits on the same scale as the NBA's published net rating.">NET_RATING</abbr> - verified: regressing one on the other over 2023-24 lineups with 200+
+possessions gives slope 1.001, intercept +0.07.
 
 ## 3. Model
 
@@ -133,7 +133,7 @@ Four external checks, all of which must pass before findings are written:
 
 1. **No opponent adjustment in the aggregate model.** Now addressed: the
    wired-in <abbr title="A stretch of game time with no substitution at either end - the unit of observation for the stint-level RAPM model.">stint</abbr>-level <abbr title="Regularized adjusted plus-minus: a ridge regression crediting each player with net points per 100 possessions while adjusting for the other nine players on the floor.">RAPM</abbr> (Findings, last section) adjusts for opponents
-   and lands within <abbr title="Rank correlation: correlation of the orderings rather than the raw values.">Spearman</abbr> 0.95 of the aggregate model, which quantifies
+   and lands within <abbr title="Rank correlation: correlation of the orderings rather than the raw values.">Spearman</abbr> 0.96 of the aggregate model, which quantifies
    how much this limitation actually cost (less than the standard caveat
    implies, over a full season).
 2. **One season at a time.** Single-season <abbr title="Regularized adjusted plus-minus: a ridge regression crediting each player with net points per 100 possessions while adjusting for the other nine players on the floor.">RAPM</abbr>-family estimates are noisy;
@@ -224,7 +224,7 @@ filled offline, micro-<abbr title="A stretch of game time with no substitution a
 neighbours so no points leave the model, and a +1/−1 design that adjusts every
 player for teammates *and opponents*. Validation gates all pass: <abbr title="A stretch of game time with no substitution at either end - the unit of observation for the stint-level RAPM model.">stint</abbr> points
 reconstruct the official league point total, per-player on-floor minutes
-reconstruct official minutes (r = 0.999), and the unpenalized intercept
+reconstruct official minutes (r > 0.999), and the unpenalized intercept
 estimates **home-court advantage at +2.2 points per 100** without being
 asked to.
 

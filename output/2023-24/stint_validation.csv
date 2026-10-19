@@ -1,7 +1,7 @@
 check,value,threshold,pass
-stint points reconstruct official league points (rel err),0.0005801537585421412,0.001,true
+stint points reconstruct official league points (rel err),0.000010677676537585422,0.001,true
 points dropped by the model's stint filter (share),0.0,0.002,true
-on-floor minutes vs official minutes (r),0.9999722377846799,0.995,true
-on-floor minutes median relative error vs coverage-scaled official,0.022275383364046705,0.025,true
-home-court advantage in plausible range (pts/100),2.228547309538312,4.5,true
-Spearman vs lineup-aggregate model,0.9584163968847416,0.5,true
+on-floor minutes vs official minutes (r),0.9999981315507702,0.995,true
+on-floor minutes median relative error vs coverage-scaled official,0.0009826047059361184,0.025,true
+home-court advantage in plausible range (pts/100),2.22623431353242,4.5,true
+Spearman vs lineup-aggregate model,0.9734040265285306,0.5,true

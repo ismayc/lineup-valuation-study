@@ -112,6 +112,12 @@ def stint_section() -> str:
     r_min_shown = f"> {math.floor(r_min * 1000) / 1000:.3f}"
     scale = pl.read_csv(out / "stint_scale.csv")
     n_stints, n_games = int(scale["stints_parsed"][0]), int(scale["games"][0])
+    corr = {r["metric"]: r for r in
+            pl.read_csv(out / "stint_correction.csv").iter_rows(named=True)}
+
+    def c(metric: str, col: str) -> float:
+        return corr[metric][col]
+
     top5 = ", ".join(sv.head(5)["player"].to_list())
     up = comp.sort("delta", descending=True).head(3)
     movers = ", ".join(f"{r['player']} ({r['delta']:+.1f})"
@@ -130,6 +136,21 @@ reconstruct the official league point total, per-player on-floor minutes
 reconstruct official minutes (r {r_min_shown}), and the unpenalized intercept
 estimates **home-court advantage at {hca:+.1f} points per 100** without being
 asked to.
+
+**Correction, October 19, 2026.** The first stint build processed events in
+EVENTNUM order, which is not chronological (late-inserted events carry later
+numbers), and credited free throws to the lineup on the floor at the free
+throw rather than at the foul. It left {c("negative_elapsed_stints", "first_build"):.0f} stints with negative elapsed time
+and {c("negative_points_stints", "first_build"):.0f} with negative points, yet passed every league-total gate. Two new
+per-player gates catch it. Against an independent feed (NBA liveData
+play-by-play with pbpstats lineups, {c("player_games_checked", "corrected"):,.0f} player-games), stint
+plus-minus was exact for {c("player_game_pm_exact_share", "first_build"):.0%} of player-games and is now exact for
+{c("player_game_pm_exact_share", "corrected"):.1%} (`08_stint_box_check.py`). Against the NBA's season totals, it
+matched {c("season_pm_exact_players", "first_build"):.0f} of {c("players_checked", "corrected"):.0f} players exactly with a worst miss of
+{c("season_pm_max_abs_diff", "first_build"):.0f} points, and now matches {c("season_pm_exact_players", "corrected"):.0f} with every player within
+{c("season_pm_max_abs_diff", "corrected"):.0f} (`07_stint_season_check.py`). The rebuild has {c("stints_parsed", "corrected"):,.0f} stints
+(was {c("stints_parsed", "first_build"):,.0f}); the numbers in this section are from the corrected
+build, and `output/2023-24/stint_correction.csv` keeps both.
 
 Top 5 opponent-adjusted: {top5}.
 

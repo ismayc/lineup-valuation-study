@@ -17,5 +17,13 @@ echo "=== reconciliation / validation ==="
 $PY python/03_reconcile.py | tail -1
 
 echo
+echo "=== stints: season plus-minus and minutes vs the NBA's totals ==="
+$PY python/07_stint_season_check.py | tail -1
+
+echo
+echo "=== stints: every player-game vs liveData play-by-play ==="
+$PY python/08_stint_box_check.py | tail -1
+
+echo
 echo "=== findings: README Findings regenerate from outputs ==="
 $PY python/04_findings.py --check | tail -1

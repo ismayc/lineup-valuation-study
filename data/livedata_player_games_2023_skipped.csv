@@ -1,0 +1,11 @@
+game_id,error
+22300162,"InvalidNumberOfStartersException: GameId: 0022300162, Period: 5, TeamId: 1610612756, Players: [203994, 201142, 1628966, 1630692]"
+22300300,"InvalidNumberOfStartersException: GameId: 0022300300, Period: 5, TeamId: 1610612749, Players: [201572, 203081, 203507, 203114]"
+22300394,AttributeError: 'NoneType' object has no attribute 'is_shooting_foul'
+22300517,"InvalidNumberOfStartersException: GameId: 0022300517, Period: 5, TeamId: 1610612738, Players: [1628369, 201143, 1627759, 201950]"
+22300710,"InvalidNumberOfStartersException: GameId: 0022300710, Period: 5, TeamId: 1610612761, Players: [1629018, 1627751, 1630193]"
+22300765,"InvalidNumberOfStartersException: GameId: 0022300765, Period: 3, TeamId: 1610612745, Players: [1628988, 1631095, 1630224, 1630578, 1628415, 1641708]"
+22300856,"InvalidNumberOfStartersException: GameId: 0022300856, Period: 5, TeamId: 1610612764, Players: [1628398, 1629673, 1630166]"
+22300868,"InvalidNumberOfStartersException: GameId: 0022300868, Period: 5, TeamId: 1610612757, Players: [1631200, 1631133, 1629014, 1630204]"
+22300893,"InvalidNumberOfStartersException: GameId: 0022300893, Period: 5, TeamId: 1610612743, Players: [1629008, 203999, 1627750]"
+22301147,"InvalidNumberOfStartersException: GameId: 0022301147, Period: 5, TeamId: 1610612748, Players: [202710, 1628389, 1631107, 1629312]"

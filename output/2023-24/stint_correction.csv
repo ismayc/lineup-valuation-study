@@ -1,0 +1,15 @@
+metric,first_build,corrected
+stints_parsed,69767.0,62658.0
+negative_elapsed_stints,123.0,0.0
+negative_points_stints,165.0,0.0
+player_games_checked,26203.0,26203.0
+player_game_pm_exact,10863.0,26147.0
+player_game_pm_exact_share,0.4145708506659543,0.9978628401328092
+player_game_seconds_within_1s_share,0.24336907987635004,0.9882074571613937
+players_checked,572.0,572.0
+season_pm_exact_players,39.0,449.0
+season_pm_max_abs_diff,77.0,5.0
+season_minutes_within_1_share,0.08041958041958042,0.9895104895104895
+stints_modeled,32973.0,32268.0
+spearman_vs_aggregate,0.9584163968847416,0.9734040265285306
+home_court_per_100,2.228547309538312,2.22623431353242

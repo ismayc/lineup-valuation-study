@@ -15,10 +15,10 @@ of observation to see if the answer holds.
 <div class="value">&plusmn;2.5<small> pts/100</small></div>
 <div class="sub">One public season cannot separate the 5th-best player from the 30th.</div></div>
 <div class="tile"><div class="label">Cross-model agreement</div>
-<div class="value">0.96</div>
+<div class="value">0.97</div>
 <div class="sub">Spearman correlation between two independently built models.</div></div>
 <div class="tile"><div class="label">Stints parsed</div>
-<div class="value">69,767</div>
+<div class="value">62,658</div>
 <div class="sub">Substitution-to-substitution units from all 1,230 games of play-by-play.</div></div>
 <div class="tile"><div class="label">Home-court advantage</div>
 <div class="value">+2.2<small> pts/100</small></div>
@@ -59,14 +59,23 @@ that pretends otherwise is selling something.
 
 A ranking with intervals still deserves suspicion if it only exists in one
 model. So the study rebuilds valuation from scratch at a different grain:
-69,767 substitution-to-substitution **stints** parsed from all 1,230
+62,658 substitution-to-substitution **stints** parsed from all 1,230
 games of play-by-play, with an opponent-adjusted design. Its unpenalized
 intercept lands at +2.2 points per 100. That is the home-court advantage,
 estimated as a byproduct rather than assumed, and a built-in sanity check
 that the design matrix means what it claims. The two models share no code
 path and no data feed.
 
-{{fig:2023-24/fig4_stint_vs_lineup|Stint-level RAPM against the aggregate lineup model, one dot per player (Spearman 0.96). The convergent-validity figure: two independently built models, different units of observation, different feeds, near-identical player ordering. Agreement this strong is the best public-data evidence that the values reflect the players rather than the plumbing.}}
+**Correction, October 19, 2026.** The first stint build put events in the
+feed's numbering order, which is not the order they happened, and gave free
+throws to whoever was on the floor at the free throw instead of at the foul.
+Its league totals still checked out, so nothing flagged it. Checked player by
+player against the NBA's own feeds, it now matches: plus-minus is exact for
+99.8% of player-games, up from 41%. The ranking barely moved (the two models
+now agree at 0.97, up from 0.96), and the figures here are from the
+corrected build.
+
+{{fig:2023-24/fig4_stint_vs_lineup|Stint-level RAPM against the aggregate lineup model, one dot per player (Spearman 0.97). The convergent-validity figure: two independently built models, different units of observation, different feeds, near-identical player ordering. Agreement this strong is the best public-data evidence that the values reflect the players rather than the plumbing.}}
 
 <div class="eyebrow beat">Five-man units</div>
 

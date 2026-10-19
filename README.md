@@ -101,9 +101,12 @@ python/03_reconcile.py         R vs Python row-by-row, non-zero exit on mismatch
 python/04_findings.py          writes the Findings section below
 python/05_build_stints.py      bulk pbp + nba-on-court -> data/stints_2023.parquet
 python/06_stint_rapm.py        stint-level RAPM WITH opponent adjustment (2023-24)
+python/07_stint_season_check.py  gate: season plus-minus and minutes vs the NBA's totals
+python/08_stint_box_check.py   gate: per player-game vs liveData play-by-play (pbpstats)
+python/09_stint_correction_record.py  first build vs corrected (October 19, 2026)
 ```
 
-The last two are the wired-in upgrade path (see
+The <abbr title="A stretch of game time with no substitution at either end - the unit of observation for the stint-level RAPM model.">stint</abbr> scripts (`05_build_stints.py`, `06_stint_rapm.py`) are the wired-in upgrade path (see
 [public-data-availability](https://github.com/ismayc/basketball-data-science/blob/main/docs/public-data-availability.md)): <abbr title="A stretch of game time with no substitution at either end - the unit of observation for the stint-level RAPM model.">stints</abbr> carry both five-man lineups, so
 the +1/−1 design adjusts each player for teammates *and opponents*: the thing
 the season-aggregate model above cannot do. The <abbr title="A stretch of game time with no substitution at either end - the unit of observation for the stint-level RAPM model.">stint</abbr> model's intercept doubles
@@ -133,7 +136,7 @@ Four external checks, all of which must pass before findings are written:
 
 1. **No opponent adjustment in the aggregate model.** Now addressed: the
    wired-in <abbr title="A stretch of game time with no substitution at either end - the unit of observation for the stint-level RAPM model.">stint</abbr>-level <abbr title="Regularized adjusted plus-minus: a ridge regression crediting each player with net points per 100 possessions while adjusting for the other nine players on the floor.">RAPM</abbr> (Findings, last section) adjusts for opponents
-   and lands within <abbr title="Rank correlation: correlation of the orderings rather than the raw values.">Spearman</abbr> 0.96 of the aggregate model, which quantifies
+   and lands within <abbr title="Rank correlation: correlation of the orderings rather than the raw values.">Spearman</abbr> 0.97 of the aggregate model, which quantifies
    how much this limitation actually cost (less than the standard caveat
    implies, over a full season).
 2. **One season at a time.** Single-season <abbr title="Regularized adjusted plus-minus: a ridge regression crediting each player with net points per 100 possessions while adjusting for the other nine players on the floor.">RAPM</abbr>-family estimates are noisy;
@@ -218,7 +221,7 @@ anchored in reality, and the gap from 1.0 is the teammate adjustment working.
 ### Stint-level RAPM: adding the opponent adjustment (2023-24)
 
 The wired-in upgrade (`python/05_build_stints.py` + `python/06_stint_rapm.py`):
-69,767 <abbr title="A stretch of game time with no substitution at either end - the unit of observation for the stint-level RAPM model.">stints</abbr> from all 1,230 games, built from bulk play-by-play
+62,658 <abbr title="A stretch of game time with no substitution at either end - the unit of observation for the stint-level RAPM model.">stints</abbr> from all 1,230 games, built from bulk play-by-play
 with the ten on-court players
 filled offline, micro-<abbr title="A stretch of game time with no substitution at either end - the unit of observation for the stint-level RAPM model.">stints</abbr> from free-throw substitutions absorbed into their
 neighbours so no points leave the model, and a +1/−1 design that adjusts every
@@ -228,13 +231,28 @@ reconstruct official minutes (r > 0.999), and the unpenalized intercept
 estimates **home-court advantage at +2.2 points per 100** without being
 asked to.
 
-Top 5 opponent-adjusted: Shai Gilgeous-Alexander, OG Anunoby, Nikola Jokić, Jalen Brunson, Paul George.
+**Correction, October 19, 2026.** The first <abbr title="A stretch of game time with no substitution at either end - the unit of observation for the stint-level RAPM model.">stint</abbr> build processed events in
+EVENTNUM order, which is not chronological (late-inserted events carry later
+numbers), and credited free throws to the lineup on the floor at the free
+throw rather than at the foul. It left 123 <abbr title="A stretch of game time with no substitution at either end - the unit of observation for the stint-level RAPM model.">stints</abbr> with negative elapsed time
+and 165 with negative points, yet passed every league-total gate. Two new
+per-player gates catch it. Against an independent feed (NBA liveData
+play-by-play with pbpstats lineups, 26,203 player-games), <abbr title="A stretch of game time with no substitution at either end - the unit of observation for the stint-level RAPM model.">stint</abbr>
+<abbr title="Points scored minus points allowed while a player or lineup is on the floor.">plus-minus</abbr> was exact for 41% of player-games and is now exact for
+99.8% (`08_stint_box_check.py`). Against the NBA's season totals, it
+matched 39 of 572 players exactly with a worst miss of
+77 points, and now matches 449 with every player within
+5 (`07_stint_season_check.py`). The rebuild has 62,658 <abbr title="A stretch of game time with no substitution at either end - the unit of observation for the stint-level RAPM model.">stints</abbr>
+(was 69,767); the numbers in this section are from the corrected
+build, and `output/2023-24/stint_correction.csv` keeps both.
 
-**The instructive result is how little changes: <abbr title="Rank correlation: correlation of the orderings rather than the raw values.">Spearman</abbr> 0.96 against the
+Top 5 opponent-adjusted: Shai Gilgeous-Alexander, Jalen Brunson, OG Anunoby, Nikola Jokić, Paul George.
+
+**The instructive result is how little changes: <abbr title="Rank correlation: correlation of the orderings rather than the raw values.">Spearman</abbr> 0.97 against the
 lineup-aggregate model.** Over an 82-game season, opponent strength largely
 averages out, so the cheaper model was a better approximation than the usual
 caveat implies, a claim now measured on this data instead of argued.
-The players the adjustment moves up most (Luguentz Dort (+1.5), Dillon Brooks (+1.5), Dean Wade (+1.5)) are where schedule and
+The players the adjustment moves up most (Aaron Gordon (+1.5), Luguentz Dort (+1.4), Dillon Brooks (+1.2)) are where schedule and
 matchup context mattered. (An earlier build covered 1,200 of 1,230 games:
 the boxscore-range endpoint nba-on-court needs was hanging on nba_api's
 stale User-Agent; the builder's retry pass completed the season once that

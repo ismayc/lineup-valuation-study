@@ -5,3 +5,9 @@ __pycache__/
 .~lock.*#
 # Bulk pbp archives: compressed originals committed; tar xf regenerates
 data/pbp_bulk/*.csv
+# api.pbpstats.com raw JSON (10_pbpstats_lineup_check.py --fetch); the
+# compact tables in data/reference/ are committed instead
+data/pbpstats_cache/
+# 10_pbpstats_lineup_check.py per-lineup tables: ~3 MB each, rewritten on
+# every run (the misses and summary tables are tracked)
+output/*/pbpstats_lineup_check.csv

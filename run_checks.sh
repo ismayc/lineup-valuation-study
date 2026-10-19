@@ -25,5 +25,9 @@ echo "=== stints: every player-game vs liveData play-by-play ==="
 $PY python/08_stint_box_check.py | tail -1
 
 echo
+echo "=== lineups: every row vs api.pbpstats.com (committed reference, offline) ==="
+$PY python/10_pbpstats_lineup_check.py | tail -1
+
+echo
 echo "=== findings: README Findings regenerate from outputs ==="
 $PY python/04_findings.py --check | tail -1

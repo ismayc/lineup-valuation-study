@@ -69,6 +69,9 @@ possessions per season. `POSS` is the lineup's **offensive-possession count**
 totals), so `100 * PLUS_MINUS / POSS` sits on the same scale as the league's
 <abbr title="Net points per 100 possessions: 100 x plus-minus / possessions; sits on the same scale as the NBA's published net rating.">NET_RATING</abbr> - verified: regressing one on the other over 2023-24 lineups with 200+
 possessions gives slope 1.001, intercept +0.07.
+It is the NBA's own count, and it runs a few percent above an independent
+play-by-play count of the same lineups (October 19, 2026; see Findings,
+"Independent lineup check and the possession gap").
 
 ## 3. Model
 
@@ -104,6 +107,8 @@ python/06_stint_rapm.py        stint-level RAPM WITH opponent adjustment (2023-2
 python/07_stint_season_check.py  gate: season plus-minus and minutes vs the NBA's totals
 python/08_stint_box_check.py   gate: per player-game vs liveData play-by-play (pbpstats)
 python/09_stint_correction_record.py  first build vs corrected (October 19, 2026)
+python/10_pbpstats_lineup_check.py  gate: every lineup's minutes and plus-minus vs api.pbpstats.com
+python/11_poss_gap.py          the NBA's POSS vs pbpstats' possessions, and a refit (report only)
 ```
 
 The <abbr title="A stretch of game time with no substitution at either end - the unit of observation for the stint-level RAPM model.">stint</abbr> scripts (`05_build_stints.py`, `06_stint_rapm.py`) are the wired-in upgrade path (see
@@ -131,6 +136,18 @@ Four external checks, all of which must pass before findings are written:
    the model is anchored in reality, and deliberately *not* 1: the daylight
    between raw <abbr title="Points scored minus points allowed while a player or lineup is on the floor.">plus-minus</abbr> and the regularized estimate is the teammate
    adjustment doing its work.
+
+The first two checks compare the NBA with itself, and the third shares
+its possession denominator with the model. One more gate, added October 19,
+2026, compares every lineup row with a feed that parses the play-by-play
+independently:
+
+5. **Every lineup matches api.pbpstats.com** on minutes and
+   <abbr title="Points scored minus points allowed while a player or lineup is on the floor.">plus-minus</abbr>, and season totals match for the league and every team
+   (`python/10_pbpstats_lineup_check.py`, run by `run_checks.sh`; the
+   tolerances and their reasons are in the script's docstring). Possessions
+   are not gated, because the two feeds count them differently; the
+   Findings report that gap.
 
 ## 6. Limitations
 
@@ -257,6 +274,37 @@ matchup context mattered. (An earlier build covered 1,200 of 1,230 games:
 the boxscore-range endpoint nba-on-court needs was hanging on nba_api's
 stale User-Agent; the builder's retry pass completed the season once that
 was diagnosed and patched.)
+
+### Independent lineup check and the possession gap (October 19, 2026)
+
+`python/10_pbpstats_lineup_check.py` compares every NBA lineup row with
+api.pbpstats.com, which parses the play-by-play itself (2023-24: 15,869 of 15,903 lineups in both feeds, <abbr title="Points scored minus points allowed while a player or lineup is on the floor.">plus-minus</abbr> exact for 15,803 and minutes within 3 seconds for 15,852; 2025-26: 19,500 of 19,515 lineups in both feeds, <abbr title="Points scored minus points allowed while a player or lineup is on the floor.">plus-minus</abbr> exact for 19,441 and minutes within 3 seconds for 19,495). Season
+totals agree for the league and every team. The reference totals are
+committed in `data/reference/`, so the gate replays offline, and it fails
+on any lineup or team outside its tolerances.
+
+The possession counts do not agree. `POSS` is the NBA's
+offensive-possession count (it equals 100 x PTS / OFF_RATING on every lineup
+with 50+ possessions, to within 0.54),
+and it runs above pbpstats' counted offensive possessions by 5.1% in 2023-24 and 5.4% in 2025-26 (by team,
+4.1% to 6.8%). The gap is not uniform: lineups under 50 possessions hold 65% and 73% of
+it. It follows how often a lineup takes the floor more than how long it
+plays: in 2023-24, the number of entries explains R² = 0.73
+of the lineup-level gap against 0.58 for minutes, and
+99.9% of the lineups used exactly
+once carry 0 or 1 extra possession. That fits the NBA crediting a possession
+to each lineup that shared it when a substitution falls mid-possession,
+where pbpstats credits one. This explanation is unverified until the NBA's
+team-level possession totals are compared (`LeagueDashTeamStats`, Advanced;
+stats.nba.com is not reachable from the machine that ran this check).
+
+What it changes, refitted with every pre-specified definition kept and
+pbpstats' possessions as denominator and weight (`python/11_poss_gap.py`):
+2023-24: <abbr title="Rank correlation: correlation of the orderings rather than the raw values.">Spearman</abbr> 0.999 against the published estimates, 9 of the top 10 kept, the same player first (+5.53 becomes +5.59), and magnitudes larger by a slope of 1.02; 2025-26: <abbr title="Rank correlation: correlation of the orderings rather than the raw values.">Spearman</abbr> 0.999 against the published estimates, 9 of the top 10 kept, the same player first (+6.50 becomes +6.60), and magnitudes larger by a slope of 1.02. A uniform rescale gives slopes of 1.02 and 1.03. So the published ordering
+holds, and the published magnitudes would rise by about 2%, enough
+to move second decimals in the tables above. The published model still uses the NBA's `POSS`, as pre-specified;
+whether to switch is a decision for the owner, and
+`output/<season>/poss_sensitivity.csv` holds both sets of estimates.
 
 ### Reading the two seasons together
 

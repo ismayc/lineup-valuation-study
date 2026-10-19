@@ -1,0 +1,10 @@
+metric,value
+lineups_either_feed,19515.0
+lineups_matched,19500.0
+pm_exact,19441.0
+pm_beyond_2,2.0
+minutes_within_3s,19495.0
+only_nba,14.0
+only_pbp,1.0
+pbp_malformed,0.0
+gate_passed,1.0

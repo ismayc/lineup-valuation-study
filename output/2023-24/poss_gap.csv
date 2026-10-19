@@ -1,0 +1,79 @@
+metric,value
+poss_vs_off_rating_identity_max_abs,0.539484622
+poss_vs_off_rating_identity_lineups,896.0
+lineups_matched,15869.0
+nba_poss_sum,255064.0
+pbp_off_poss_sum,242779.0
+pbp_def_poss_sum,242779.0
+league_ratio_nba_over_pbp_off,1.05060158
+league_gap_pct,5.06015759
+nba_poss_over_pbp_mean_off_def,1.05060158
+team_ratio_min,1.04051864
+team_ratio_max,1.05907491
+team_gap_pct_min,4.05186386
+team_gap_pct_max,5.9074912
+team_ratio_vs_lineups_per_48_r,-0.00171399926
+ratio_poss_lt50,1.0620199
+share_of_gap_poss_lt50,0.64997965
+ratio_poss_50_200,1.04426342
+share_of_gap_poss_50_200,0.226455026
+ratio_poss_ge200,1.0296606
+share_of_gap_poss_ge200,0.123565324
+gap_r2_minutes,0.577390938
+gap_r2_entries,0.727229203
+gap_r2_both,0.730246381
+gap_per_minute_both,0.00737607937
+gap_per_entry_both,0.174570734
+single_entry_lineups,2755.0
+single_entry_gap_mean,0.216696915
+single_entry_gap_min,-1.0
+single_entry_gap_max,2.0
+single_entry_gap_0_or_1_share,0.998548094
+lineups_with_entries,5995.0
+gap_per_entry_overall,0.196528022
+lambda_published,3200.0
+lambda_uniform,3200.0
+players_uniform,453.0
+players_common_uniform,453.0
+spearman_uniform,0.999867555
+slope_uniform,1.02426161
+max_abs_change_uniform,0.157398854
+median_abs_change_uniform,0.0295542227
+top10_overlap_uniform,10.0
+top1_rapm_uniform,5.68560415
+top10_uniform_01::Nikola Jokić,5.68560415
+top10_uniform_02::OG Anunoby,5.40601201
+top10_uniform_03::Jalen Brunson,5.0729456
+top10_uniform_04::Paul George,4.95709896
+top10_uniform_05::Shai Gilgeous-Alexander,4.94309976
+top10_uniform_06::Derrick White,4.31724295
+top10_uniform_07::Jusuf Nurkić,4.18182978
+top10_uniform_08::Sam Hauser,3.88513005
+top10_uniform_09::Luka Dončić,3.87427016
+top10_uniform_10::Dante Exum,3.85713772
+lineups_1000plus_uniform,10.0
+best_lineup_net100_uniform,16.0575817
+lambda_pbp_off,3200.0
+players_pbp_off,454.0
+players_common_pbp_off,454.0
+spearman_pbp_off,0.999213903
+slope_pbp_off,1.01978254
+max_abs_change_pbp_off,0.397383406
+median_abs_change_pbp_off,0.0441561067
+top10_overlap_pbp_off,9.0
+top1_rapm_pbp_off,5.58609689
+top10_pbp_off_01::Nikola Jokić,5.58609689
+top10_pbp_off_02::OG Anunoby,5.34656532
+top10_pbp_off_03::Jalen Brunson,5.06224141
+top10_pbp_off_04::Paul George,4.89546639
+top10_pbp_off_05::Shai Gilgeous-Alexander,4.85139223
+top10_pbp_off_06::Derrick White,4.2674538
+top10_pbp_off_07::Jusuf Nurkić,4.24692958
+top10_pbp_off_08::Dante Exum,3.89503089
+top10_pbp_off_09::Luka Dončić,3.83980322
+top10_pbp_off_10::Kentavious Caldwell-Pope,3.83937327
+lineups_1000plus_pbp_off,10.0
+best_lineup_net100_pbp_off,15.6692913
+top1_rapm_published,5.52820529
+best_lineup_net100_published,15.2841782
+lineups_1000plus_published,10.0

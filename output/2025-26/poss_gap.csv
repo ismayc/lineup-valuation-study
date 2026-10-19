@@ -1,0 +1,67 @@
+metric,value
+poss_vs_off_rating_identity_max_abs,0.438220758
+poss_vs_off_rating_identity_lineups,830.0
+lineups_matched,19500.0
+nba_poss_sum,258514.0
+pbp_off_poss_sum,245196.0
+pbp_def_poss_sum,247045.0
+league_ratio_nba_over_pbp_off,1.05431573
+league_gap_pct,5.43157311
+nba_poss_over_pbp_mean_off_def,1.05035542
+team_ratio_min,1.0434834
+team_ratio_max,1.06816231
+team_gap_pct_min,4.34833983
+team_gap_pct_max,6.81623146
+team_ratio_vs_lineups_per_48_r,0.344806774
+ratio_poss_lt50,1.06387593
+share_of_gap_poss_lt50,0.734194323
+ratio_poss_50_200,1.04402163
+share_of_gap_poss_50_200,0.194398558
+ratio_poss_ge200,1.02855341
+share_of_gap_poss_ge200,0.0714071182
+lambda_published,3200.0
+lambda_uniform,3200.0
+players_uniform,487.0
+players_common_uniform,487.0
+spearman_uniform,0.99985943
+slope_uniform,1.02626844
+max_abs_change_uniform,0.204339753
+median_abs_change_uniform,0.0293308834
+top10_overlap_uniform,10.0
+top1_rapm_uniform,6.67827485
+top10_uniform_01::Victor Wembanyama,6.67827485
+top10_uniform_02::Shai Gilgeous-Alexander,6.41615611
+top10_uniform_03::Kawhi Leonard,5.80707443
+top10_uniform_04::Chet Holmgren,5.34005461
+top10_uniform_05::Nikola Jokić,5.08999372
+top10_uniform_06::Derrick White,4.69136073
+top10_uniform_07::Bam Adebayo,4.29981191
+top10_uniform_08::Ajay Mitchell,4.15480967
+top10_uniform_09::Cade Cunningham,4.02024727
+top10_uniform_10::Neemias Queta,3.98061894
+lineups_1000plus_uniform,3.0
+best_lineup_net100_uniform,12.0440286
+lambda_pbp_off,3200.0
+players_pbp_off,485.0
+players_common_pbp_off,485.0
+spearman_pbp_off,0.999075626
+slope_pbp_off,1.02293712
+max_abs_change_pbp_off,0.309702249
+median_abs_change_pbp_off,0.043109846
+top10_overlap_pbp_off,9.0
+top1_rapm_pbp_off,6.59504601
+top10_pbp_off_01::Victor Wembanyama,6.59504601
+top10_pbp_off_02::Shai Gilgeous-Alexander,6.47074734
+top10_pbp_off_03::Kawhi Leonard,5.80923219
+top10_pbp_off_04::Chet Holmgren,5.25301045
+top10_pbp_off_05::Nikola Jokić,4.97187172
+top10_pbp_off_06::Derrick White,4.79485071
+top10_pbp_off_07::Bam Adebayo,4.30961434
+top10_pbp_off_08::Ajay Mitchell,4.22917602
+top10_pbp_off_09::Jimmy Butler III,4.00456933
+top10_pbp_off_10::Cade Cunningham,3.96078539
+lineups_1000plus_pbp_off,4.0
+best_lineup_net100_pbp_off,27.027027
+top1_rapm_published,6.49661489
+best_lineup_net100_published,26.5654649
+lineups_1000plus_published,4.0

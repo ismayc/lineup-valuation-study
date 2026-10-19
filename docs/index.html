@@ -161,6 +161,21 @@ details.terms summary { padding: .55rem .9rem; cursor: pointer;
   color: var(--ink-2); font-weight: 600; }
 details.terms ul { margin: 0; padding: .2rem 1.4rem .8rem; }
 details.terms li { margin: .3rem 0; color: var(--ink-2); }
+/* sticky section nav (study pages): the masthead scrolls away, this stays */
+.sectionnav { position: sticky; top: 0; z-index: 30; background: var(--surface);
+  border-bottom: 1px solid var(--rule); }
+.sectionnav .inner { width: min(1200px, 94vw); margin: 0 auto; display: flex;
+  gap: 1.3rem; overflow-x: auto; white-space: nowrap; scrollbar-width: none;
+  padding: .55rem 0 .45rem; }
+.sectionnav .inner::-webkit-scrollbar { display: none; }
+.sectionnav a { font-family: "Barlow Condensed", system-ui, sans-serif;
+  font-weight: 500; font-size: .95rem; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--ink-3); text-decoration: none;
+  padding-bottom: .15rem; border-bottom: 2px solid transparent; }
+.sectionnav a:hover { color: var(--ink); }
+.sectionnav a[aria-current="true"] { color: var(--accent-ink);
+  border-bottom-color: var(--accent); }
+main [id] { scroll-margin-top: 3.6rem; }
 /* hub cards */
 .cards { display: grid; grid-template-columns:
   repeat(auto-fit, minmax(290px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
@@ -209,6 +224,7 @@ html.reveal .is-in { opacity: 1; transform: none; }
   <a href="https://github.com/ismayc/lineup-valuation-study">Code on GitHub</a>
   <button class="themebtn" type="button" aria-label="Toggle color theme">◐</button>
 </div></header>
+<nav class="sectionnav" aria-label="Sections"><div class="inner"><a href="#the-method">The method</a><a href="#the-ranking">The ranking</a><a href="#the-replication">The replication</a><a href="#five-man-units">Five-man units</a><a href="#the-takeaway">The takeaway</a><a href="#method-code-and-verification">Method</a></div></nav>
 <main>
 <div class="eyebrow">Every five-man lineup, two seasons</div>
 <h1>Who actually moves the scoreboard? Player value with honest error bars</h1>
@@ -237,7 +253,7 @@ of observation to see if the answer holds.</p>
 <div class="sub">Estimated as a byproduct of the <abbr data-tip="A stretch of game time with no substitution at either end - the unit of observation for the stint-level RAPM model.">stint</abbr> model, not assumed.</div></div>
 </div>
 
-<div class="eyebrow beat">The method</div>
+<div class="eyebrow beat" id="the-method">The method</div>
 
 <h2>Shrinkage chosen by prediction, not by hand</h2>
 <p>The model's one free knob, how hard to shrink, is not a taste decision.
@@ -247,7 +263,7 @@ decorative: predictive error falls, bottoms out, and rises again as the
 penalty grows. The model simply takes the minimum.</p>
 <figure class="figure-card"><iframe src="figures/2023-24/fig3_cv_curve.html" loading="lazy" style="height:536px" title="Cv curve"></iframe><figcaption>The cross-validation curve that picks the <abbr data-tip="Ridge regression: least squares with an L2 penalty that keeps many-parameter models stable at the cost of a little bias.">ridge</abbr> penalty. Necessary because <abbr data-tip="The fraction of an observed number that survives empirical-Bayes regression: 1 means fully trusted, 0 means replaced by the league mean.">shrinkage</abbr> is the entire difference between this model and raw on/off. This figure is the evidence that the amount of <abbr data-tip="The fraction of an observed number that survives empirical-Bayes regression: 1 means fully trusted, 0 means replaced by the league mean.">shrinkage</abbr> was chosen by held-out prediction, not by hand.</figcaption></figure>
 <figure class="figure-card"><iframe src="figures/2023-24/fig2_shrinkage.html" loading="lazy" style="height:536px" title="Shrinkage"></iframe><figcaption>Raw on/off versus the regularized estimate for every qualifying player. The before/after of the method: the players pulled hardest toward zero are exactly the low-minute, star-adjacent profiles whose raw numbers are most contaminated: visible teammate-context correction, one dot per player.</figcaption></figure>
-<div class="eyebrow beat">The ranking</div>
+<div class="eyebrow beat" id="the-ranking">The ranking</div>
 
 <h2>The error bars are the real headline</h2>
 <p>What comes out the other side passes the eye test at the top: Jokić
@@ -258,7 +274,7 @@ real headline is the <strong>width of the intervals</strong>: the median 95% boo
 genuinely cannot separate the 5th-best player from the 30th, and a model
 that pretends otherwise is selling something.</p>
 <figure class="figure-card"><iframe src="figures/2023-24/fig1_player_values.html" loading="lazy" style="height:776px" title="Player values"></iframe><figcaption>The 2023-24 player values with their bootstrap intervals: the study's most important figure precisely because of the error bars. The ordering is the headline everywhere else; here the honest message is how much the intervals overlap, which is what a front office actually needs to know before acting on a single-season number.</figcaption></figure>
-<div class="eyebrow beat">The replication</div>
+<div class="eyebrow beat" id="the-replication">The replication</div>
 
 <h2>Two models, no shared plumbing, one answer</h2>
 <p>A ranking with intervals still deserves suspicion if it only exists in one
@@ -270,7 +286,7 @@ estimated as a byproduct rather than assumed, and a built-in sanity check
 that the design matrix means what it claims. The two models share no code
 path and no data feed.</p>
 <figure class="figure-card"><iframe src="figures/2023-24/fig4_stint_vs_lineup.html" loading="lazy" style="height:656px" title="Stint vs lineup"></iframe><figcaption>Stint-level <abbr data-tip="Regularized adjusted plus-minus: a ridge regression crediting each player with net points per 100 possessions while adjusting for the other nine players on the floor.">RAPM</abbr> against the aggregate lineup model, one dot per player (<abbr data-tip="Rank correlation: correlation of the orderings rather than the raw values.">Spearman</abbr> 0.96). The convergent-validity figure: two independently built models, different units of observation, different feeds, near-identical player ordering. Agreement this strong is the best public-data evidence that the values reflect the players rather than the plumbing.</figcaption></figure>
-<div class="eyebrow beat">Five-man units</div>
+<div class="eyebrow beat" id="five-man-units">Five-man units</div>
 
 <h2>Lineup claims are gated by an audit</h2>
 <p>Lineups themselves get the descriptive treatment, where the volume filter
@@ -279,7 +295,7 @@ best of 2023-24 was Milwaukee's Lopez–Lillard–Middleton–Antetokounmpo–
 Beasley at +15.3 per 100 over 1,302 possessions. Every lineup total is
 gated by exact reconstruction of official team totals. The model is not
 allowed to describe a season it cannot re-add.</p>
-<div class="eyebrow beat">The takeaway</div>
+<div class="eyebrow beat" id="the-takeaway">The takeaway</div>
 
 <h2>Trust the tier, not the rank</h2>
 <p>The takeaway for a decision-maker is deliberately modest: with one public
@@ -290,7 +306,7 @@ without an error bar as marketing.</p>
 <figure class="figure-card"><iframe src="figures/2025-26/fig1_player_values.html" loading="lazy" style="height:776px" title="Player values"></iframe><figcaption>Player values (2025-26)</figcaption></figure>
 <figure class="figure-card"><iframe src="figures/2025-26/fig2_shrinkage.html" loading="lazy" style="height:536px" title="Shrinkage"></iframe><figcaption>Shrinkage (2025-26)</figcaption></figure>
 <figure class="figure-card"><iframe src="figures/2025-26/fig3_cv_curve.html" loading="lazy" style="height:536px" title="Cv curve"></iframe><figcaption>Cv curve (2025-26)</figcaption></figure>
-<h2>Method, code, and verification</h2><p>The full technical write-up (data provenance, model specification, validation gates, and stated limitations) is the <a href="https://github.com/ismayc/lineup-valuation-study#readme">README</a>. The analysis is implemented independently in R and Python and reconciled to numeric tolerance; <code>run_checks.sh</code> replays every gate.</p>
+<h2 id="method-code-and-verification">Method, code, and verification</h2><p>The full technical write-up (data provenance, model specification, validation gates, and stated limitations) is the <a href="https://github.com/ismayc/lineup-valuation-study#readme">README</a>. The analysis is implemented independently in R and Python and reconciled to numeric tolerance; <code>run_checks.sh</code> replays every gate.</p>
 </main>
 <footer>Public data · dual-implementation reconciled · every gate scripted ·
 <a href="https://github.com/ismayc/basketball-data-science">the family on GitHub</a></footer>
@@ -348,6 +364,46 @@ without an error bar as marketing.</p>
   }, {threshold: 0.08, rootMargin: "0px 0px -6% 0px"});
   Array.prototype.forEach.call(els, function (el) { io.observe(el); });
   window.__revealReady = true;
+})();
+</script>
+<script>
+(function () {
+  var nav = document.querySelector(".sectionnav");
+  if (!nav) { return; }
+  var links = Array.prototype.slice.call(nav.querySelectorAll("a"));
+  var row = nav.querySelector(".inner");
+  var targets = links.map(function (a) {
+    return document.getElementById(a.getAttribute("href").slice(1));
+  });
+  var last = null;
+  function update() {
+    var edge = nav.getBoundingClientRect().bottom + 24, cur = -1;
+    targets.forEach(function (t, i) {
+      if (t && t.getBoundingClientRect().top <= edge) { cur = i; }
+    });
+    // At the foot of the page the last sections are too short to reach the
+    // bar, so the final one counts as current there.
+    var de = document.documentElement;
+    if (window.scrollY + window.innerHeight >= de.scrollHeight - 2) { cur = targets.length - 1; }
+    if (cur === last) { return; }
+    last = cur;
+    links.forEach(function (a, i) {
+      if (i === cur) { a.setAttribute("aria-current", "true"); }
+      else { a.removeAttribute("aria-current"); }
+    });
+    var a = links[cur];
+    if (a && row) {
+      var l = a.offsetLeft, r = l + a.offsetWidth;
+      if (l < row.scrollLeft || r > row.scrollLeft + row.clientWidth) {
+        row.scrollLeft = Math.max(0, l - 16);
+      }
+    }
+  }
+  // Straight from the event, not via requestAnimationFrame, which stalls in
+  // background tabs and offscreen frames; eight rect reads per scroll is cheap.
+  window.addEventListener("scroll", update, {passive: true});
+  window.addEventListener("resize", update);
+  update();
 })();
 </script>
 </body>

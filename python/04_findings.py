@@ -228,8 +228,9 @@ What it changes, refitted with every pre-specified definition kept and
 pbpstats' possessions as denominator and weight (`python/11_poss_gap.py`):
 {refit}. A uniform rescale gives slopes of {uni}. So the published ordering
 holds, and the published magnitudes would rise by about {rise:.0f}%, enough
-to move second decimals in the tables above. The published model still uses the NBA's `POSS`, as pre-specified;
-whether to switch is a decision for the owner, and
+to move second decimals in the tables above. The model keeps the NBA's
+`POSS`, as pre-specified (decided October 19, 2026: the ordering does not
+depend on it, and switching after seeing the results would be tuning), and
 `output/<season>/poss_sensitivity.csv` holds both sets of estimates.
 """
 

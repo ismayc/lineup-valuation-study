@@ -302,8 +302,9 @@ What it changes, refitted with every pre-specified definition kept and
 pbpstats' possessions as denominator and weight (`python/11_poss_gap.py`):
 2023-24: <abbr title="Rank correlation: correlation of the orderings rather than the raw values.">Spearman</abbr> 0.999 against the published estimates, 9 of the top 10 kept, the same player first (+5.53 becomes +5.59), and magnitudes larger by a slope of 1.02; 2025-26: <abbr title="Rank correlation: correlation of the orderings rather than the raw values.">Spearman</abbr> 0.999 against the published estimates, 9 of the top 10 kept, the same player first (+6.50 becomes +6.60), and magnitudes larger by a slope of 1.02. A uniform rescale gives slopes of 1.02 and 1.03. So the published ordering
 holds, and the published magnitudes would rise by about 2%, enough
-to move second decimals in the tables above. The published model still uses the NBA's `POSS`, as pre-specified;
-whether to switch is a decision for the owner, and
+to move second decimals in the tables above. The model keeps the NBA's
+`POSS`, as pre-specified (decided October 19, 2026: the ordering does not
+depend on it, and switching after seeing the results would be tuning), and
 `output/<season>/poss_sensitivity.csv` holds both sets of estimates.
 
 ### Reading the two seasons together

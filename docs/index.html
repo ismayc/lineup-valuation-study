@@ -69,6 +69,7 @@
   --accent: #d95926; --accent-ink: #ea9066; --fig-surface: #1a1a19;
 }
 * { box-sizing: border-box; }
+img { max-width: 100%; height: auto; }
 body { margin: 0; background: var(--surface); color: var(--ink);
   font: 17px/1.65 system-ui, -apple-system, "Segoe UI", Helvetica, Arial,
   sans-serif; }
@@ -342,6 +343,18 @@ without an error bar as marketing.</p>
     });
   }
   window.addEventListener("load", broadcast);
+  // Each figure reports its rendered height (famplot's chart height follows
+  // the frame's width); fit the frame to it so phones get no clipped chart
+  // and no empty band under a shrunken one.
+  window.addEventListener("message", function (e) {
+    if (!e.data || !e.data.famHeight) { return; }
+    document.querySelectorAll("iframe").forEach(function (f) {
+      if (f.contentWindow !== e.source) { return; }
+      var cs = getComputedStyle(f);
+      var pad = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
+      f.style.height = Math.ceil(e.data.famHeight + pad + 4) + "px";
+    });
+  });
   document.querySelectorAll("iframe").forEach(function (f) {
     f.addEventListener("load", function () {
       var t = document.documentElement.dataset.theme || "auto";

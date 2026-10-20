@@ -1,5 +1,6 @@
 <html>
 <head><style>html,body{margin:0;height:100%}
+.js-plotly-plot,.plotly-graph-div{height:auto!important}
 @media (prefers-color-scheme: dark){
   body:not(.fam-light){background:#1a1a19;color:#c3c2b7}
   body:not(.fam-light) .controls button{background:#1a1a19;color:#c3c2b7;border-color:#383835}
@@ -11,7 +12,7 @@ body.fam-dark .controls button{background:#1a1a19;color:#c3c2b7;border-color:#38
 body.fam-dark .controls button.on{background:#3987e5;color:#0f0e0d;border-color:#3987e5}
 body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
 <body>
-    <div style="height:100%; width:100%;">                        <script>window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+    <div style="height:auto; width:100%;">                        <script>window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
         <script>/* famplot — the family's SVG chart engine.
  *
  * Implements the subset of the Plotly API that the studies' figures use
@@ -168,6 +169,11 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
       var val;
       if (path === "x") val = xv;
       else if (path === "y") val = yv;
+      else if (path === "customdata") {
+        /* A 1-D customdata (one value per point) is referenced whole. */
+        var cd = tr.customdata ? tr.customdata[i] : "";
+        val = Array.isArray(cd) ? cd.join(", ") : (cd == null ? "" : cd);
+      }
       else if (path.indexOf("customdata[") === 0) {
         var idx = +path.slice(11, -1);
         val = tr.customdata && tr.customdata[i] ? tr.customdata[i][idx] : "";
@@ -186,6 +192,65 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
   }
   function fmtVal(v) {
     return typeof v === "number" ? fmt(null, v) : String(v);
+  }
+
+  /* Tick labels formatted at the spec's precision can collide (".0%" ticks
+   * every half point read 3%, 3%, 2%, 2%). Add decimals until they differ. */
+  function fmtTicks(spec, vals) {
+    var labs = vals.map(function (v) { return fmt(spec, v); });
+    var m = spec && spec.match(/\.(\d+)([f%])/);
+    for (var extra = 1; m && extra <= 2; extra++) {
+      var uniq = labs.filter(function (s, i) { return labs.indexOf(s) === i; });
+      if (uniq.length === labs.length) break;
+      var s2 = spec.replace(/\.(\d+)([f%])/, "." + (+m[1] + extra) + "$2");
+      labs = vals.map(function (v) { return fmt(s2, v); });
+    }
+    return labs;
+  }
+
+  /* ---- text measurement and wrapping ----
+   * Layout decisions (wrapping, truncation, margins) use the rendered width
+   * of the text, with a per-character estimate when the document cannot
+   * measure (not yet laid out). */
+  var measureNode = null;
+  function textW(s, size, weight) {
+    s = String(s == null ? "" : s);
+    if (!s) return 0;
+    var w = 0;
+    try {
+      if (measureNode && measureNode.ownerSVGElement &&
+          measureNode.ownerSVGElement.isConnected) {
+        measureNode.setAttribute("font-size", size + "px");
+        measureNode.setAttribute("font-weight", weight || "400");
+        measureNode.textContent = s;
+        w = measureNode.getComputedTextLength();
+      }
+    } catch (e) { w = 0; }
+    return w > 0 ? w : s.length * size * 0.56;
+  }
+  function wrapWords(text, maxW, size, weight) {
+    var out = [];
+    String(text).split("\n").forEach(function (para) {
+      var line = "";
+      para.split(" ").forEach(function (word) {
+        var cand = line ? line + " " + word : word;
+        if (line && textW(cand, size, weight) > maxW) {
+          out.push(line); line = word;
+        } else {
+          line = cand;
+        }
+      });
+      if (line) out.push(line);
+    });
+    return out.length ? out : [""];
+  }
+  function fitText(s, maxW, size, weight) {
+    s = String(s);
+    if (textW(s, size, weight) <= maxW) return s;
+    while (s.length > 1 && textW(s + "…", size, weight) > maxW) {
+      s = s.slice(0, -1);
+    }
+    return s.replace(/\s+$/, "") + "…";
   }
 
   /* ---- scales ---- */
@@ -289,6 +354,27 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
   }
   function hideTip() { if (tip) tip.classList.remove("on"); }
 
+  /* Tell the embedding page how tall this figure really is (the chart's
+   * height depends on the frame's width, and controls can sit above it), so
+   * the frame fits it instead of clipping or leaving a gap. */
+  var heightTimer = null;
+  function postHeight() {
+    if (window.parent === window) return;
+    clearTimeout(heightTimer);
+    heightTimer = setTimeout(function () {
+      var bottom = 0;
+      Array.prototype.forEach.call(document.querySelectorAll("svg"),
+        function (s) {
+          var r = s.getBoundingClientRect();
+          bottom = Math.max(bottom, r.bottom + (window.scrollY || 0));
+        });
+      if (bottom > 0) {
+        try { window.parent.postMessage({ famHeight: Math.ceil(bottom) }, "*"); }
+        catch (e) {}
+      }
+    }, 30);
+  }
+
   /* ---- the renderer ---- */
   function render(gd) {
     var data = gd.data || [], layout = gd.layout || {};
@@ -320,39 +406,33 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
     svg.style.display = "block";
     svg.style.fontFamily = (layout.font && layout.font.family) ||
       "system-ui, -apple-system, 'Segoe UI', sans-serif";
-    el("rect", { x: 0, y: 0, width: W, height: H,
+    var bgRect = el("rect", { x: 0, y: 0, width: W, height: H,
                  fill: layout.paper_bgcolor || "#fcfcfb" }, svg);
+    measureNode = el("text", { x: -9999, y: -9999, "aria-hidden": "true" },
+                     svg);
 
-    /* title: wrap to the actual width so narrow screens never clip it */
+    /* title: wrap to the actual width so narrow screens never clip it. The
+     * first paragraph is the title (bold on every wrapped line); a <br>
+     * starts the subtitle, set regular. */
     var titleText = stripTags(layout.title && layout.title.text);
+    var titleEnd = 4;
     if (titleText) {
       var tfs = mobile ? 13.5 : 15;
-      var maxChars = Math.max(18, Math.floor((W - M.l - 12) / (tfs * 0.52)));
       var tl = [];
-      titleText.split("\n").forEach(function (para) {
-        var line = "";
-        para.split(" ").forEach(function (word) {
-          if ((line + " " + word).trim().length > maxChars && line) {
-            tl.push(line); line = word;
-          } else {
-            line = (line ? line + " " : "") + word;
-          }
-        });
-        if (line) tl.push(line);
+      titleText.split("\n").forEach(function (para, pi) {
+        wrapWords(para, W - M.l - 12, tfs, pi === 0 ? "600" : "400")
+          .forEach(function (s) { tl.push({ s: s, sub: pi > 0 }); });
       });
-      tl.forEach(function (line, i) {
-        var tt = el("text", { x: M.l, y: 22 + i * (tfs + 4), fill: titleCol,
-          "font-size": tfs + "px",
-          "font-weight": i === 0 ? "600" : "400" }, svg);
-        if (i > 0) tt.setAttribute("fill", fontCol);
-        tt.textContent = line;
+      tl.forEach(function (ln, i) {
+        var tt = el("text", { x: M.l, y: 22 + i * (tfs + 4),
+          fill: ln.sub ? fontCol : titleCol, "font-size": tfs + "px",
+          "font-weight": ln.sub ? "400" : "600" }, svg);
+        tt.textContent = ln.s;
       });
+      titleEnd = 22 + (tl.length - 1) * (tfs + 4) + 6;
       var needT = 30 + tl.length * (tfs + 4);
       if (M.t < needT) M.t = needT;
     }
-
-    var pw = W - M.l - M.r, ph = H - M.t - M.b;
-    var plot = el("g", {}, svg);
 
     /* ---- assemble series geometry ---- */
     var tIdx = new Map();
@@ -365,10 +445,17 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
       var way = isDarkDoc() ? FAMILY_WAY_DARK : FAMILY_WAY;
       return way[(tIdx.get(tr) || 0) % way.length];
     }
+    /* Per-bar literal colors (an earlier/exposed split, a highlight). */
+    function barColor(tr, i) {
+      var mc = tr.marker && tr.marker.color;
+      if (Array.isArray(mc) && typeof mc[i] === "string") return mc[i];
+      return traceColor(tr);
+    }
     var bars = [], hbars = [], lines = [], points = [], bands = [];
     var catX = XA.type === "category";
     var catY = YA.type === "category";
     var xCats = [], yCats = [];
+    var prevScatter = null;
     data.forEach(function (tr) {
       if (tr.visible === false) return;
       var type = tr.type || "scatter";
@@ -393,8 +480,13 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
         if (tr.fill === "toself") {
           bands.push({ tr: tr, xs: tr.x, ys: tr.y });
         } else if (tr.fill === "tonexty") {
-          bands.push({ tr: tr, xs: tr.x, ys: tr.y, tonext: true });
-          if (mode.indexOf("lines") >= 0) lines.push(tr);
+          /* plotly fills to the previous scatter trace (a percentile band
+           * is drawn as lower bound, then upper bound with tonexty); only
+           * the first trace has nothing before it and fills to the axis. */
+          bands.push({ tr: tr, xs: tr.x, ys: tr.y, tonext: true,
+                       prev: prevScatter });
+          if (mode.indexOf("lines") >= 0 &&
+              !(tr.line && tr.line.width === 0)) lines.push(tr);
         } else {
           if (mode.indexOf("lines") >= 0) lines.push(tr);
           if (mode.indexOf("markers") >= 0) {
@@ -413,6 +505,7 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
             });
           }
         }
+        prevScatter = tr;
       }
     });
     var barTraces = [];
@@ -481,6 +574,129 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
 
     var usingXCats = xCats.length > 0 && (bars.length || points.length);
     var usingYCats = yCats.length > 0;
+
+    /* ---- layout planning ----
+     * Row labels, legend rows, wrapped tick labels and wrapped axis titles
+     * claim their room before the plot area is fixed, so on a phone nothing
+     * overprints a neighbor or runs off the edge. Growth at the top or
+     * bottom adds to the figure height (the page sizes each frame to it)
+     * rather than squeezing the plot. */
+    var xt = stripTags(XA.title && XA.title.text);
+    var yt = stripTags(YA.title && YA.title.text);
+    var yCatSize = (YA.tickfont && YA.tickfont.size) || 11.5;
+    if (usingYCats) {
+      var widest = Math.max.apply(null, yCats.map(function (c) {
+        return textW(stripTags(c), yCatSize);
+      }));
+      var needL = 14 + widest + (yt ? 18 : 0);
+      var capL = W * (mobile ? 0.42 : 0.3);
+      if (M.l < needL) M.l = Math.round(Math.min(needL, Math.max(M.l, capL)));
+    }
+
+    /* Direct labels at a line's right end live in the right margin. On a
+     * narrow screen that margin is cut to 24px, so size it to the widest
+     * end label instead (capped), or the label prints across its line. */
+    if (W < 700 && mg.r != null && mg.r > 40) {
+      var needR = 0, lastCat = xCats[xCats.length - 1];
+      (layout.annotations || []).forEach(function (an) {
+        if (/domain|paper/.test(an.xref || "")) return;
+        if (an.xanchor && an.xanchor !== "left") return;
+        var atEnd = typeof an.x === "number"
+          ? an.x >= xd[1] - 0.12 * (xd[1] - xd[0])
+          : an.x === lastCat;
+        if (!atEnd) return;
+        var size = (an.font && an.font.size) || 11.5;
+        var widestLine = Math.max.apply(null,
+          stripTags(an.text).split("\n").map(function (s) {
+            return textW(s, size);
+          }));
+        needR = Math.max(needR, (an.xshift || 0) + widestLine + 8);
+      });
+      if (needR > M.r) M.r = Math.round(Math.min(needR, W * 0.32));
+    }
+
+    var legendTraces = data.filter(function (tr) {
+      return tr.name && tr.showlegend !== false &&
+        (layout.showlegend !== false || tr.showlegend === true);
+    });
+    if (layout.showlegend === false) legendTraces = [];
+    var legendItems = [], legendRows = 0, legendBase = 0;
+    if (legendTraces.length > 1) {
+      var lxp = M.l, lrow = 0;
+      legendTraces.forEach(function (tr) {
+        var name = fitText(stripTags(tr.name), W - M.l - 8 - 21, 12);
+        var w = 21 + textW(name, 12);
+        if (lxp > M.l && lxp + w > W - 8) { lxp = M.l; lrow += 1; }
+        legendItems.push({ tr: tr, name: name, x: lxp, row: lrow });
+        lxp += w + 16;
+      });
+      legendRows = lrow + 1;
+      legendBase = Math.max(titleEnd + 14, M.t - 12 - (legendRows - 1) * 16);
+      var needTop = legendBase + (legendRows - 1) * 16 + 14;
+      if (M.t < needTop) { H += needTop - M.t; M.t = needTop; }
+    }
+
+    var pw = W - M.l - M.r;
+    var xTickSize = usingXCats ? 11 : 12;
+    var xTicks = null, tickLines = 1;
+    var useTickText = !usingXCats && !logX && XA.tickvals && XA.ticktext;
+    if (usingXCats || useTickText) {
+      var raw = [];
+      if (usingXCats) {
+        var tv = XA.tickvals;
+        xCats.forEach(function (c, i) {
+          if (tv && tv.indexOf(c) < 0) return;
+          var lab = tv && XA.ticktext ? XA.ticktext[tv.indexOf(c)] : c;
+          raw.push({ v: c, px: (i + 0.5) * pw / xCats.length,
+                     lab: stripTags(lab) });
+        });
+      } else {
+        var xlo = Math.min(xd[0], xd[1]), xhi = Math.max(xd[0], xd[1]);
+        XA.tickvals.forEach(function (v, i) {
+          if (v < xlo || v > xhi) return;
+          raw.push({ v: v, px: (v - xd[0]) / ((xd[1] - xd[0]) || 1) * pw,
+                     lab: stripTags(XA.ticktext[i]) });
+        });
+      }
+      var gap = pw;
+      for (var k = 1; k < raw.length; k++) {
+        gap = Math.min(gap, Math.abs(raw[k].px - raw[k - 1].px));
+      }
+      /* Keep every label when it can wrap into its slot (up to four lines
+       * for a handful of named groups, three otherwise), stepping the font
+       * down once; only then thin to every n-th label. Dropping a group's
+       * name loses information, a long time axis loses nothing. */
+      var maxLines = raw.length <= 8 ? 4 : 3;
+      var sizes = raw.length <= 8 ? [xTickSize, xTickSize - 1, xTickSize - 1.5]
+        : [xTickSize, xTickSize - 1];
+      var done = false;
+      for (var every = 1; !done; every++) {
+        for (var si = 0; si < sizes.length && !done; si++) {
+          var sz = sizes[si], slot = gap * every - 6, fits = true, most = 1;
+          var planned = raw.filter(function (_, i) { return i % every === 0; })
+            .map(function (t) {
+              var ls = wrapWords(t.lab, slot, sz);
+              ls.forEach(function (s) {
+                if (textW(s, sz) > slot + 2) fits = false;
+              });
+              if (ls.length > maxLines) fits = false;
+              most = Math.max(most, ls.length);
+              return { v: t.v, lines: ls };
+            });
+          if (fits || every >= raw.length) {
+            xTicks = planned; tickLines = most; xTickSize = sz; done = true;
+          }
+        }
+      }
+    }
+    var xtLines = xt ? wrapWords(xt, W - 16, 12) : [];
+    var needB = 18 + (tickLines - 1) * 13 +
+      (xtLines.length ? 12 + xtLines.length * 14 : 8);
+    if (M.b < needB) { H += needB - M.b; M.b = needB; }
+    var ph = H - M.t - M.b;
+    svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+    bgRect.setAttribute("height", H);
+    var plot = el("g", {}, svg);
     /* Plotly puts the first category at the BOTTOM of a y axis, and
      * autorange:"reversed" puts it at the top. Row index 0 is drawn at the
      * top here, so an un-reversed axis has to be flipped or the ranking
@@ -512,42 +728,72 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
       return t;
     }
     if (!usingYCats) {
-      (logY ? logTicks(yd[0], yd[1])
-        : niceTicks(yd[0], yd[1], Math.max(3, Math.round(ph / 70)))
-      ).forEach(function (v) {
+      var yTickVals = (logY ? logTicks(yd[0], yd[1])
+        : niceTicks(yd[0], yd[1], Math.max(3, Math.round(ph / 70))))
+        .filter(function (v) {
+          var y = Y(v);
+          return y >= M.t - 1 && y <= M.t + ph + 1;
+        });
+      var yLabs = fmtTicks(YA.tickformat, yTickVals);
+      yTickVals.forEach(function (v, i) {
         var y = Y(v);
-        if (y < M.t - 1 || y > M.t + ph + 1) return;
         el("line", { x1: M.l, y1: y, x2: M.l + pw, y2: y,
                      stroke: grid, "stroke-width": 1 }, plot);
-        tickText(M.l - 8, y + 4, fmt(YA.tickformat, v), "end");
+        tickText(M.l - 8, y + 4, yLabs[i], "end");
       });
     } else {
+      var rowRoom = M.l - 12 - (yt ? 18 : 0);
       yCats.forEach(function (c) {
-        var size = (YA.tickfont && YA.tickfont.size) || 11.5;
         var lab = stripTags(c);
-        var maxC = Math.max(6, Math.floor((M.l - 14) / (size * 0.5)));
-        if (lab.length > maxC) lab = lab.slice(0, maxC - 1) + "\u2026";
-        tickText(M.l - 8, Y(c) + 3.5, lab, "end", size);
+        // a row with room for two lines wraps rather than truncating
+        var s2 = yCatSize - 1;
+        if (textW(lab, yCatSize) > rowRoom && yBand >= 2 * s2 + 1) {
+          var two = wrapWords(lab, rowRoom, s2);
+          if (two.length > 2) {
+            two = [two[0], fitText(two.slice(1).join(" "), rowRoom, s2)];
+          }
+          if (two.length === 2) {
+            tickText(M.l - 8, Y(c) - 1.5, two[0], "end", s2);
+            tickText(M.l - 8, Y(c) - 1.5 + s2 + 1, two[1], "end", s2);
+            return;
+          }
+        }
+        tickText(M.l - 8, Y(c) + 3.5, fitText(lab, rowRoom, yCatSize),
+                 "end", yCatSize);
       });
     }
-    if (!usingXCats) {
-      (logX ? logTicks(xd[0], xd[1])
-        : niceTicks(xd[0], xd[1], Math.max(3, Math.round(pw / 90)))
-      ).forEach(function (v) {
+    if (xTicks) {
+      xTicks.forEach(function (t) {
+        var x = X(t.v);
+        if (!usingXCats && (x < M.l - 1 || x > M.l + pw + 1)) return;
+        if (!usingXCats && (hbars.length || usingYCats)) {
+          el("line", { x1: x, y1: M.t, x2: x, y2: M.t + ph,
+                       stroke: grid, "stroke-width": 1 }, plot);
+        }
+        // keep the outermost labels inside the frame
+        var half = Math.max.apply(null, t.lines.map(function (s) {
+          return textW(s, xTickSize);
+        })) / 2;
+        var cxl = Math.min(Math.max(x, half + 4), W - half - 4);
+        t.lines.forEach(function (s, i) {
+          tickText(cxl, M.t + ph + 18 + i * 13, s, "middle", xTickSize);
+        });
+      });
+    } else {
+      var xTickVals = (logX ? logTicks(xd[0], xd[1])
+        : niceTicks(xd[0], xd[1], Math.max(3, Math.round(pw / 90))))
+        .filter(function (v) {
+          var x = X(v);
+          return x >= M.l - 1 && x <= M.l + pw + 1;
+        });
+      var xLabs = fmtTicks(XA.tickformat, xTickVals);
+      xTickVals.forEach(function (v, i) {
         var x = X(v);
-        if (x < M.l - 1 || x > M.l + pw + 1) return;
         if (hbars.length || usingYCats) {
           el("line", { x1: x, y1: M.t, x2: x, y2: M.t + ph,
                        stroke: grid, "stroke-width": 1 }, plot);
         }
-        tickText(x, M.t + ph + 18, fmt(XA.tickformat, v), "middle");
-      });
-    } else {
-      var every = Math.ceil(xCats.length / Math.max(3, pw / 60));
-      var tickvals = XA.tickvals;
-      xCats.forEach(function (c, i) {
-        if (tickvals ? tickvals.indexOf(c) < 0 : i % every !== 0) return;
-        tickText(X(c), M.t + ph + 18, stripTags(c), "middle", 11);
+        tickText(x, M.t + ph + 18, xLabs[i], "middle");
       });
     }
     el("line", { x1: M.l, y1: M.t + ph, x2: M.l + pw, y2: M.t + ph,
@@ -559,14 +805,17 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
     }
 
     /* axis titles */
-    var xt = stripTags(XA.title && XA.title.text);
-    var yt = stripTags(YA.title && YA.title.text);
-    if (xt) tickText(M.l + pw / 2, H - 10, xt, "middle");
+    xtLines.forEach(function (s, i) {
+      var cxt = Math.min(Math.max(M.l + pw / 2, textW(s, 12) / 2 + 4),
+                         W - textW(s, 12) / 2 - 4);
+      tickText(cxt, H - 10 - (xtLines.length - 1 - i) * 14, s, "middle");
+    });
     if (yt) {
       var ty = el("text", { x: 0, y: 0, fill: fontCol, "font-size": "12px",
         "text-anchor": "middle",
         transform: "translate(14," + (M.t + ph / 2) + ") rotate(-90)" }, svg);
-      ty.textContent = yt;
+      ty.textContent = fitText(yt,
+        2 * Math.min(M.t + ph / 2, H - M.t - ph / 2) - 8, 12);
     }
 
     var surface = layout.plot_bgcolor || layout.paper_bgcolor || "#fcfcfb";
@@ -577,7 +826,12 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
       b.xs.forEach(function (xv, i) {
         d += (i ? "L" : "M") + X(xv) + "," + Y(b.ys[i]);
       });
-      if (b.tonext) {
+      if (b.tonext && b.prev && b.prev.x && b.prev.y) {
+        for (var j = b.prev.x.length - 1; j >= 0; j--) {
+          if (b.prev.y[j] == null) continue;
+          d += "L" + X(b.prev.x[j]) + "," + Y(b.prev.y[j]);
+        }
+      } else if (b.tonext) {
         d += "L" + X(b.xs[b.xs.length - 1]) + "," + (M.t + ph) +
              "L" + X(b.xs[0]) + "," + (M.t + ph);
       }
@@ -588,12 +842,18 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
     /* Value labels on a bar. Only bars: on a scatter, `text` is the hover
      * payload unless the mode explicitly asks for "text", and drawing it
      * would stamp 450 player names across a scatterplot. */
-    function barLabel(tr, i, cx, top, value) {
+    function barLabel(tr, i, cx, top, value, room) {
       if (!tr.text || tr.textposition === "none") return;
       var lab = Array.isArray(tr.text) ? tr.text[i] : tr.text;
       if (lab == null || lab === "") return;
       var tf = tr.textfont || {};
       var size = tf.size || 11;
+      // shrink to the bar's slot so neighbors never overprint; drop the
+      // label when even 8.5px will not fit
+      if (room) {
+        while (size > 8.5 && textW(stripTags(lab), size) > room) size -= 0.5;
+        if (textW(stripTags(lab), size) > room) return;
+      }
       var inside = tr.textposition === "inside";
       var t = el("text", {
         x: cx, y: inside ? top + size + 4 : top - 5,
@@ -643,9 +903,10 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
           "H" + (cx + bw - r) +
           "Q" + (cx + bw) + "," + top + " " + (cx + bw) + "," + (top + r) +
           "V" + (top + hgt) + "Z";
-        var node = el("path", { d: dPath, fill: traceColor(b.tr) }, plot);
+        var node = el("path", { d: dPath, fill: barColor(b.tr, b.i) }, plot);
         attachHover(node, b.tr, b.i, b.x, b.y);
-        barLabel(b.tr, b.i, cx + bw / 2, top, b.y);
+        barLabel(b.tr, b.i, cx + bw / 2, top, b.y,
+                 Math.max(bw, slot / gN) - 4);
       });
     }
 
@@ -668,7 +929,7 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
         "V" + (cy + bh - r) +
         "Q" + (left + wid) + "," + (cy + bh) + " " + (left + wid - r) + "," + (cy + bh) +
         "H" + left + "Z";
-      var node = el("path", { d: dPath, fill: traceColor(b.tr) }, plot);
+      var node = el("path", { d: dPath, fill: barColor(b.tr, b.i) }, plot);
       attachHover(node, b.tr, b.i, b.v, b.cat, true);
       hbarLabel(b.tr, b.i, left + wid, cy + bh / 2);
     });
@@ -808,6 +1069,10 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
       ax += (an.xshift || 0); ay -= (an.yshift || 0);
       var anchor = an.xanchor === "right" ? "end"
         : an.xanchor === "center" ? "middle" : "start";
+      /* plotly pads annotation text about 3px off its anchor point; without
+       * it a label anchored on a reference line starts on top of it. */
+      if (anchor === "start") ax += 3;
+      else if (anchor === "end") ax -= 3;
       var col = (an.font && an.font.color) || fontCol;
       var size = (an.font && an.font.size) || 11.5;
       var linesA = stripTags(an.text).split("\n");
@@ -818,6 +1083,10 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
       if (anchor === "start" && ax + est > W - 8) {
         anchor = "end";
         ax = Math.max(ax, Math.min(8 + est, W - 8));
+        /* A direct label at a line's end that no longer fits to its right
+         * flips back over the line; lift it clear of the line instead of
+         * printing across it. */
+        if (!(an.yref && /domain|paper/.test(an.yref))) ay -= size + 1;
       } else if (anchor === "end" && ax - est < 8) {
         ax = Math.min(8 + est, W - 8);
       } else if (anchor === "middle") {
@@ -835,27 +1104,51 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
       });
     });
 
-    /* ---- legend ---- */
-    var legendTraces = data.filter(function (tr) {
-      return tr.name && tr.showlegend !== false &&
-        (layout.showlegend !== false || tr.showlegend === true);
-    });
-    if (layout.showlegend === false) legendTraces = [];
-    if (legendTraces.length > 1) {
-      var lx = M.l, lyy = H - (xt ? 26 : 6) - 14;
-      lyy = M.t - 14 > 20 ? M.t - 12 : lyy;
-      legendTraces.forEach(function (tr) {
-        var c = traceColor(tr);
-        var est = 16 + String(tr.name).length * 6.4 + 18;
-        if (lx > M.l && lx + est > W - 8) { lx = M.l; lyy += 16; }
-        el("rect", { x: lx, y: lyy - 9, width: 11, height: 11, rx: 3,
-                     fill: c }, svg);
-        var t = el("text", { x: lx + 16, y: lyy, fill: fontCol,
-          "font-size": "12px" }, svg);
-        t.textContent = tr.name;
-        lx += 16 + t.getComputedTextLength() + 18;
-      });
+    /* ---- legend ----
+     * Laid out in the planning pass (rows sit between the title and the
+     * plot). The swatch shows how the series is drawn: a line segment with
+     * its dash for lines, a dot for markers, a block for bars and bands, so
+     * an observed series and its dashed model line read as different. */
+    function bandFill(c) {
+      var m = /rgba\(([^)]+)\)/.exec(c || "");
+      if (!m) return c;
+      var p = m[1].split(",");
+      return "rgba(" + p.slice(0, 3).join(",") + "," +
+        Math.min(1, parseFloat(p[3]) * 3) + ")";
     }
+    function swatch(tr, x, y) {
+      var kind = tr.type || "scatter", mode = tr.mode || "lines";
+      var c = traceColor(tr);
+      if (kind === "scatter" && (tr.fill === "tonexty" || tr.fill === "toself")) {
+        el("rect", { x: x, y: y - 9, width: 16, height: 10, rx: 2,
+                     fill: bandFill(tr.fillcolor) || c }, svg);
+        return;
+      }
+      if (kind === "scatter") {
+        var ln = tr.line || {};
+        if (mode.indexOf("lines") >= 0 && ln.width !== 0) {
+          el("line", { x1: x, y1: y - 4, x2: x + 16, y2: y - 4, stroke: c,
+            "stroke-width": 2.5, "stroke-linecap": "round",
+            "stroke-dasharray": ln.dash === "dot" ? "2,3.5"
+              : ln.dash === "dash" ? "5,3" : "none" }, svg);
+        }
+        if (mode.indexOf("markers") >= 0) {
+          var mc = tr.marker && tr.marker.color;
+          el("circle", { cx: x + 8, cy: y - 4, r: 4.5,
+            fill: typeof mc === "string" ? mc : c }, svg);
+        }
+        return;
+      }
+      el("rect", { x: x + 2.5, y: y - 9.5, width: 11, height: 11, rx: 3,
+                   fill: barColor(tr, 0) }, svg);
+    }
+    legendItems.forEach(function (it) {
+      var y = legendBase + it.row * 16;
+      swatch(it.tr, it.x, y);
+      var t = el("text", { x: it.x + 21, y: y, fill: fontCol,
+        "font-size": "12px" }, svg);
+      t.textContent = it.name;
+    });
 
     /* ---- hover plumbing ---- */
     function attachHover(node, tr, i, xv, yv, horiz) {
@@ -865,6 +1158,11 @@ body.fam-dark .seasonlab{color:#f5f3ec}</style><meta charset="utf-8" /></head>
       });
       node.addEventListener("pointerleave", hideTip);
     }
+    if (measureNode && measureNode.parentNode) {
+      measureNode.parentNode.removeChild(measureNode);
+    }
+    measureNode = null;
+    postHeight();
     if (linePts.length) {
       svg.addEventListener("pointermove", function (e) {
         var rect = svg.getBoundingClientRect();

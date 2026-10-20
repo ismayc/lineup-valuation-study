@@ -29,6 +29,12 @@ of observation to see if the answer holds.
 
 ## Shrinkage chosen by prediction, not by hand
 
+Both models in this study turn basketball into rows of a regression, one row
+per unit of play, and differ in what a row holds. The diagram below draws one
+real row of each.
+
+{{svg:dg1_two_rows|One real row from each model. The lineup model sees a five-man unit's season total and its five players; the stint model sees one stretch without substitutions, both fives, and which team was at home. Both are fitted the same way, by possession-weighted ridge regression.}}
+
 The model's one free knob, how hard to shrink, is not a taste decision.
 Cross-validation chooses the ridge penalty (λ = 3200 in both seasons).
 The figure below shows why that choice is defensible rather than
@@ -66,6 +72,8 @@ estimated as a byproduct rather than assumed, and a built-in sanity check
 that the design matrix means what it claims. The two models share no code
 path and no data feed.
 
+{{svg:dg2_two_builds|The two builds side by side. Each starts from its own source, passes its own audit against the NBA's totals or feed, and is fitted on its own rows; they meet only at the end, where their player rankings are compared.}}
+
 **Correction, October 19, 2026.** The first stint build put events in the
 feed's numbering order, which is not the order they happened, and gave free
 throws to whoever was on the floor at the free throw instead of at the foul.
@@ -96,3 +104,5 @@ The takeaway for a decision-maker is deliberately modest: with one public
 season, trust the tier, not the rank; trust a value more when two
 independent constructions agree on it; and treat any lineup-value claim
 without an error bar as marketing.
+
+{{svg:dg3_tiers|What the intervals allow. Top: most players cannot be told apart from league average in one season, and only a small group sits clearly above or below it. Bottom: the 5th-ranked player's interval holds the estimates of a long run of ranks, including the 30th, which is why the tier is the claim to trust and the rank is not.}}

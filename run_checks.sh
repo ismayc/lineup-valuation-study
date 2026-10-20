@@ -29,5 +29,9 @@ echo "=== lineups: every row vs api.pbpstats.com (committed reference, offline) 
 $PY python/10_pbpstats_lineup_check.py | tail -1
 
 echo
+echo "=== diagrams: every explainer SVG rebuilds identically ==="
+$PY -I python/12_diagrams.py --check | tail -1
+
+echo
 echo "=== findings: README Findings regenerate from outputs ==="
 $PY python/04_findings.py --check | tail -1
